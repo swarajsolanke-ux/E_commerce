@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce Chatbot</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #e0e4e5;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .app {
+      display: flex;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Left Drawer - History */
+    .left-drawer {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 300px;
+      background: white;
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .left-drawer.hidden {
+      transform: translateX(-100%);
+    }
+
+    /* Right Drawer - Cart & Favorites */
+    .right-drawer {
+      position: fixed;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 350px;
+      background: white;
+      border-left: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .right-drawer.hidden {
+      transform: translateX(100%);
+    }
+
+    .drawer-head {
+      padding: 20px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-head h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .drawer-tabs {
+      display: flex;
+      gap: 10px;
+      padding: 15px 20px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      background: #f5f5f5;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 14px;
+      transition: all 0.2s;
+    }
+
+    .tab-btn.active {
+      background: #007bff;
+      color: white;
+    }
+
+    .history-list, .cart-list, .favorites-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    .history-item, .cart-item, .favorite-item {
+      padding: 12px;
+      margin-bottom: 8px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .history-item:hover, .cart-item:hover, .favorite-item:hover {
+      background: #f0f0f0;
+    }
+
+    .cart-item, .favorite-item {
+      cursor: default;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .item-info {
+      flex: 1;
+    }
+
+    .item-name {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .item-price {
+      font-size: 13px;
+      color: #007bff;
+      font-weight: 600;
+    }
+
+    .item-actions {
+      display: flex;
+      gap: 5px;
+    }
+
+    .icon-btn {
+      width: 30px;
+      height: 30px;
+      border: none;
+      background: #f5f5f5;
+      border-radius: 6px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .icon-btn:hover {
+      background: #ff4444;
+      color: white;
+    }
+
+    .cart-total {
+      padding: 15px 20px;
+      border-top: 1px solid #e0e0e0;
+      background: #f9f9f9;
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+    }
+
+    .total-label {
+      font-weight: 600;
+      font-size: 16px;
+    }
+
+    .total-amount {
+      font-weight: 700;
+      font-size: 18px;
+      color: #007bff;
+    }
+
+    .drawer-foot {
+      padding: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    /* Main */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    /* Topbar */
+    .topbar {
+      padding: 15px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .top-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    .badge {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background: #ff4444;
+      color: white;
+      border-radius: 50%;
+      width: 18px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      font-weight: 600;
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      background: #fafafa;
+    }
+
+    .stream {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Messages */
+    .msg {
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg .text {
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: inline-block;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .msg.user .text {
+      background: #007bff;
+      color: white;
+      margin-left: auto;
+      float: right;
+    }
+
+    .msg.ai .text {
+      background: white;
+      color: #333;
+      border: 1px solid #e0e0e0;
+    }
+
+    .msg .meta {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+      clear: both;
+    }
+
+    .msg.user .meta {
+      text-align: right;
+    }
+
+    /* Product Card */
+    .product-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+      max-width: 600px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      position: relative;
+    }
+
+    .product-card .thumb {
+      width: 120px;
+      height: 120px;
+      flex-shrink: 0;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-card .prod-meta {
+      flex: 1;
+    }
+
+    .product-card .prod-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+
+    .product-card .prod-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: #007bff;
+      margin-bottom: 8px;
+    }
+
+    .product-card .prod-stock {
+      font-size: 12px;
+      color: #28a745;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .product-card .prod-stock.out {
+      color: #dc3545;
+    }
+
+    .product-card .prod-review {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .action-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .action-btn.primary {
+      background: #007bff;
+      color: white;
+    }
+
+    .action-btn.primary:hover {
+      background: #0056b3;
+    }
+
+    .action-btn.secondary {
+      background: #f5f5f5;
+      color: #666;
+      border: 1px solid #e0e0e0;
+    }
+
+    .action-btn.secondary:hover {
+      background: #ff4444;
+      color: white;
+      border-color: #ff4444;
+    }
+
+    .action-btn.liked {
+      background: #ff4444;
+      color: white;
+      border-color: #ff4444;
+    }
+
+    /* Quick Actions */
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .quick-action {
+      padding: 6px 12px;
+      background: #f0f0f0;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .quick-action:hover {
+      background: #007bff;
+      color: white;
+      border-color: #007bff;
+    }
+
+    /* Composer */
+    .composer {
+      border-top: 1px solid #e0e0e0;
+      background: white;
+      padding: 15px 20px;
+    }
+
+    .composer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .left-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 18px;
+      position: relative;
+    }
+
+    .tool-btn:hover {
+      background: #e8e8e8;
+    }
+
+    .composer-text {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+      transition: border 0.2s;
+      min-height: 40px;
+      max-height: 120px;
+    }
+
+    .composer-text:focus {
+      border-color: #007bff;
+    }
+
+    .composer-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      position: relative;
+    }
+
+    .btn.subtle {
+      background: #f5f5f5;
+      color: #666;
+      border: 1px solid #e0e0e0;
+    }
+
+    .btn.subtle:hover {
+      background: #e8e8e8;
+      color: #333;
+    }
+
+    .btn.send {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn.send:hover {
+      background: #0056b3;
+    }
+
+    .btn.checkout {
+      width: 100%;
+      background: #28a745;
+      color: white;
+    }
+
+    .btn.checkout:hover {
+      background: #218838;
+    }
+
+    .composer-meta {
+      max-width: 900px;
+      margin: 8px auto 0;
+      font-size: 12px;
+    }
+
+    .muted {
+      color: #999;
+    }
+
+    .small {
+      font-size: 13px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 40px 20px;
+      color: #999;
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
+
+    .notification {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #28a745;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      z-index: 10000;
+      animation: slideIn 0.3s ease;
+    }
+
+    .notification.error {
+      background: #dc3545;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(400px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="app">
+    <!-- Left Drawer - History -->
+    <aside id="leftDrawer" class="left-drawer hidden" aria-hidden="true">
+      <div class="drawer-head">
+        <div>
+          <h3>Chat History</h3>
+        </div>
+        <button id="closeLeftDrawer" class="btn subtle">Close</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+      <div class="drawer-foot">
+        <button id="clearHistory" class="btn subtle">Clear History</button>
+      </div>
+    </aside>
+
+    <!-- Right Drawer - Cart & Favorites -->
+    <aside id="rightDrawer" class="right-drawer hidden" aria-hidden="true">
+      <div class="drawer-head">
+        <div>
+          <h3 id="rightDrawerTitle">Cart</h3>
+        </div>
+        <button id="closeRightDrawer" class="btn subtle">Close</button>
+      </div>
+      
+      <div class="drawer-tabs">
+        <button class="tab-btn active" data-tab="cart">Cart</button>
+        <button class="tab-btn" data-tab="favorites">Favorites</button>
+      </div>
+
+      <div id="cartView" class="cart-list"></div>
+      <div id="favoritesView" class="favorites-list" style="display:none;"></div>
+
+      <div id="cartFooter" class="cart-total">
+        <div class="total-row">
+          <span class="total-label">Total:</span>
+          <span class="total-amount" id="cartTotal">Rs0.00</span>
+        </div>
+        <button class="btn checkout">Checkout</button>
+      </div>
+    </aside>
+
+    <div id="overlay" class="overlay hidden"></div>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="topbar">
+        <div class="top-left">
+          <h1>E-commerce Chatbot</h1>
+        </div>
+        <div class="top-right row">
+          <button id="openLeftDrawer" class="btn subtle" title="Open history">☰ History</button>
+          <button id="cartBtn" class="btn subtle" title="View cart" style="position:relative;">
+            🛒 Cart
+            <span id="cartBadge" class="badge" style="display:none;">0</span>
+          </button>
+          <button id="favBtn" class="btn subtle" title="View favorites" style="position:relative;">
+            ❤️ Favorites
+            <span id="favBadge" class="badge" style="display:none;">0</span>
+          </button>
+        </div>
+      </header>
+
+      <section class="content">
+        <div id="stream" class="stream" aria-live="polite"></div>
+      </section>
+
+      <footer class="composer">
+        <div class="composer-inner">
+          <div class="left-controls row">
+            <label for="attachInput" class="tool-btn" title="Attach file">📎</label>
+            <input id="attachInput" type="file" style="display:none" />
+          </div>
+
+          <textarea id="composerInput" class="composer-text" placeholder='Try: "show me headphones", "add to cart", "my cart" — press Enter to submit' rows="1" aria-label="Message"></textarea>
+
+          <div class="composer-actions">
+            <button id="webSearchBtn" class="btn subtle" title="Search web">🔍 Web</button>
+            <button id="sendBtn" class="btn send" title="Send">Submit</button>
+          </div>
+        </div>
+        <div class="composer-meta">
+          <span id="attachmentLabel" class="muted"></span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+
+  <script>
+  (() => {
+    const API_BASE = window.location.origin || `${location.protocol}//${location.hostname}:8000`;
+    const USER_ID = "default_user";
+    console.log("[App] API_BASE:", API_BASE);
+
+    function $id(id) { return document.getElementById(id); }
+    function $class(name) { return document.getElementsByClassName(name); }
+    function escapeHtml(s) { 
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;'); 
+    }
+
+    let messages = [];
+    let attachment = null;
+    let currentProduct = null;
+    let cartCount = 0;
+    let favCount = 0;
+    let isTyping = false;
+
+    // Notification system
+    function showNotification(message, isError = false) {
+      const notif = document.createElement('div');
+      notif.className = 'notification' + (isError ? ' error' : '');
+      notif.textContent = message;
+      document.body.appendChild(notif);
+      setTimeout(() => notif.remove(), 3000);
+    }
+
+    // Update badges
+    function updateBadges() {
+      const cartBadge = $id('cartBadge');
+      const favBadge = $id('favBadge');
+      
+      cartBadge.textContent = cartCount;
+      cartBadge.style.display = cartCount > 0 ? 'flex' : 'none';
+      
+      favBadge.textContent = favCount;
+      favBadge.style.display = favCount > 0 ? 'flex' : 'none';
+    }
+
+    // Cart functions
+    window.addProductToCart = async function(index) {
+      const msg = messages[index];
+      if (!msg.product) return;
+      
+      await addToCart(msg.product);
+      const btn = event.target;
+      btn.textContent = 'Added!';
+      btn.disabled = true;
+      btn.classList.add('liked');
+      setTimeout(() => {
+        if (btn) {
+          btn.textContent = 'Add to Cart';
+          btn.disabled = msg.product.stock <= 0;
+          btn.classList.remove('liked');
+        }
+      }, 2000);
+    };
+
+    async function addToCart(product) {
+      try {
+        const resp = await fetch(`${API_BASE}/cart/add`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product_id: product.product_id,
+            product_name: product.name,
+            price: product.cost,
+            quantity: 1,
+            user_id: USER_ID
+          })
+        });
+        
+        const data = await resp.json();
+        if (data.success) {
+          showNotification(data.message || "Added to cart!");
+          cartCount = data.cart_count || cartCount + 1;
+          updateBadges();
+          loadCart();
+        }
+      } catch (err) {
+        console.error('Add to cart error:', err);
+        showNotification('Failed to add to cart', true);
+      }
+    }
+
+    async function loadCart() {
+      try {
+        const resp = await fetch(`${API_BASE}/cart/${USER_ID}`);
+        const data = await resp.json();
+        
+        const cartView = $id('cartView');
+        cartView.innerHTML = '';
+        
+        if (!data.cart || data.cart.length === 0) {
+          cartView.innerHTML = `<div class="empty-state"><div class="empty-state-icon">Shopping Cart</div><p>Your cart is empty</p></div>`;
+          $id('cartTotal').textContent = 'Rs0.00';
+          cartCount = 0;
+        } else {
+          data.cart.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'cart-item';
+            el.innerHTML = `
+              <div class="item-info">
+                <div class="item-name">${escapeHtml(item.product_name)}</div>
+                <div class="item-price">Rs${item.price.toFixed(2)} × ${item.quantity} = Rs${(item.price * item.quantity).toFixed(2)}</div>
+              </div>
+              <div class="item-actions">
+                <button class="icon-btn" onclick="removeFromCart('${item.product_id}')" title="Remove">Trash</button>
+              </div>
+            `;
+            cartView.appendChild(el);
+          });
+          $id('cartTotal').textContent = `Rs${data.total.toFixed(2)}`;
+          cartCount = data.count || data.cart.length;
+        }
+        
+        updateBadges();
+      } catch (err) {
+        console.error('Load cart error:', err);
+      }
+    }
+
+    window.removeFromCart = async function(productId) {
+      try {
+        const resp = await fetch(`${API_BASE}/cart/${USER_ID}/${productId}`, { method: 'DELETE' });
+        const data = await resp.json();
+        if (data.success) {
+          showNotification("Removed from cart");
+          loadCart();
+        }
+      } catch (err) {
+        showNotification('Failed to remove', true);
+      }
+    };
+
+    // Favorites
+    window.addProductToFavorites = async function(index) {
+      const msg = messages[index];
+      if (!msg.product) return;
+      
+      await addToFavorites(msg.product);
+      const btn = event.target;
+      btn.textContent = 'Liked!';
+      btn.classList.add('liked');
+      setTimeout(() => {
+        if (btn) {
+          btn.textContent = 'Like';
+          btn.classList.remove('liked');
+        }
+      }, 2000);
+    };
+
+    async function addToFavorites(product) {
+      try {
+        const resp = await fetch(`${API_BASE}/favorites/add`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            product_id: product.product_id,
+            product_name: product.name,
+            user_id: USER_ID
+          })
+        });
+        
+        const data = await resp.json();
+        if (data.success) {
+          showNotification(data.message || "Added to favorites!");
+          favCount = data.favorites_count || favCount + 1;
+          updateBadges();
+          loadFavorites();
+        }
+      } catch (err) {
+        console.error('Add to favorites error:', err);
+        showNotification('Failed to add to favorites', true);
+      }
+    }
+
+    async function loadFavorites() {
+      try {
+        const resp = await fetch(`${API_BASE}/favorites/${USER_ID}`);
+        const data = await resp.json();
+        
+        const favView = $id('favoritesView');
+        favView.innerHTML = '';
+        
+        if (!data.favorites || data.favorites.length === 0) {
+          favView.innerHTML = `<div class="empty-state"><div class="empty-state-icon">Heart</div><p>No favorites yet</p></div>`;
+          favCount = 0;
+        } else {
+          data.favorites.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'favorite-item';
+            el.innerHTML = `
+              <div class="item-info">
+                <div class="item-name">${escapeHtml(item.product_name)}</div>
+              </div>
+              <div class="item-actions">
+                <button class="icon-btn" onclick="removeFromFavorites('${item.product_id}')" title="Remove">Trash</button>
+              </div>
+            `;
+            favView.appendChild(el);
+          });
+          favCount = data.count || data.favorites.length;
+        }
+        
+        updateBadges();
+      } catch (err) {
+        console.error('Load favorites error:', err);
+      }
+    }
+
+    window.removeFromFavorites = async function(productId) {
+      try {
+        const resp = await fetch(`${API_BASE}/favorites/${USER_ID}/${productId}`, { method: 'DELETE' });
+        const data = await resp.json();
+        if (data.success) {
+          showNotification("Removed from favorites");
+          loadFavorites();
+        }
+      } catch (err) {
+        showNotification('Failed to remove', true);
+      }
+    };
+
+    // Quick actions
+    window.quickAction = function(text) {
+      const input = $id('composerInput');
+      input.value = text;
+      input.focus();
+      sendMessage();
+    };
+
+    // Message functions
+    function saveMessages() {
+      try { localStorage.setItem('chat_messages_v2', JSON.stringify(messages)); } catch(e) {}
+    }
+
+    function loadMessages() {
+      try {
+        const stored = localStorage.getItem('chat_messages_v2');
+        if (stored) {
+          messages = JSON.parse(stored);
+          renderStream();
+        }
+      } catch(e) { console.warn("Load failed", e); }
+    }
+
+    function addMessage(role, content, product = null, suggestions = []) {
+      const msg = {
+        role,
+        text: content || '',
+        product,
+        suggestions,
+        time: new Date().toISOString(),
+        index: messages.length
+      };
+      messages.push(msg);
+      renderMessage(msg);
+      saveMessages();
+      scrollToBottom();
+    }
+
+    function renderMessage(msg) {
+      const stream = $id('stream');
+      const el = document.createElement('div');
+      el.className = 'msg ' + (msg.role === 'user' ? 'user' : 'ai');
+      
+      if (msg.role === 'user') {
+        el.innerHTML = `
+          <div class="text">${escapeHtml(msg.text)}</div>
+          <div class="meta">${new Date(msg.time).toLocaleTimeString()}</div>
+        `;
+      } else if (msg.role === 'product') {
+        const p = msg.product || {};
+        const name = escapeHtml(p.name || 'Unknown');
+        const price = p.cost ? `Rs${Number(p.cost).toFixed(2)}` : '—';
+        const rating = p.rating ? `⭐ ${Number(p.rating).toFixed(1)}` : 'No rating';
+        const stock = p.stock > 0 ? `${p.stock} in stock` : 'Out of stock';
+        const stockClass = p.stock > 0 ? '' : 'out';
+        const imgTag = p.image ? `<img src="${API_BASE}/images/${encodeURIComponent(p.image)}" alt="${name}" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIwIiBoZWlnaHQ9IjEyMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZjVmNWY1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtc2l6ZT0iMTQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIiBmaWxsPSIjOTk5Ij5ObyBJbWFnZTwvdGV4dD48L3N2Zz4='" />` : '<div style="background:#f5f5f5;width:100%;height:100%;display:flex;align-items:center;justify-content:center;color:#999;font-size:12px;">No Image</div>';
+        
+        el.innerHTML = `
+          <div class="product-card">
+            <div class="thumb">${imgTag}</div>
+            <div class="prod-meta">
+              <h4 class="prod-title">${name}</h4>
+              <div class="prod-price">${price} • ${rating}</div>
+              <div class="prod-stock ${stockClass}">Package ${stock}</div>
+              <div class="prod-review">${escapeHtml(p.review || 'No review available')}</div>
+              <div class="product-actions">
+                <button class="action-btn primary" onclick="addProductToCart(${msg.index})" ${p.stock <= 0 ? 'disabled' : ''}>
+                  Shopping Cart Add to Cart
+                </button>
+                <button class="action-btn secondary" onclick="addProductToFavorites(${msg.index})">
+                  Heart Like
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="meta">${new Date(msg.time).toLocaleTimeString()}</div>
+        `;
+      } else {
+        let html = `<div class="text">${escapeHtml(msg.text)}</div>`;
+        if (msg.suggestions && msg.suggestions.length > 0) {
+          html += '<div class="quick-actions">';
+          msg.suggestions.forEach(s => {
+            html += `<span class="quick-action" onclick="quickAction('${escapeHtml(s)}')">${escapeHtml(s)}</span>`;
+          });
+          html += '</div>';
+        }
+        html += `<div class="meta">${new Date(msg.time).toLocaleTimeString()}</div>`;
+        el.innerHTML = html;
+      }
+      
+      stream.appendChild(el);
+    }
+
+    function renderStream() {
+      const stream = $id('stream');
+      stream.innerHTML = '';
+      messages.forEach(renderMessage);
+      scrollToBottom();
+    }
+
+    function scrollToBottom() {
+      const content = document.querySelector('.content');
+      content.scrollTop = content.scrollHeight;
+    }
+
+    function showTyping() {
+      if (isTyping) return;
+      isTyping = true;
+      const stream = $id('stream');
+      const typing = document.createElement('div');
+      typing.className = 'msg ai typing';
+      typing.id = 'typing';
+      typing.innerHTML = `
+        <div class="text">
+          <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+        </div>
+      `;
+      stream.appendChild(typing);
+      scrollToBottom();
+    }
+
+    function hideTyping() {
+      const typing = $id('typing');
+      if (typing) typing.remove();
+      isTyping = false;
+    }
+
+    // Send message
+    async function sendMessage() {
+      const input = $id('composerInput');
+      const text = input.value.trim();
+      if (!text || isTyping) return;
+
+      input.value = '';
+      input.style.height = 'auto';
+      
+      addMessage('user', text);
+      showTyping();
+
+      try {
+        const resp = await fetch(`${API_BASE}/query`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ query: text, user_id: USER_ID })
+        });
+
+        const data = await resp.json();
+        hideTyping();
+
+        if (data.products && data.products.length > 0) {
+          data.products.forEach(p => {
+            addMessage('product', '', p, data.suggestions || []);
+          });
+        } else {
+          addMessage('ai', data.response || "Sorry, I couldn't help with that.", null, data.suggestions || []);
+        }
+
+        // Auto-load cart/favorites if mentioned
+        if (data.intent === 'view_cart') loadCart();
+        if (data.intent === 'view_favorites') loadFavorites();
+
+      } catch (err) {
+        hideTyping();
+        console.error(err);
+        addMessage('ai', "Sorry, I'm having trouble connecting. Please try again.");
+      }
+    }
+
+    // Drawer controls
+    function toggleDrawer(drawerId, overlay = true) {
+      const drawer = $id(drawerId);
+      const overlayEl = $id('overlay');
+      drawer.classList.toggle('hidden');
+      if (overlay) overlayEl.classList.toggle('hidden');
+    }
+
+    // Tab switching
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const tab = btn.dataset.tab;
+        $id('cartView').style.display = tab === 'cart' ? 'block' : 'none';
+        $id('favoritesView').style.display = tab === 'favorites' ? 'block' : 'none';
+        $id('rightDrawerTitle').textContent = tab === 'cart' ? 'Cart' : 'Favorites';
+        
+        if (tab === 'cart') loadCart();
+        if (tab === 'favorites') loadFavorites();
+      });
+    });
+
+    // Event Listeners
+    $id('sendBtn').addEventListener('click', sendMessage);
+    $id('composerInput').addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    $id('composerInput').addEventListener('input', function() {
+      this.style.height = 'auto';
+      this.style.height = (this.scrollHeight) + 'px';
+    });
+
+    $id('openLeftDrawer').addEventListener('click', () => toggleDrawer('leftDrawer'));
+    $id('closeLeftDrawer').addEventListener('click', () => toggleDrawer('leftDrawer'));
+    
+    $id('cartBtn').addEventListener('click', () => {
+      loadCart();
+      toggleDrawer('rightDrawer');
+      document.querySelector('[data-tab="cart"]').click();
+    });
+    
+    $id('favBtn').addEventListener('click', () => {
+      loadFavorites();
+      toggleDrawer('rightDrawer');
+      document.querySelector('[data-tab="favorites"]').click();
+    });
+    
+    $id('closeRightDrawer').addEventListener('click', () => toggleDrawer('rightDrawer'));
+    $id('overlay').addEventListener('click', () => {
+      $id('leftDrawer').classList.add('hidden');
+      $id('rightDrawer').classList.add('hidden');
+      $id('overlay').classList.add('hidden');
+    });
+
+    // Welcome message
+    function showWelcome() {
+      if (messages.length === 0) {
+        addMessage('ai', "Hello! I'm your shopping assistant. Ask me about products like headphones, shirts, or books!", null, [
+          "Show me wireless headphones",
+          "Best laptop under Rs50,000",
+          "Add to cart",
+          "My cart"
+        ]);
+      }
+    }
+
+    // Init
+    loadMessages();
+    loadCart();
+    loadFavorites();
+    showWelcome();
+    updateBadges();
+
+    // Auto-refresh cart/fav badges every 10s
+    setInterval(() => {
+      loadCart();
+      loadFavorites();
+    }, 10000);
+
+  })();
+</script>
+  <!-- <script>
+    (() => {
+      const API_BASE = window.location.origin || `${location.protocol}//${location.hostname}:8000`;
+      const USER_ID = "default_user";
+      console.log("[App] API_BASE:", API_BASE);
+
+      function $id(id) { return document.getElementById(id); }
+      function escapeHtml(s) { 
+        return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); 
+      }
+
+      let messages = [];
+      let attachment = null;
+      let currentProduct = null;
+      let cartCount = 0;
+      let favCount = 0;
+
+      // Notification system
+      function showNotification(message, isError = false) {
+        const notif = document.createElement('div');
+        notif.className = 'notification' + (isError ? ' error' : '');
+        notif.textContent = message;
+        document.body.appendChild(notif);
+        setTimeout(() => {
+          notif.remove();
+        }, 3000);
+      }
+
+      // Update badges
+      function updateBadges() {
+        const cartBadge = $id('cartBadge');
+        const favBadge = $id('favBadge');
+        
+        if (cartCount > 0) {
+          cartBadge.textContent = cartCount;
+          cartBadge.style.display = 'flex';
+        } else {
+          cartBadge.style.display = 'none';
+        }
+        
+        if (favCount > 0) {
+          favBadge.textContent = favCount;
+          favBadge.style.display = 'flex';
+        } else {
+          favBadge.style.display = 'none';
+        }
+      }
+
+      // Cart functions
+      async function addToCart(product) {
+        try {
+          const resp = await fetch(`${API_BASE}/cart/add`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              product_id: product.product_id,
+              product_name: product.name,
+              price: product.cost,
+              quantity: 1,
+              user_id: USER_ID
+            })
+          });
+          
+          const data = await resp.json();
+          if (data.success) {
+            showNotification(data.message);
+            cartCount = data.cart_count;
+            updateBadges();
+            loadCart();
+          }
+        } catch (err) {
+          console.error('Add to cart error:', err);
+          showNotification('Failed to add to cart', true);
+        }
+      }
+
+      async function loadCart() {
+        try {
+          const resp = await fetch(`${API_BASE}/cart/${USER_ID}`);
+          const data = await resp.json();
+          
+          const cartView = $id('cartView');
+          cartView.innerHTML = '';
+          
+          if (data.cart.length === 0) {
+            cartView.innerHTML = `
+              <div class="empty-state">
+                <div class="empty-state-icon">🛒</div>
+                <p>Your cart is empty</p>
+              </div>
+            `;
+            $id('cartTotal').textContent = 'Rs0.00';
+            cartCount = 0;
+          } else {
+            data.cart.forEach(item => {
+              const el = document.createElement('div');
+              el.className = 'cart-item';
+              el.innerHTML = `
+                <div class="item-info">
+                  <div class="item-name">${escapeHtml(item.product_name)}</div>
+                  <div class="item-price">Rs${item.price.toFixed(2)} × ${item.quantity} = Rs${item.total.toFixed(2)}</div>
+                </div>
+                <div class="item-actions">
+                  <button class="icon-btn" onclick="removeFromCart('${item.product_id}')" title="Remove">🗑️</button>
+                </div>
+              `;
+              cartView.appendChild(el);
+            });
+            $id('cartTotal').textContent = `Rs${data.total.toFixed(2)}`;
+            cartCount = data.count;
+          }
+          
+          updateBadges();
+        } catch (err) {
+          console.error('Load cart error:', err);
+        }
+      }
+
+      window.removeFromCart = async function(productId) {
+        try {
+          const resp = await fetch(`${API_BASE}/cart/${USER_ID}/${productId}`, {
+            method: 'DELETE'
+          });
+          
+          const data = await resp.json();
+          if (data.success) {
+            showNotification(data.message);
+            loadCart();
+          }
+        } catch (err) {
+          console.error('Remove from cart error:', err);
+          showNotification('Failed to remove item', true);
+        }
+      };
+
+      // Favorites functions
+      async function addToFavorites(product) {
+        try {
+          const resp = await fetch(`${API_BASE}/favorites/add`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              product_id: product.product_id,
+              product_name: product.name,
+              user_id: USER_ID
+            })
+          });
+          
+          const data = await resp.json();
+          if (data.success) {
+            showNotification(data.message);
+            favCount = data.favorites_count;
+            updateBadges();
+            loadFavorites();
+          }
+        } catch (err) {
+          console.error('Add to favorites error:', err);
+          showNotification('Failed to add to favorites', true);
+        }
+      }
+
+      async function loadFavorites() {
+        try {
+          const resp = await fetch(`${API_BASE}/favorites/${USER_ID}`);
+          const data = await resp.json();
+          
+          const favView = $id('favoritesView');
+          favView.innerHTML = '';
+          
+          if (data.favorites.length === 0) {
+            favView.innerHTML = `
+              <div class="empty-state">
+                <div class="empty-state-icon">❤️</div>
+                <p>No favorites yet</p>
+              </div>
+            `;
+            favCount = 0;
+          } else {
+            data.favorites.forEach(item => {
+              const el = document.createElement('div');
+              el.className = 'favorite-item';
+              el.innerHTML = `
+                <div class="item-info">
+                  <div class="item-name">${escapeHtml(item.product_name)}</div>
+                </div>
+                <div class="item-actions">
+                  <button class="icon-btn" onclick="removeFromFavorites('${item.product_id}')" title="Remove">🗑️</button>
+                </div>
+              `;
+              favView.appendChild(el);
+            });
+            favCount = data.count;
+          }
+          
+          updateBadges();
+        } catch (err) {
+          console.error('Load favorites error:', err);
+        }
+      }
+
+      window.removeFromFavorites = async function(productId) {
+        try {
+          const resp = await fetch(`${API_BASE}/favorites/${USER_ID}/${productId}`, {
+            method: 'DELETE'
+          });
+          
+          const data = await resp.json();
+          if (data.success) {
+            showNotification(data.message);
+            loadFavorites();
+          }
+        } catch (err) {
+          console.error('Remove from favorites error:', err);
+          showNotification('Failed to remove item', true);
+        }
+      };
+
+      // Message functions
+      function saveMessages() {
+        try {
+          localStorage.setItem('chat_messages', JSON.stringify(messages));
+        } catch(e) {
+          console.warn("localStorage save failed:", e);
+        }
+      }
+
+      function loadMessages() {
+        try {
+          const stored = localStorage.getItem('chat_messages');
+          if (stored) messages = JSON.parse(stored);
+        } catch(e) {
+          console.warn("localStorage load failed:", e);
+        }
+      }
+
+      function renderStream() {
+        const stream = $id('stream');
+        stream.innerHTML = '';
+        
+        for (const msg of messages) {
+          const el = document.createElement('div');
+
+          if (msg.role === 'user') {
+            el.className = 'msg user';
+            el.innerHTML = `<div class="text">${escapeHtml(msg.text)}</div>
+                            <div class="meta">${msg.time ? new Date(msg.time).toLocaleString() : ''}${msg.attachment ? ' • ' + escapeHtml(msg.attachment) : ''}</div>`;
+          } else if (msg.role === 'product') {
+            el.className = 'msg product ai';
+            const p = msg.product || {};
+            const name = escapeHtml(p.name || 'Unknown Product');
+            const price = p.cost ? 'Rs' + Number(p.cost).toFixed(2) : '—';
+            const rating = p.rating != null ? '⭐ ' + Number(p.rating).toFixed(1) : '—';
+            const review = escapeHtml(p.review || '');
+            const stock = p.stock != null ? p.stock : 0;
+            const stockText = stock > 0 ? `${stock} in stock` : 'Out of stock';
+            const stockClass = stock > 0 ? '' : 'out';
+            const imgTag = p.image ? `<img src="${API_BASE}/images/${encodeURIComponent(p.image)}" alt="${name}" />` : 'No image';
+            
+            el.innerHTML = `
+              <div class="product-card">
+                <div class="thumb">${imgTag}</div>
+                <div class="prod-meta">
+                  <h4 class="prod-title">${name}</h4>
+                  <div class="prod-price">${price} • ${rating}</div>
+                  <div class="prod-stock ${stockClass}">📦 ${stockText}</div>
+                  <div class="prod-review">${review}</div>
+                  <div class="product-actions">
+                    <button class="action-btn primary" onclick="addProductToCart(${msg.index})" ${stock <= 0 ? 'disabled' : ''}>
+                      🛒 Add to Cart
+                    </button>
+                    <button class="action-btn secondary" onclick="addProductToFavorites(${msg.index})">
+                      ❤️ Like
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div class="meta">${msg.time ? new Date(msg.time).toLocaleString() : ''}</div>
+            `;
+          } else {
+            el.className = 'msg ai';
+            let textContent = escapeHtml(msg.text);
+            
+            // Add quick action suggestions if available
+            let suggestionsHtml = '';
+            if (msg.suggestions && msg.suggestions.length > 0) {
+              suggestionsHtml = '<div class="quick-actions">';
+              msg.suggestions.forEach(s => {
+                suggestionsHtml += `<span class="quick-action" onclick="quickAction('${escapeHtml(s)}')">${escapeHtml(s)}</span>`; -->

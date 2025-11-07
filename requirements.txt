@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+gradio
+langchain
+sentence-transformers
+faiss-cpu
+transformers
+torch
+pandas
+sqlalchemy
+pillow
+pytest
+python-dotenv

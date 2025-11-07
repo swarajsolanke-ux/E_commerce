@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce Chatbot</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #e0e4e5;
+      color: #333;
+      overflow: hidden;
+    }
+
+    .app {
+      display: flex;
+      height: 100vh;
+      position: relative;
+    }
+
+    /* Left Drawer */
+    .left-drawer {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 300px;
+      background: white;
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      transition: transform 0.3s ease;
+    }
+
+    .left-drawer.hidden {
+      transform: translateX(-100%);
+    }
+
+    .drawer-head {
+      padding: 20px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .drawer-head h3 {
+      font-size: 18px;
+      font-weight: 600;
+    }
+
+    .history-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+    }
+
+    .history-item {
+      padding: 12px;
+      margin-bottom: 8px;
+      background: #f9f9f9;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .history-item:hover {
+      background: #f0f0f0;
+    }
+
+    .history-item .q {
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #333;
+    }
+
+    .history-item .t {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .drawer-foot {
+      padding: 15px;
+      border-top: 1px solid #e0e0e0;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 999;
+      transition: opacity 0.3s ease;
+    }
+
+    .overlay.hidden {
+      display: none;
+    }
+
+    /* Main */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: white;
+    }
+
+    /* Topbar */
+    .topbar {
+      padding: 15px 20px;
+      border-bottom: 1px solid #e0e0e0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: white;
+    }
+
+    .topbar h1 {
+      font-size: 20px;
+      font-weight: 600;
+      color: #1a1a1a;
+    }
+
+    .top-right {
+      display: flex;
+      gap: 10px;
+    }
+
+    /* Content */
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      background: #fafafa;
+    }
+
+    .stream {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Messages */
+    .msg {
+      margin-bottom: 20px;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg .text {
+      padding: 12px 16px;
+      border-radius: 12px;
+      display: inline-block;
+      max-width: 80%;
+      word-wrap: break-word;
+    }
+
+    .msg.user .text {
+      background: #007bff;
+      color: white;
+      margin-left: auto;
+      float: right;
+    }
+
+    .msg.ai .text {
+      background: white;
+      color: #333;
+      border: 1px solid #e0e0e0;
+    }
+
+    .msg .meta {
+      font-size: 11px;
+      color: #999;
+      margin-top: 4px;
+      clear: both;
+    }
+
+    .msg.user .meta {
+      text-align: right;
+    }
+
+    /* Product Card */
+    .product-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 12px;
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+      max-width: 600px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .product-card .thumb {
+      width: 120px;
+      height: 120px;
+      flex-shrink: 0;
+      background: #f5f5f5;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .product-card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .product-card .prod-meta {
+      flex: 1;
+    }
+
+    .product-card .prod-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: #1a1a1a;
+    }
+
+    .product-card .prod-price {
+      font-size: 18px;
+      font-weight: 700;
+      color: #007bff;
+      margin-bottom: 8px;
+    }
+
+    .product-card .prod-review {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.4;
+    }
+
+    /* Composer */
+    .composer {
+      border-top: 1px solid #e0e0e0;
+      background: white;
+      padding: 15px 20px;
+    }
+
+    .composer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 10px;
+      align-items: flex-end;
+    }
+
+    .left-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5f5f5;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 18px;
+    }
+
+    .tool-btn:hover {
+      background: #e8e8e8;
+    }
+
+    .composer-text {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      resize: none;
+      outline: none;
+      transition: border 0.2s;
+      min-height: 40px;
+      max-height: 120px;
+    }
+
+    .composer-text:focus {
+      border-color: #007bff;
+    }
+
+    .composer-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    /* Buttons */
+    .btn {
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+
+    .btn.subtle {
+      background: #f5f5f5;
+      color: #666;
+      border: 1px solid #e0e0e0;
+    }
+
+    .btn.subtle:hover {
+      background: #e8e8e8;
+      color: #333;
+    }
+
+    .btn.send {
+      background: #007bff;
+      color: white;
+    }
+
+    .btn.send:hover {
+      background: #0056b3;
+    }
+
+    .composer-meta {
+      max-width: 900px;
+      margin: 8px auto 0;
+      font-size: 12px;
+    }
+
+    .muted {
+      color: #999;
+    }
+
+    .small {
+      font-size: 13px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <div id="app" class="app">
+    <!-- Left Drawer -->
+    <aside id="leftDrawer" class="left-drawer hidden" aria-hidden="true">
+      <div class="drawer-head">
+        <div>
+          <h3>Chat History</h3>
+        </div>
+        <button id="closeDrawer" class="btn subtle">Close</button>
+      </div>
+      <div id="historyList" class="history-list"></div>
+      <div class="drawer-foot">
+        <button id="clearHistory" class="btn subtle">Clear History</button>
+      </div>
+    </aside>
+
+    <div id="overlay" class="overlay hidden"></div>
+
+    <!-- Main -->
+    <main class="main">
+      <header class="topbar">
+        <div class="top-left">
+          <h1>E-commerce Chatbot</h1>
+        </div>
+        <div class="top-right row">
+          <button id="openDrawer" class="btn subtle" title="Open history">☰ History</button>
+        </div>
+      </header>
+
+      <section class="content">
+        <div id="stream" class="stream" aria-live="polite"></div>
+      </section>
+
+      <footer class="composer">
+        <div class="composer-inner">
+          <div class="left-controls row">
+            <label for="attachInput" class="tool-btn" title="Attach file">📎</label>
+            <input id="attachInput" type="file" style="display:none" />
+          </div>
+
+          <textarea id="composerInput" class="composer-text" placeholder='Ask: "price of black headphones" — press Enter to submit' rows="1" aria-label="Message"></textarea>
+
+          <div class="composer-actions">
+            <button id="webSearchBtn" class="btn subtle" title="Search web">🔎 Web</button>
+            <button id="sendBtn" class="btn send" title="Send">Submit</button>
+          </div>
+        </div>
+        <div class="composer-meta">
+          <span id="attachmentLabel" class="muted"></span>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    (() => {
+      const API_BASE = window.location.origin || `${location.protocol}//${location.hostname}:8000`;
+      console.log("[App] API_BASE:", API_BASE);
+
+      function $id(id) { return document.getElementById(id); }
+      function escapeHtml(s) { 
+        return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); 
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        console.log("[App] Initializing...");
+
+        const stream = $id('stream');
+        const composerInput = $id('composerInput');
+        const sendBtn = $id('sendBtn');
+        const attachInput = $id('attachInput');
+        const attachmentLabel = $id('attachmentLabel');
+        const webSearchBtn = $id('webSearchBtn');
+        const openDrawer = $id('openDrawer');
+        const closeDrawer = $id('closeDrawer');
+        const leftDrawer = $id('leftDrawer');
+        const overlay = $id('overlay');
+        const historyList = $id('historyList');
+        const clearHistoryBtn = $id('clearHistory');
+
+        let messages = [];
+        let attachment = null;
+
+        function saveMessages() {
+          try {
+            localStorage.setItem('chat_messages', JSON.stringify(messages));
+          } catch(e) {
+            console.warn("localStorage save failed:", e);
+          }
+        }
+
+        function loadMessages() {
+          try {
+            const stored = localStorage.getItem('chat_messages');
+            if (stored) messages = JSON.parse(stored);
+          } catch(e) {
+            console.warn("localStorage load failed:", e);
+          }
+        }
+
+        function renderStream() {
+          stream.innerHTML = '';
+          for (const msg of messages) {
+            const el = document.createElement('div');
+
+            if (msg.role === 'user') {
+              el.className = 'msg user';
+              el.innerHTML = `<div class="text">${escapeHtml(msg.text)}</div>
+                              <div class="meta">${msg.time ? new Date(msg.time).toLocaleString() : ''}${msg.attachment ? ' • ' + escapeHtml(msg.attachment) : ''}</div>`;
+            } else if (msg.role === 'product') {
+              el.className = 'msg product ai';
+              const p = msg.product || {};
+              const name = escapeHtml(p.name || 'Unknown Product');
+              const price = p.cost ? 'Rs' + Number(p.cost).toFixed(2) : '—';
+              const rating = p.rating != null ? '⭐ ' + Number(p.rating).toFixed(1) : '—';
+              const review = escapeHtml(p.review || '');
+              const imgTag = p.image ? `<img src="${API_BASE}/images/${encodeURIComponent(p.image)}" alt="${name}" />` : 'No image';
+              el.innerHTML = `
+                <div class="product-card">
+                  <div class="thumb">${imgTag}</div>
+                  <div class="prod-meta">
+                    <h4 class="prod-title">${name}</h4>
+                    <div class="prod-price">${price} • ${rating}</div>
+                    <div class="prod-review">${review}</div>
+                  </div>
+                </div>
+                <div class="meta">${msg.time ? new Date(msg.time).toLocaleString() : ''}</div>
+              `;
+            } else {
+              el.className = 'msg ai';
+              el.innerHTML = `<div class="text">${escapeHtml(msg.text)}</div>
+                              <div class="meta">${msg.time ? new Date(msg.time).toLocaleString() : ''}</div>`;
+            }
+
+            stream.appendChild(el);
+          }
+          stream.scrollTop = stream.scrollHeight;
+        }
+
+        function renderHistoryDrawer() {
+          historyList.innerHTML = '';
+          const queries = messages.filter(m => m.role === 'user').slice(-50).reverse();
+          if (queries.length === 0) {
+            historyList.innerHTML = `<div class="muted small">No history yet</div>`;
+            return;
+          }
+          queries.forEach(q => {
+            const it = document.createElement('div');
+            it.className = 'history-item';
+            it.innerHTML = `<div class="q">${escapeHtml(q.text)}</div><div class="t">${new Date(q.time).toLocaleString()}</div>`;
+            it.onclick = () => {
+              composerInput.value = q.text;
+              composerInput.focus();
+              closeLeftDrawer();
+            };
+            historyList.appendChild(it);
+          });
+        }
+
+        function openLeftDrawer() {
+          leftDrawer.classList.remove('hidden');
+          overlay.classList.remove('hidden');
+          renderHistoryDrawer();
+        }
+
+        function closeLeftDrawer() {
+          leftDrawer.classList.add('hidden');
+          overlay.classList.add('hidden');
+        }
+
+        async function sendQuery() {
+          let q = (composerInput.value || '').trim();
+          if (!q && !attachment) return;
+          if (attachment) q = `${q} [attachment: ${attachment.name}]`;
+
+          messages.push({ role: 'user', text: q, time: Date.now(), attachment: attachment ? attachment.name : null });
+          saveMessages();
+          renderStream();
+          renderHistoryDrawer();
+
+          composerInput.value = '';
+          attachment = null;
+          attachmentLabel.textContent = '';
+
+          messages.push({ role: 'assistant', text: '...', time: Date.now() });
+          saveMessages();
+          renderStream();
+
+          try {
+            const resp = await fetch(`${API_BASE}/query`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ query: q })
+            });
+
+            if (messages.length && messages[messages.length - 1].role === 'assistant' && messages[messages.length - 1].text === '...') {
+              messages.pop();
+            }
+
+            if (!resp.ok) {
+              const err = await resp.json().catch(() => null);
+              throw new Error(err?.detail || `Server error ${resp.status}`);
+            }
+
+            const data = await resp.json();
+            const assistantText = data.response || 'Not found';
+            messages.push({ role: 'assistant', text: assistantText, time: Date.now() });
+
+            const prod = (data.products && data.products[0]) || null;
+            if (prod) {
+              messages.push({ role: 'product', product: prod, time: Date.now() });
+            }
+
+            saveMessages();
+            renderStream();
+            renderHistoryDrawer();
+          } catch (err) {
+            if (messages.length && messages[messages.length - 1].role === 'assistant' && messages[messages.length - 1].text === '...') {
+              messages.pop();
+            }
+            messages.push({ role: 'assistant', text: `Error: ${err.message}`, time: Date.now() });
+            saveMessages();
+            renderStream();
+            renderHistoryDrawer();
+            console.error("[App] sendQuery error:", err);
+          }
+        }
+
+        attachInput.addEventListener('change', (ev) => {
+          const f = ev.target.files && ev.target.files[0];
+          if (!f) return;
+          attachment = f;
+          attachmentLabel.textContent = `Attached: ${f.name}`;
+        });
+
+        composerInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.shiftKey) {
+            e.preventDefault();
+            sendQuery();
+          } else if (e.key === 'ArrowUp' && !composerInput.value) {
+            const last = messages.slice().reverse().find(m => m.role === 'user');
+            if (last) composerInput.value = last.text;
+          }
+        });
+
+        webSearchBtn.addEventListener('click', () => {
+          const q = (composerInput.value || '').trim();
+          if (!q) return alert('Enter a query to search the web');
+          window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank');
+        });
+
+        openDrawer.addEventListener('click', openLeftDrawer);
+        closeDrawer.addEventListener('click', closeLeftDrawer);
+        overlay.addEventListener('click', closeLeftDrawer);
+
+        clearHistoryBtn.addEventListener('click', () => {
+          if (!confirm('Clear all chat history?')) return;
+          messages = [];
+          saveMessages();
+          renderStream();
+          renderHistoryDrawer();
+        });
+
+        sendBtn.addEventListener('click', sendQuery);
+
+        loadMessages();
+        renderStream();
+        renderHistoryDrawer();
+
+        console.log("[App] Initialized successfully");
+      });
+    })();
+  </script>
+</body>
+</html>
