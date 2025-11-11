@@ -146,7 +146,7 @@ VALID_CATEGORIES = {
 
 PRODUCT_KEYWORDS = VALID_PRODUCT_FIELDS.union(VALID_CATEGORIES).union({
     'product', 'item', 'buy', 'purchase', 'show', 'tell', 'find',
-    'what', 'which', 'how much', 'expensive', 'cheap'
+    'what', 'which', 'how much', 'expensive', 'cheap',"give me "
 })
 
 def is_product_query(query: str) -> bool:
@@ -155,12 +155,13 @@ def is_product_query(query: str) -> bool:
     has_keyword = bool(PRODUCT_KEYWORDS.intersection(query_tokens))
     product_patterns = [
         r'\b(price|cost|rating|review)\s+(of|for)',
-        r'\b(show|find|tell|get)\s+.*\b(product|item)',
+        r'\b(show|find|tell|get|give)\s+.*\b(product|item)',
         r'\b(how much|what is)\s+.*\b(price|cost)',
         r'\b(what|which)\s+.*\b(category|product)',
     ]
     has_pattern = any(re.search(pattern, query_lower) for pattern in product_patterns)
     return has_keyword or has_pattern
+
 
 def calculate_relevance_score(query: str, metadata: Dict[str, Any]) -> float:
     query_lower = query.lower()
@@ -181,7 +182,10 @@ def calculate_relevance_score(query: str, metadata: Dict[str, Any]) -> float:
     field_keywords = {'price', 'cost', 'rating', 'review', 'reviews'}
     if query_tokens.intersection(field_keywords):
         score += 1.0
+        print(f"score:{score}")
     return score / max_score if max_score > 0 else 0.0
+
+
 
 def is_relevant_result(query: str, doc_metadata: Dict[str, Any], vector_score: float = None) -> Tuple[bool, str]:
     if not is_product_query(query):
@@ -200,6 +204,8 @@ def is_relevant_result(query: str, doc_metadata: Dict[str, Any], vector_score: f
         return True, f"Relevance score: {relevance:.2f}"
     return False, f"Low relevance: {relevance:.2f}"
 
+
+
 def extract_answer_from_query(query: str, product: Dict[str, Any]) -> str:
     query_lower = query.lower()
     if any(word in query_lower for word in ['rating', 'rated', 'star', 'stars']):
@@ -216,6 +222,8 @@ def extract_answer_from_query(query: str, product: Dict[str, Any]) -> str:
     if any(word in query_lower for word in ['category', 'type', 'kind']):
         return product.get('category', 'Unknown category')
     return product.get('name', 'Product information available')
+
+
 def safe_convert(value, type_func, default):
             try:
                 return type_func(value) if value is not None else default
@@ -382,4 +390,5 @@ def health_check():
     })
 
 if __name__ == "__main__":
-    uvicorn.run("result1:app", host="0.0.0.0", port=5000, reload=True)
+    uvicorn.run("result1:app", host="192.168.5.155", port=5000, reload=True)
+    #192.168.5.155
