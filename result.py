@@ -16,15 +16,18 @@ from langchain_core.prompts import PromptTemplate
 from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
 import torch
 import uvicorn
-from typing import Tuple, Dict, Any, List
+from typing import Tuple, Dict, Any, List,Set
 
 app = FastAPI(title="E-commerce Chatbot")
 
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+print(f"BASE_DIR resolved to: {BASE_DIR}")
 FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+print(f"frontend dir:{FRONTEND_DIR}")
 STATIC_DIR = os.path.join(FRONTEND_DIR, "static")
 IMAGES_DIR = os.path.join(BASE_DIR, "data", "images")
+print(f"images dir:{IMAGES_DIR}")
 DB_PATH = os.path.join(BASE_DIR, "E_commerce", "db", "products.db")
 VECTOR_PATH = os.path.join(BASE_DIR, "E_commerce", "vector_store", "index.faiss")
 
@@ -126,6 +129,11 @@ app.add_middleware(
 )
 print("CORS middleware configured")
 
+GREETING_WORDS: Set[str] = {
+    "hello", "hi", "hey", "greetings",
+    "good morning", "good afternoon", "good evening",
+    "morning", "afternoon", "evening"
+}
 class QueryRequest(BaseModel):
     query: str
 
@@ -241,7 +249,6 @@ def extract_answer_from_query(query: str, product: Dict[str, Any]) -> str:
    
     query_lower = query.lower()
     
-   
     if any(word in query_lower for word in ['rating', 'rated', 'star', 'stars']):
         rating = product.get('rating', 0)
         return f"{float(rating):.1f}" if rating else "No rating available"
@@ -290,15 +297,21 @@ def search_products(request: QueryRequest):
     Main query endpoint - only answers product database queries.
     """
     try:
+        
         query = request.query.strip()
         if not query:
             raise HTTPException(status_code=400, detail="Empty query")
         
-        print(f"\n{'='*60}")
-        print(f"Query: {query}")
-        print(f"{'='*60}")
         
-        # Step 1: Check if query is product-related
+        query_lower = query.lower()
+        words = set(re.findall(r"\b\w+\b", query_lower))
+
+        if words & GREETING_WORDS:                     
+            print(f"GREETING DETECTED → {query!r}")
+            return "welcome to ecommerce chatbot , how may i help you?"
+        
+        
+       
         if not is_product_query(query):
             print("Query is not product-related")
             return JSONResponse({
@@ -390,7 +403,9 @@ def search_products(request: QueryRequest):
 def get_image(filename: str):
     """Serve product images"""
     safe_name = os.path.basename(filename)
+    print(f"safE_name:{safe_name}")
     path = os.path.join(IMAGES_DIR, safe_name)
+    print(f"path of an image:{path}")
     if os.path.exists(path):
         return FileResponse(path)
     raise HTTPException(status_code=404, detail="Image not found")
@@ -407,6 +422,7 @@ def health_check():
     })
 
 
+
 if __name__ == "__main__":
     print("\n" + "="*60)
     print("Starting E-commerce Chatbot Backend")
@@ -414,7 +430,7 @@ if __name__ == "__main__":
     print(f"Device: {device}")
     print(f"Vector store: {'✓ Loaded' if vectorstore else '✗ Failed'}")
     print(f"LLM: {'✓ Loaded' if llm else '✗ Failed'}")
-    print("="*60 + "\n")
+    print("="*30 + "\n")
     
     uvicorn.run(
         "result:app", 
@@ -422,4 +438,4 @@ if __name__ == "__main__":
         port=8000, 
         reload=True
     )
-    
+   # 192.168.5.255

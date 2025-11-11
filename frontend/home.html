@@ -566,7 +566,7 @@
             }
 
             const data = await resp.json();
-            const assistantText = data.response || 'Not found';
+            const assistantText = data.response || 'welcome to ecommerce chatbot , how may i help you?'; 
             messages.push({ role: 'assistant', text: assistantText, time: Date.now() });
 
             const prod = (data.products && data.products[0]) || null;

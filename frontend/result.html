@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-Shop Pro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #ffffff; --text: #1a1a1a; --sidebar: #f8f9fa; --card: #ffffff;
+      --border: #e0e0e0; --primary: #007bff; --input: #ffffff;
+    }
+    [data-theme="dark"] {
+      --bg: #0f0f0f; --text: #e0e0e0; --sidebar: #1a1a1a; --card: #1e1e1e;
+      --border: #333; --primary: #0d6efd; --input: #2d2d2d;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow: hidden; transition: 0.3s; }
+    .app { display: flex; height: 100vh; }
+    .sidebar { width: 280px; background: var(--sidebar); border-right: 1px solid var(--border); display: flex; flex-direction: column; }
+    .sidebar-header { padding: 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .new-chat { background: var(--primary); color: white; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .theme-btn { background: var(--primary); color: white; border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 18px; }
+    .history { flex: 1; padding: 10px; overflow-y: auto; }
+    .hist-item { padding: 12px; background: rgba(0,0,0,0.05); margin: 6px 0; border-radius: 8px; cursor: pointer; font-size: 14px; }
+    .hist-item:hover { background: rgba(0,0,0,0.1); }
+    .main { flex: 1; display: flex; flex-direction: column; background: var(--bg); }
+    .topbar { padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; background: var(--bg); }
+    .nav-menu { padding: 10px; }
+    .nav-item { padding: 12px 16px; margin: 4px 0; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+    .nav-item.active { background: var(--primary); color: white; }
+    .badge { margin-left: auto; background: white; color: var(--primary); padding: 2px 8px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+    .nav-item.active .badge { background: var(--primary); color: white; }
+    .content-view { flex: 1; overflow-y: auto; padding: 20px; display: none; }
+    .content-view.active { display: block; }
+    .stream { max-width: 900px; margin: 0 auto; width: 100%; }
+    .msg { margin-bottom: 20px; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    .msg .text { padding: 12px 16px; border-radius: 18px; display: inline-block; max-width: 80%; word-wrap: break-word; }
+    .msg.user .text { background: var(--primary); color: white; margin-left: auto; float: right; }
+    .msg.ai .text { background: var(--card); color: var(--text); border: 1px solid var(--border); }
+    .product-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; display: flex; gap: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .thumb { width: 120px; height: 120px; background: #f5f5f5; border-radius: 8px; overflow: hidden; flex-shrink: 0; }
+    .thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .prod-meta { flex: 1; }
+    .prod-title { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .prod-price { font-size: 18px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+    .action-btns { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; max-width: 1200px; margin: 0 auto; }
+    .grid-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform 0.2s; cursor: pointer; }
+    .grid-card:hover { transform: translateY(-4px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .grid-card img { width: 100%; height: 200px; object-fit: cover; background: #f5f5f5; }
+    .grid-card-content { padding: 16px; }
+    .grid-card-title { font-size: 15px; font-weight: 600; margin-bottom: 8px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .grid-card-price { font-size: 18px; font-weight: 700; color: var(--primary); }
+    .composer { border-top: 1px solid var(--border); background: var(--bg); padding: 15px 20px; }
+    .composer-inner { max-width: 900px; margin: 0 auto; display: flex; gap: 10px; align-items: flex-end; }
+    .composer-text { flex: 1; padding: 12px 16px; background: var(--input); border: 1px solid var(--border); border-radius: 12px; resize: none; min-height: 50px; max-height: 120px; font-family: inherit; font-size: 14px; color: var(--text); }
+    .composer-text:focus { border-color: var(--primary); outline: none; }
+    .mic-btn { background: var(--primary); color: white; border: none; width: 48px; height: 48px; border-radius: 50%; cursor: pointer; font-size: 20px; }
+    .mic-btn.recording { background: #dc3545; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(220,53,69,0.7); } 70% { box-shadow: 0 0 0 10px rgba(220,53,69,0); } }
+    .btn { padding: 10px 16px; border: none; border-radius: 8px; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s; }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary { background: #f5f5f5; color: #666; border: 1px solid var(--border); }
+    .btn-secondary:hover { background: #e8e8e8; }
+    .btn-small { padding: 6px 12px; font-size: 13px; }
+    .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+    .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
+    .section-header { margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--border); }
+    .section-header h2 { font-size: 20px; font-weight: 600; }
+    .section-header .subtitle { font-size: 14px; color: #666; margin-top: 4px; }
+    .cart-summary { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 20px; max-width: 400px; margin-left: auto; }
+    .summary-row { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 14px; }
+    .summary-row.total { font-size: 18px; font-weight: 600; padding-top: 12px; border-top: 2px solid var(--border); }
+    .order-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-bottom: 16px; }
+    .order-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
+    .order-id { font-weight: 600; }
+    .status-badge { padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600; }
+    .status-confirmed { background: #cce5ff; color: #004085; }
+    .timeline { max-width: 600px; margin: 20px auto; }
+    .timeline-item { display: flex; gap: 16px; margin-bottom: 24px; position: relative; }
+    .timeline-item::before { content: ''; position: absolute; left: 15px; top: 32px; bottom: -24px; width: 2px; background: var(--border); }
+    .timeline-item:last-child::before { display: none; }
+    .timeline-dot { width: 32px; height: 32px; border-radius: 50%; background: var(--border); display: flex; align-items: center; justify-content: center; font-size: 16px; z-index: 1; }
+    .timeline-dot.completed { background: #28a745; color: white; }
+    .login-screen { position: fixed; inset: 0; background: #007bff; display: flex; align-items: center; justify-content: center; z-index: 9999; }
+    .login-box { background: white; padding: 40px; border-radius: 16px; width: 380px; text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+    .login-box input { width: 100%; padding: 14px; margin: 10px 0; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; }
+    .web-badge { background: #28a745; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; margin-left: 8px; vertical-align: middle; }
+  </style>
+</head>
+<body>
+
+  <!-- LOGIN SCREEN -->
+  <div id="loginScreen" class="login-screen">
+    <div class="login-box">
+      <h2>E-Shop Pro</h2>
+      <p>Login or create account</p>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()" class="btn btn-primary" style="width:100%; margin:10px 0;">Login</button>
+      <button onclick="register()" class="btn" style="width:100%; background:#28a745; color:white;">Register</button>
+      <p id="loginError" style="color:red; margin-top:10px; min-height:20px;"></p>
+    </div>
+  </div>
+
+  <!-- MAIN APP -->
+  <div id="app" class="app" style="display:none;">
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="new-chat" onclick="newChat()">+ New Chat</div>
+        <button class="theme-btn" onclick="toggleTheme()" title="Toggle Theme">Moon</button>
+      </div>
+      <div class="history" id="chatHistory"></div>
+      <div style="padding:20px; border-top:1px solid var(--border); text-align:center;">
+        <button onclick="logout()" class="btn" style="background:#dc3545; color:white; width:100%;">Logout</button>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <h1 id="pageTitle">Chat Assistant</h1>
+        <div class="user-info">
+          <div class="user-avatar" id="userAvatar">U</div>
+          <span id="userName">Guest</span>
+        </div>
+      </header>
+
+      <nav class="nav-menu">
+        <div class="nav-item active" data-view="chat">Chat</div>
+        <div class="nav-item" data-view="recommendations">For You</div>
+        <div class="nav-item" data-view="orders">Orders <span class="badge" id="ordersBadge">0</span></div>
+        <div class="nav-item" data-view="cart">Cart <span class="badge" id="cartBadge">0</span></div>
+        <div class="nav-item" data-view="wishlist">Wishlist <span class="badge" id="wishlistBadge">0</span></div>
+        <div class="nav-item" data-view="favorites">Favorites <span class="badge" id="favoritesBadge">0</span></div>
+      </nav>
+
+      <section id="chatView" class="content-view active">
+        <div id="stream" class="stream"></div>
+      </section>
+
+      <section id="recommendationsView" class="content-view">
+        <div id="recommendationsContent"></div>
+      </section>
+
+      <section id="ordersView" class="content-view">
+        <div class="section-header">
+          <h2>My Orders</h2>
+          <p class="subtitle">Track your orders and view history</p>
+        </div>
+        <div id="ordersContent"></div>
+      </section>
+
+      <section id="cartView" class="content-view">
+        <div class="section-header">
+          <h2>Shopping Cart</h2>
+          <p class="subtitle">Review items before checkout</p>
+        </div>
+        <div id="cartContent"></div>
+        <div class="cart-summary" id="cartSummary" style="display:none;">
+          <div class="summary-row"><span>Subtotal</span><span id="subtotal">Rs0.00</span></div>
+          <div class="summary-row"><span>Tax</span><span id="tax">Rs0.00</span></div>
+          <div class="summary-row total"><span>Total</span><span id="total">Rs0.00</span></div>
+          <button class="btn btn-primary" style="width:100%; margin-top:16px;" onclick="placeOrder()">Place Order</button>
+        </div>
+      </section>
+
+      <section id="wishlistView" class="content-view">
+        <div class="section-header">
+          <h2>My Wishlist</h2>
+          <p class="subtitle">Items you want to buy later</p>
+        </div>
+        <div id="wishlistContent"></div>
+      </section>
+
+      <section id="favoritesView" class="content-view">
+        <div class="section-header">
+          <h2>My Favorites</h2>
+          <p class="subtitle">Your most loved products</p>
+        </div>
+        <div id="favoritesContent"></div>
+      </section>
+
+      <footer class="composer">
+        <div class="composer-inner">
+          <textarea id="composerInput" class="composer-text" placeholder="Ask: price of jeans, show shirts, my orders..." rows="1"></textarea>
+          <button id="micBtn" class="mic-btn" title="Hold to speak">Microphone</button>
+          <button id="sendBtn" class="btn btn-primary">Send</button>
+        </div>
+      </footer>
+    </main>
+  </div>
+
+  <script>
+    const API_BASE = window.location.origin;
+    let currentUser = null;
+    let currentConvoId = "default";
+    let messages = [];
+    let recognition = null;
+    let isRecording = false;
+
+    // Voice Recognition
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SR();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.onresult = e => {
+        const text = Array.from(e.results).map(r => r[0].transcript).join('');
+        document.getElementById("composerInput").value = text;
+      };
+      recognition.onend = () => stopRecording();
+    }
+
+    function startRecording() {
+      if (recognition) {
+        recognition.start();
+        isRecording = true;
+        document.getElementById("micBtn").classList.add("recording");
+      }
+    }
+    function stopRecording() {
+      if (recognition && isRecording) recognition.stop();
+      isRecording = false;
+      document.getElementById("micBtn").classList.remove("recording");
+    }
+    document.getElementById("micBtn").addEventListener("mousedown", startRecording);
+    document.getElementById("micBtn").addEventListener("mouseup", stopRecording);
+    document.getElementById("micBtn").addEventListener("touchstart", startRecording);
+    document.getElementById("micBtn").addEventListener("touchend", stopRecording);
+
+    function toggleTheme() {
+      const newTheme = document.documentElement.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", newTheme);
+      document.querySelector(".theme-btn").textContent = newTheme === "dark" ? "Sun" : "Moon";
+      if (currentUser) saveChat(null, newTheme);
+    }
+
+    function login() { auth("login"); }
+    function register() { auth("register"); }
+    function auth(mode) {
+      const u = document.getElementById("username").value.trim();
+      const p = document.getElementById("password").value;
+      if (!u || !p) return document.getElementById("loginError").textContent = "Fill all fields";
+      fetch(`${API_BASE}/auth/${mode}`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: u, password: p })
+      }).then(r => r.json()).then(d => {
+        if (d.success) startSession(u);
+        else document.getElementById("loginError").textContent = d.error || "Failed";
+      }).catch(() => document.getElementById("loginError").textContent = "Server error");
+    }
+
+    function startSession(username) {
+      currentUser = username;
+      document.getElementById("loginScreen").style.display = "none";
+      document.getElementById("app").style.display = "flex";
+      document.getElementById("userName").textContent = username;
+      document.getElementById("userAvatar").textContent = username[0].toUpperCase();
+      loadConversations();
+      updateBadges();
+      switchView('chat');
+    }
+
+    function loadConversations() {
+      if (!currentUser) return;
+      fetch(`${API_BASE}/user/conversations?username=${currentUser}`)
+        .then(r => r.json())
+        .then(d => {
+          document.documentElement.setAttribute("data-theme", d.theme || "light");
+          document.querySelector(".theme-btn").textContent = d.theme === "dark" ? "Sun" : "Moon";
+          const el = document.getElementById("chatHistory");
+          el.innerHTML = "";
+          d.conversations.forEach(c => {
+            const div = document.createElement("div");
+            div.className = "hist-item";
+            div.textContent = c.title;
+            div.onclick = () => loadConvo(c.id);
+            el.appendChild(div);
+          });
+        });
+    }
+
+    function loadConvo(id) {
+      currentConvoId = id;
+      fetch(`${API_BASE}/user/load-chat?username=${currentUser}&convo_id=${id}`)
+        .then(r => r.json())
+        .then(d => {
+          messages = d.messages || [];
+          renderStream();
+        });
+    }
+
+    function newChat() {
+      currentConvoId = Date.now().toString();
+      messages = [];
+      renderStream();
+      loadConversations();
+    }
+
+    function logout() {
+      saveChat();
+      currentUser = null;
+      document.getElementById("app").style.display = "none";
+      document.getElementById("loginScreen").style.display = "flex";
+      document.getElementById("username").value = "";
+      document.getElementById("password").value = "";
+      document.getElementById("loginError").textContent = "";
+    }
+
+    function escapeHtml(s) {
+      return String(s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    async function sendQuery() {
+      const input = document.getElementById('composerInput');
+      const q = input.value.trim();
+      if (!q) return;
+      messages.push({ role: "user", content: q });
+      renderStream();
+      input.value = "";
+
+      const resp = await fetch(`${API_BASE}/query`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query: q, username: currentUser })
+      });
+      const data = await resp.json();
+      let reply = data.response || "No response";
+      if (data.web_search) reply += ' <span class="web-badge">Web</span>';
+      messages.push({ role: "assistant", content: reply });
+      if (data.products?.[0]) messages.push({ role: "product", product: data.products[0] });
+      renderStream();
+      saveChat();
+    }
+
+    function saveChat(e, theme = null) {
+      if (!currentUser) return;
+      fetch(`${API_BASE}/user/save-chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: currentUser,
+          convo_id: currentConvoId,
+          messages,
+          theme: theme || document.documentElement.getAttribute("data-theme")
+        })
+      });
+    }
+
+    function renderStream() {
+      const stream = document.getElementById("stream");
+      stream.innerHTML = "";
+      messages.forEach(m => {
+        const el = document.createElement("div");
+        el.className = `msg ${m.role === "user" ? "user" : "ai"}`;
+        if (m.role === "product") {
+          const p = m.product;
+          const img = p.image ? `${API_BASE}/images/${encodeURIComponent(p.image)}` : '';
+          el.innerHTML = `
+            <div class="product-card">
+              <div class="thumb">
+                <img src="${img}" onerror="this.src='https://via.placeholder.com/120/cccccc/666666?text=No+Image'" />
+              </div>
+              <div class="prod-meta">
+                <h4 class="prod-title">${escapeHtml(p.name)}</h4>
+                <div class="prod-price">Rs${Number(p.cost || 0).toFixed(2)} • ⭐ ${Number(p.rating || 0).toFixed(1)}</div>
+                <div class="action-btns">
+                  <button class="btn btn-primary btn-small" onclick="addTo('cart', '${escapeHtml(p.name)}')">Add to Cart</button>
+                  <button class="btn btn-secondary btn-small" onclick="addTo('wishlist', '${escapeHtml(p.name)}')">Wishlist</button>
+                  <button class="btn btn-secondary btn-small" onclick="addTo('favorite', '${escapeHtml(p.name)}')">Favorite</button>
+                </div>
+              </div>
+            </div>`;
+        } else {
+          el.innerHTML = `<div class="text">${m.content}</div>`;
+        }
+        stream.appendChild(el);
+      });
+      stream.scrollTop = stream.scrollHeight;
+    }
+
+    async function addTo(type, name) {
+      await fetch(`${API_BASE}/user/action`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: currentUser, action: type, product: name })
+      });
+      alert(name + " added to " + type + "!");
+      updateBadges();
+      if (type === "cart") loadCart();
+    }
+
+    async function updateBadges() {
+      if (!currentUser) return;
+      const user = await (await fetch(`${API_BASE}/user/data?username=${currentUser}`)).json();
+      document.getElementById('cartBadge').textContent = user.cart?.length || 0;
+      document.getElementById('wishlistBadge').textContent = user.wishlist?.length || 0;
+      document.getElementById('favoritesBadge').textContent = user.favorites?.length || 0;
+    }
+
+    async function loadRecommendations() {
+      const el = document.getElementById('recommendationsContent');
+      el.innerHTML = '<p>Loading recommendations...</p>';
+      const recs = await (await fetch(`${API_BASE}/recommend?username=${currentUser}`)).json();
+      if (!recs.recommendations?.length) {
+        el.innerHTML = '<div class="empty-state"><div class="icon">No recommendations</div><p>Start chatting to get suggestions!</p></div>';
+        return;
+      }
+      el.innerHTML = `<div class="grid-container">${recs.recommendations.map(p => `
+        <div class="grid-card" onclick="addTo('cart', '${escapeHtml(p.name)}')">
+          <img src="${API_BASE}/images/${encodeURIComponent(p.image)}" 
+               onerror="this.src='https://via.placeholder.com/200/cccccc/666666?text=No+Image'" />
+          <div class="grid-card-content">
+            <div class="grid-card-title">${escapeHtml(p.name)}</div>
+            <div class="grid-card-price">Rs${Number(p.cost || 0).toFixed(2)}</div>
+            <button class="btn btn-primary btn-small" onclick="event.stopPropagation(); addTo('cart', '${escapeHtml(p.name)}')">Add to Cart</button>
+          </div>
+        </div>`).join('')}</div>`;
+    }
+
+    async function loadOrders() {
+      const el = document.getElementById('ordersContent');
+      const orders = await (await fetch(`${API_BASE}/user/orders?username=${currentUser}`)).json();
+      document.getElementById('ordersBadge').textContent = orders.orders?.length || 0;
+      if (!orders.orders?.length) {
+        el.innerHTML = '<div class="empty-state"><div class="icon">No orders</div><p>You have no orders yet</p></div>';
+        return;
+      }
+      el.innerHTML = orders.orders.map(o => `
+        <div class="order-card">
+          <div class="order-header">
+            <div><div class="order-id">Order #${o.order_id}</div></div>
+            <span class="status-badge status-confirmed">${o.status}</span>
+          </div>
+          <div>Shipping: ${o.shipping_date} • Tracking: ${o.tracking}</div>
+          <div class="timeline">
+            <div class="timeline-item"><div class="timeline-dot completed">Checkmark</div><div class="timeline-content"><div class="timeline-title">Order Confirmed</div><div class="timeline-date">${o.order_date.split('T')[0]}</div></div></div>
+            <div class="timeline-item"><div class="timeline-dot completed">Truck</div><div class="timeline-content"><div class="timeline-title">Shipped</div><div class="timeline-date">${o.shipping_date}</div></div></div>
+            <div class="timeline-item"><div class="timeline-dot">House</div><div class="timeline-content"><div class="timeline-title">Delivered</div><div class="timeline-date">${new Date(Date.now() + 5*24*60*60*1000).toISOString().split('T')[0]}</div></div></div>
+          </div>
+        </div>`).join('');
+    }
+
+    async function loadCart() {
+      const user = await (await fetch(`${API_BASE}/user/data?username=${currentUser}`)).json();
+      const el = document.getElementById('cartContent');
+      const summary = document.getElementById('cartSummary');
+      if (!user.cart?.length) {
+        el.innerHTML = '<div class="empty-state"><div class="icon">Cart empty</div><p>Add items from chat!</p></div>';
+        summary.style.display = 'none';
+        return;
+      }
+      el.innerHTML = user.cart.map(p => `
+        <div class="product-card">
+          <div class="prod-meta">
+            <div class="prod-title">${escapeHtml(p)}</div>
+          </div>
+        </div>`).join('');
+      const totalItems = user.cart.length;
+      document.getElementById('subtotal').textContent = `Rs${(totalItems * 150).toFixed(2)}`;
+      document.getElementById('tax').textContent = `Rs${(totalItems * 20).toFixed(2)}`;
+      document.getElementById('total').textContent = `Rs${(totalItems * 170).toFixed(2)}`;
+      summary.style.display = 'block';
+    }
+
+    async function loadWishlist() {
+      const user = await (await fetch(`${API_BASE}/user/data?username=${currentUser}`)).json();
+      const el = document.getElementById('wishlistContent');
+      el.innerHTML = user.wishlist?.length ? user.wishlist.map(p => `<div class="product-card"><div class="prod-meta"><div class="prod-title">${escapeHtml(p)}</div></div></div>`).join('') : '<div class="empty-state"><div class="icon">Empty</div></div>';
+    }
+
+    async function loadFavorites() {
+      const user = await (await fetch(`${API_BASE}/user/data?username=${currentUser}`)).json();
+      const el = document.getElementById('favoritesContent');
+      el.innerHTML = user.favorites?.length ? user.favorites.map(p => `<div class="product-card"><div class="prod-meta"><div class="prod-title">${escapeHtml(p)}</div></div></div>`).join('') : '<div class="empty-state"><div class="icon">Empty</div></div>';
+    }
+
+    async function placeOrder() {
+      if (confirm("Place order now?")) {
+        await fetch(`${API_BASE}/user/order`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: currentUser })
+        });
+        alert("Order placed successfully!");
+        switchView('orders');
+      }
+    }
+
+    function switchView(view) {
+      document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+      document.querySelector(`[data-view="${view}"]`).classList.add('active');
+      document.querySelectorAll('.content-view').forEach(v => v.classList.remove('active'));
+      document.getElementById(view + 'View').classList.add('active');
+      document.getElementById('pageTitle').textContent = {
+        chat: 'Chat Assistant', recommendations: 'Recommended for You', orders: 'My Orders',
+        cart: 'Shopping Cart', wishlist: 'My Wishlist', favorites: 'My Favorites'
+      }[view];
+      document.querySelector('.composer').style.display = view === 'chat' ? 'block' : 'none';
+      loadViewContent(view);
+    }
+
+    async function loadViewContent(view) {
+      if (view === 'recommendations') await loadRecommendations();
+      if (view === 'orders') await loadOrders();
+      if (view === 'cart') await loadCart();
+      if (view === 'wishlist') await loadWishlist();
+      if (view === 'favorites') await loadFavorites();
+      updateBadges();
+    }
+
+    // Navigation
+    document.querySelectorAll('.nav-item').forEach(item => {
+      item.addEventListener('click', () => switchView(item.dataset.view));
+    });
+
+    // Init
+    document.getElementById('sendBtn').onclick = sendQuery;
+    document.getElementById('composerInput').addEventListener('keypress', e => {
+      if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendQuery(); }
+    });
+    window.addEventListener("beforeunload", () => saveChat());
+  </script>
+</body>
+</html>

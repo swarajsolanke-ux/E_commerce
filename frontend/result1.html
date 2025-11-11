@@ -1,0 +1,1382 @@
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce Chatbot</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#e0e4e5;color:#333;overflow:hidden}
+    .app{display:flex;height:100vh;position:relative}
+    .left-drawer{position:fixed;left:0;top:0;bottom:0;width:300px;background:white;border-right:1px solid #e0e0e0;display:flex;flex-direction:column;z-index:1000;transition:transform .3s}
+    .left-drawer.hidden{transform:translateX(-100%)}
+    .drawer-head{padding:20px;border-bottom:1px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center}
+    .drawer-head h3{font-size:18px;font-weight:600}
+    .history-list{flex:1;overflow-y:auto;padding:10px}
+    .history-item{padding:12px;margin-bottom:8px;background:#f9f9f9;border-radius:8px;cursor:pointer;transition:background .2s}
+    .history-item:hover{background:#f0f0f0}
+    .history-item .q{font-size:14px;margin-bottom:4px;color:#333}
+    .history-item .t{font-size:11px;color:#999}
+    .drawer-foot{padding:15px;border-top:1px solid #e0e0e0}
+    .overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:999;transition:opacity .3s}
+    .overlay.hidden{display:none}
+    .main{flex:1;display:flex;flex-direction:column;background:white}
+    .topbar{padding:15px 20px;border-bottom:1px solid #e0e0e0;display:flex;justify-content:space-between;align-items:center;background:white}
+    .topbar h1{font-size:20px;font-weight:600;color:#1a1a1a}
+    .top-right{display:flex;gap:10px}
+    .content{flex:1;overflow-y:auto;padding:20px;background:#fafafa}
+    .stream{max-width:900px;margin:0 auto}
+    .msg{margin-bottom:20px;animation:fadeIn .3s}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+    .msg .text{padding:12px 16px;border-radius:12px;display:inline-block;max-width:80%;word-wrap:break-word}
+    .msg.user .text{background:#007bff;color:white;margin-left:auto;float:right}
+    .msg.ai .text{background:white;color:#333;border:1px solid #e0e0e0}
+    .msg .meta{font-size:11px;color:#999;margin-top:4px;clear:both}
+    .msg.user .meta{text-align:right}
+    .product-card{background:white;border:1px solid #e0e0e0;border-radius:12px;padding:16px;display:flex;gap:16px;max-width:600px;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+    .product-card .thumb{width:120px;height:120px;flex-shrink:0;background:#f5f5f5;border-radius:8px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .product-card .thumb img{width:100%;height:100%;object-fit:cover}
+    .product-card .prod-meta{flex:1}
+    .product-card .prod-title{font-size:16px;font-weight:600;margin-bottom:8px;color:#1a1a1a}
+    .product-card .prod-price{font-size:18px;font-weight:700;color:#007bff;margin-bottom:8px}
+    .product-card .prod-review{font-size:13px;color:#666;line-height:1.4}
+    .composer{border-top:1px solid #e0e0e0;background:white;padding:15px 20px}
+    .composer-inner{max-width:900px;margin:0 auto;display:flex;gap:10px;align-items:flex-end}
+    .left-controls{display:flex;gap:8px}
+    .tool-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border:1px solid #e0e0e0;border-radius:8px;cursor:pointer;transition:all .2s;font-size:18px}
+    .tool-btn:hover{background:#e8e8e8}
+    .composer-text{flex:1;padding:10px 14px;border:1px solid #e0e0e0;border-radius:8px;font-family:inherit;font-size:14px;resize:none;outline:none;transition:border .2s;min-height:40px;max-height:120px}
+    .composer-text:focus{border-color:#007bff}
+    .composer-actions{display:flex;gap:8px}
+    .btn{padding:10px 16px;border:none;border-radius:8px;font-family:inherit;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .btn.subtle{background:#f5f5f5;color:#666;border:1px solid #e0e0e0}
+    .btn.subtle:hover{background:#e8e8e8;color:#333}
+    .btn.send{background:#007bff;color:white}
+    .btn.send:hover{background:#0056b3}
+    .composer-meta{max-width:900px;margin:8px auto 0;font-size:12px}
+    .muted{color:#999}
+    .small{font-size:13px;padding:20px;text-align:center}
+    .row{display:flex;align-items:center;gap:8px}
+  </style>
+</head>
+<body>
+<div id="app" class="app">
+
+  <aside id="leftDrawer" class="left-drawer hidden">
+    <div class="drawer-head"><div><h3>Chat History</h3></div><button id="closeDrawer" class="btn subtle">Close</button></div>
+    <div id="historyList" class="history-list"></div>
+    <div class="drawer-foot"><button id="clearHistory" class="btn subtle">Clear History</button></div>
+  </aside>
+  <div id="overlay" class="overlay hidden"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left"><h1>E-commerce Chatbot</h1></div>
+      <div class="top-right row"><button id="openDrawer" class="btn subtle">History</button></div>
+    </header>
+    <section class="content"><div id="stream" class="stream" aria-live="polite"></div></section>
+    <footer class="composer">
+      <div class="composer-inner">
+        <div class="left-controls row"><label for="attachInput" class="tool-btn">📎</label><input id="attachInput" type="file" style="display:none"/></div>
+        <textarea id="composerInput" class="composer-text" placeholder='Ask: "price of denim jeans" – press Enter' rows="1"></textarea>
+        <div class="composer-actions">
+          <button id="webSearchBtn" class="btn subtle">Web</button>
+          <button id="sendBtn" class="btn send">Submit</button>
+        </div>
+      </div>
+      <div class="composer-meta"><span id="attachmentLabel" class="muted"></span></div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(() => {
+  const API_BASE = window.location.origin || `${location.protocol}//${location.hostname}:5000`;
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+  const stream = $('stream'), input = $('composerInput'), send = $('sendBtn'),
+        attach = $('attachInput'), attachLabel = $('attachmentLabel'),
+        webBtn = $('webSearchBtn'), drawer = $('leftDrawer'), overlay = $('overlay'),
+        openDrawer = $('openDrawer'), closeDrawer = $('closeDrawer'),
+        historyList = $('historyList'), clearHist = $('clearHistory');
+
+  let msgs = [], attachment = null;
+
+  const save = () => { try{localStorage.setItem('chat_messages', JSON.stringify(msgs))}catch(e){} };
+  const load = () => { try{const s=localStorage.getItem('chat_messages'); if(s) msgs=JSON.parse(s)}catch(e){} };
+
+  const render = () => {
+    stream.innerHTML = '';
+    msgs.forEach(m => {
+      const el = document.createElement('div');
+      if (m.role === 'user') {
+        el.className = 'msg user';
+        el.innerHTML = `<div class="text">${esc(m.text)}</div>
+                        <div class="meta">${m.time?new Date(m.time).toLocaleString():''}${m.attachment?` • ${esc(m.attachment)}`:''}</div>`;
+      } else if (m.role === 'product') {
+        const p = m.product || {};
+        const name = esc(p.name||'Unknown');
+        const price = p.cost ? 'Rs'+Number(p.cost).toFixed(2) : '—';
+        const rating = p.rating!=null ? '⭐ '+Number(p.rating).toFixed(1) : '—';
+        const review = esc(p.review||'');
+        const img = p.image ? `<img src="${API_BASE}/images/${encodeURIComponent(p.image)}" alt="${name}"/>` : 'No image';
+
+        let recHTML = '';
+        if (m.recommendations && m.recommendations.length) {
+          recHTML = `<div style="margin-top:20px;font-size:14px;color:#555;">Recommended for you:</div>
+                     <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px;">`;
+          m.recommendations.forEach(r => {
+            const rn = esc(r.name||'Unknown');
+            const rp = r.cost ? 'Rs'+Number(r.cost).toFixed(2) : '—';
+            const rr = r.rating!=null ? '⭐ '+Number(r.rating).toFixed(1) : '—';
+            const ri = r.image ? `<img src="${API_BASE}/images/${encodeURIComponent(r.image)}" style="width:80px;height:80px;object-fit:cover;border-radius:6px;"/>` : '';
+            recHTML += `<div style="background:white;border:1px solid #eee;border-radius:8px;padding:10px;width:140px;text-align:center;box-shadow:0 1px 4px rgba(0,0,0,.05);">
+                          ${ri?`<div style="margin-bottom:8px;">${ri}</div>`:''}
+                          <div style="font-size:13px;font-weight:600;margin-bottom:4px;">${rn}</div>
+                          <div style="font-size:14px;color:#007bff;font-weight:600;">${rp}</div>
+                          <div style="font-size:12px;color:#666;">${rr}</div>
+                        </div>`;
+          });
+          recHTML += `</div>`;
+        }
+
+        el.className = 'msg product ai';
+        el.innerHTML = `<div class="product-card">
+                          <div class="thumb">${img}</div>
+                          <div class="prod-meta">
+                            <h4 class="prod-title">${name}</h4>
+                            <div class="prod-price">${price} • ${rating}</div>
+                            <div class="prod-review">${review}</div>
+                          </div>
+                        </div>
+                        ${recHTML}
+                        <div class="meta">${m.time?new Date(m.time).toLocaleString():''}</div>`;
+      } else {
+        el.className = 'msg ai';
+        el.innerHTML = `<div class="text">${esc(m.text)}</div>
+                        <div class="meta">${m.time?new Date(m.time).toLocaleString():''}</div>`;
+      }
+      stream.appendChild(el);
+    });
+    stream.scrollTop = stream.scrollHeight;
+  };
+
+  const renderHist = () => {
+    historyList.innerHTML = '';
+    const recent = msgs.filter(m=>m.role==='user').slice(-50).reverse();
+    if (!recent.length) { historyList.innerHTML = `<div class="muted small">No history yet</div>`; return; }
+    recent.forEach(q => {
+      const it = document.createElement('div');
+      it.className='history-item';
+      it.innerHTML = `<div class="q">${esc(q.text)}</div><div class="t">${new Date(q.time).toLocaleString()}</div>`;
+      it.onclick = () => { input.value = q.text; input.focus(); drawer.classList.add('hidden'); overlay.classList.add('hidden'); };
+      historyList.appendChild(it);
+    });
+  };
+
+  const sendQuery = async () => {
+    let txt = input.value.trim();
+    if (!txt && !attachment) return;
+    if (attachment) txt += ` [attachment: ${attachment.name}]`;
+
+    msgs.push({role:'user', text:txt, time:Date.now(), attachment: attachment?.name||null});
+    save(); render(); renderHist();
+
+    input.value=''; attachment=null; attachLabel.textContent='';
+
+    msgs.push({role:'assistant', text:'...', time:Date.now()});
+    save(); render();
+
+    try {
+      const resp = await fetch(`${API_BASE}/query`, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({query:txt})
+      });
+      if (msgs[msgs.length-1].role==='assistant' && msgs[msgs.length-1].text==='...') msgs.pop();
+
+      if (!resp.ok) throw new Error((await resp.json().catch(()=>null))?.detail || `HTTP ${resp.status}`);
+
+      const data = await resp.json();
+      msgs.push({role:'assistant', text: data.response || 'Welcome to our E-commerce  chatbot . Please let me know how I can assist you today', time:Date.now()});
+
+      const prod = data.products?.[0];
+      if (prod) {
+        msgs.push({role:'product', product:prod, recommendations:data.recommendations||[], time:Date.now()});
+      }
+
+      save(); render(); renderHist();
+    } catch(e) {
+      if (msgs[msgs.length-1].role==='assistant' && msgs[msgs.length-1].text==='...') msgs.pop();
+      msgs.push({role:'assistant', text:`Error: ${e.message}`, time:Date.now()});
+      save(); render(); renderHist();
+    }
+  };
+
+  attach.addEventListener('change', e=>{ const f=e.target.files?.[0]; if(!f) return; attachment=f; attachLabel.textContent=`Attached: ${f.name}`; });
+  input.addEventListener('keydown', e=>{ if(e.key==='Enter' && !e.shiftKey){e.preventDefault();sendQuery();} });
+  send.addEventListener('click', sendQuery);
+  webBtn.addEventListener('click', ()=>{ const q=input.value.trim(); if(q) window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`,'_blank'); });
+  openDrawer.addEventListener('click', ()=>{ drawer.classList.remove('hidden'); overlay.classList.remove('hidden'); renderHist(); });
+  closeDrawer.addEventListener('click', ()=>{ drawer.classList.add('hidden'); overlay.classList.add('hidden'); });
+  overlay.addEventListener('click', ()=>{ drawer.classList.add('hidden'); overlay.classList.add('hidden'); });
+  clearHist.addEventListener('click', ()=>{ if(confirm('Clear all history?')){ msgs=[]; save(); render(); renderHist(); } });
+
+  load(); render(); renderHist();
+})();
+</script>
+</body>
+</html> -->
+
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce AI Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8f9fa;
+      --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      --text-primary: #1a1a1a;
+      --text-secondary: #6c757d;
+      --border: #e0e0e0;
+      --card: #ffffff;
+      --accent: #667eea;
+      --accent-hover: #5568d3;
+      --shadow: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.12);
+      --success: #10b981;
+      --danger: #ef4444;
+      --warning: #f59e0b;
+    }
+    
+    [data-theme="dark"] {
+      --bg-primary: #0f0f0f;
+      --bg-secondary: #1a1a1a;
+      --bg-gradient: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+      --text-primary: #e5e7eb;
+      --text-secondary: #9ca3af;
+      --border: #374151;
+      --card: #1f2937;
+      --accent: #667eea;
+      --accent-hover: #7c8ef5;
+      --shadow: 0 4px 20px rgba(0,0,0,0.3);
+      --shadow-lg: 0 10px 40px rgba(0,0,0,0.5);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      overflow: hidden;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+
+    .app { 
+      display: flex; 
+      height: 100vh; 
+      position: relative;
+    }
+
+    /* Sidebar Drawer */
+    .left-drawer {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 350px;
+      background: var(--card);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      z-index: 1000;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .left-drawer.hidden { 
+      transform: translateX(-100%); 
+    }
+
+    .drawer-head {
+      padding: 24px;
+      border-bottom: 1px solid var(--border);
+      background: var(--bg-gradient);
+      color: white;
+    }
+
+    .drawer-head h3 {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .drawer-head h3::before {
+      content: '📜';
+      font-size: 24px;
+    }
+
+    .drawer-head p {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .history-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+    }
+
+    .history-list::-webkit-scrollbar { width: 6px; }
+    .history-list::-webkit-scrollbar-track { background: transparent; }
+    .history-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .history-item {
+      padding: 16px;
+      margin-bottom: 12px;
+      background: var(--bg-secondary);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .history-item::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 4px;
+      background: var(--accent);
+      transform: scaleY(0);
+      transition: transform 0.3s ease;
+    }
+
+    .history-item:hover {
+      background: var(--card);
+      border-color: var(--accent);
+      transform: translateX(4px);
+      box-shadow: var(--shadow);
+    }
+
+    .history-item:hover::before {
+      transform: scaleY(1);
+    }
+
+    .history-item .q {
+      font-size: 15px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .history-item .t {
+      font-size: 12px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .history-item .t::before {
+      content: '🕐';
+    }
+
+    .drawer-foot {
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 999;
+      transition: opacity 0.3s;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .overlay.hidden { 
+      display: none; 
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: var(--bg-primary);
+      margin-left: 0;
+      transition: margin-left 0.3s ease;
+    }
+
+    .topbar {
+      padding: 20px 30px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--card);
+      box-shadow: var(--shadow);
+      position: relative;
+      z-index: 10;
+    }
+
+    .top-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .topbar h1 {
+      font-size: 24px;
+      font-weight: 700;
+      background: var(--bg-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+ /* 🛍️ */
+    .topbar h1::before {
+      content: '';
+      font-size: 28px;
+      -webkit-text-fill-color: initial;
+    }
+
+    .top-right {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 20px;
+    }
+
+    .theme-toggle:hover {
+      transform: rotate(180deg) scale(1.1);
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 30px 20px;
+      background: var(--bg-secondary);
+    }
+
+    .content::-webkit-scrollbar { width: 8px; }
+    .content::-webkit-scrollbar-track { background: transparent; }
+    .content::-webkit-scrollbar-thumb { background: var(--border); border-radius: 10px; }
+
+    .stream {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .msg {
+      margin-bottom: 24px;
+      animation: slideUp 0.4s ease;
+      opacity: 0;
+      animation-fill-mode: forwards;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg.user {
+      display: flex;
+      justify-content: flex-end;
+      gap: 12px;
+    }
+
+    .msg.ai {
+      display: flex;
+      gap: 12px;
+    }
+
+    .msg-avatar {
+      width: 50px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      flex-shrink: 0;
+      box-shadow: var(--shadow);
+      background: var(--card);
+    }
+
+    .msg.user .msg-avatar {
+      background: var(--bg-gradient);
+    }
+
+    .msg.ai .msg-avatar {
+      background: var(--card);
+      border: 4px solid var(--accent);
+    }
+
+    .msg .text {
+      padding: 15px 20px;
+      border-radius: 18px;
+      max-width: 70%;
+      word-wrap: break-word;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .msg .text:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .msg.user .text {
+      background: var(--bg-gradient);
+      color: white;
+      border-radius: 18px 18px 6px 18px;
+    }
+
+    .msg.ai .text {
+      background: var(--card);
+      color: var(--text-primary);
+      border: 6px solid var(--border);
+      border-radius: 14px 14px 14px 4px;
+    }
+
+    .msg .meta {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .msg.user .meta {
+      justify-content: flex-end;
+    }
+
+    /* Product Card */
+    .product-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      box-shadow: var(--shadow-lg);
+      transition: all 0.4s ease;
+      animation: scaleIn 0.5s ease;
+      max-width: 100%;
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 48px rgba(102, 126, 234, 0.2);
+    }
+
+    .product-card .thumb {
+      width: 140px;
+      height: 140px;
+      flex-shrink: 0;
+      background: var(--bg-secondary);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .product-card .thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+      transform: translateX(-100%);
+      animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+      to { transform: translateX(100%); }
+    }
+
+    .product-card .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover .thumb img {
+      transform: scale(1.1);
+    }
+
+    .product-card .prod-meta {
+      flex: 1;
+    }
+
+    .product-card .prod-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: var(--text-primary);
+    }
+
+    .product-card .prod-price {
+      font-size: 26px;
+      font-weight: 800;
+      background: var(--bg-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+
+    .product-card .prod-review {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Recommendations */
+    .recommendations {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 2px solid var(--border);
+    }
+
+    .recommendations h4 {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .recommendations h4::before {
+      content: '✨';
+    }
+
+    .rec-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .rec-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .rec-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: var(--shadow-lg);
+      border-color: var(--accent);
+    }
+
+    .rec-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+
+    .rec-card .name {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-primary);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .rec-card .price {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .rec-card .rating {
+      font-size: 12px;
+      color: var(--text-secondary);
+    }
+
+    /* Composer */
+    .composer {
+      border-top: 1px solid var(--border);
+      background: var(--card);
+      padding: 20px 30px;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+    }
+
+    .composer-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+    }
+
+    .left-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--bg-secondary);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 20px;
+      position: relative;
+    }
+
+    .tool-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      transform: scale(1.1);
+    }
+
+    .tool-btn:hover::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text-primary);
+      color: var(--bg-primary);
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      white-space: nowrap;
+      margin-bottom: 8px;
+    }
+
+    .composer-text {
+      flex: 1;
+      padding: 14px 18px;
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 15px;
+      resize: none;
+      outline: none;
+      transition: all 0.3s ease;
+      min-height: 44px;
+      max-height: 120px;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      box-shadow: var(--shadow);
+    }
+
+    .composer-text:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1);
+    }
+
+    .composer-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      white-space: nowrap;
+      box-shadow: var(--shadow);
+    }
+
+    .btn:active {
+      transform: scale(0.95);
+    }
+
+    .btn.subtle {
+      background: var(--bg-secondary);
+      color: var(--text-primary);
+      border: 2px solid var(--border);
+    }
+
+    .btn.subtle:hover {
+      background: var(--card);
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .btn.send {
+      background: var(--bg-gradient);
+      color: white;
+      min-width: 100px;
+    }
+
+    .btn.send:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(102, 126, 234, 0.4);
+    }
+
+    .composer-meta {
+      max-width: 900px;
+      margin: 12px auto 0;
+      font-size: 13px;
+    }
+
+    .muted {
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .attachment-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 12px;
+      background: var(--accent);
+      color: white;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .small {
+      font-size: 14px;
+      padding: 40px;
+      text-align: center;
+      color: var(--text-secondary);
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 80px 20px;
+    }
+
+    .empty-state .icon {
+      font-size: 64px;
+      margin-bottom: 16px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .empty-state h3 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-primary);
+    }
+
+    .empty-state p {
+      font-size: 16px;
+      color: var(--text-secondary);
+    }
+
+    /* Loading Animation */
+    .loading-dots {
+      display: inline-flex;
+      gap: 6px;
+    }
+
+    .loading-dots span {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: bounce 1.4s infinite ease-in-out;
+    }
+
+    .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .left-drawer { width: 280px; }
+      .topbar { padding: 16px 20px; }
+      .topbar h1 { font-size: 20px; }
+      .content { padding: 20px 16px; }
+      .composer { padding: 16px 20px; }
+      .msg .text { max-width: 85%; }
+      .product-card { flex-direction: column; }
+      .product-card .thumb { width: 100%; height: 200px; }
+      .rec-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+<div id="app" class="app">
+  <!-- Sidebar Drawer -->
+  <aside id="leftDrawer" class="left-drawer hidden">
+    <div class="drawer-head">
+      <h3>Chat History</h3>
+      <p>Your recent conversations</p>
+    </div>
+    <div id="historyList" class="history-list"></div>
+    <div class="drawer-foot">
+      <button id="closeDrawer" class="btn subtle" style="flex:1">Close</button>
+      <button id="clearHistory" class="btn subtle" style="flex:1">Clear All</button>
+    </div>
+  </aside>
+  <div id="overlay" class="overlay hidden"></div>
+
+  <!-- Main Content -->
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left">
+        <h1>E-commerce Assistant</h1>
+      </div>
+      <div class="top-right">
+        <button id="openDrawer" class="btn subtle"> History</button>
+        <div id="themeToggle" class="theme-toggle" data-tooltip="Toggle theme">🌙</div>
+      </div>
+    </header>
+    
+    <section class="content">
+      <div id="stream" class="stream" aria-live="polite"></div>
+    </section>
+    
+    <footer class="composer">
+      <div class="composer-inner">
+        <div class="left-controls">
+          <label for="attachInput" class="tool-btn" data-tooltip="Attach file">📎</label>
+          <input id="attachInput" type="file" style="display:none" accept="image/*,.pdf"/>
+        </div>
+        <textarea 
+          id="composerInput" 
+          class="composer-text" 
+          placeholder='Ask me anything: "price of denim jeans", "show me laptops"...' 
+          rows="1"
+        ></textarea>
+        <div class="composer-actions">
+          <button id="webSearchBtn" class="btn subtle" data-tooltip="Search web">🌐 Web</button>
+          <button id="sendBtn" class="btn send">✨ Send</button>
+        </div>
+      </div>
+      <div class="composer-meta">
+        <span id="attachmentLabel" class="muted"></span>
+      </div>
+    </footer>
+  </main>
+</div>
+
+<script>
+(() => {
+  const API_BASE = window.location.origin || `${location.protocol}//${location.hostname}:5000`;
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+
+  const stream = $('stream'), input = $('composerInput'), send = $('sendBtn'),
+        attach = $('attachInput'), attachLabel = $('attachmentLabel'),
+        webBtn = $('webSearchBtn'), drawer = $('leftDrawer'), overlay = $('overlay'),
+        openDrawer = $('openDrawer'), closeDrawer = $('closeDrawer'),
+        historyList = $('historyList'), clearHist = $('clearHistory'),
+        themeToggle = $('themeToggle');
+
+  let msgs = [], attachment = null, currentTheme = 'light';
+
+  // Theme Management
+  const loadTheme = () => {
+    try {
+      const saved = localStorage.getItem('theme');
+      if (saved) {
+        currentTheme = saved;
+        document.documentElement.setAttribute('data-theme', currentTheme);
+        themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+      }
+    } catch(e) {}
+  };
+
+  const toggleTheme = () => {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', currentTheme);
+    themeToggle.textContent = currentTheme === 'dark' ? '☀️' : '🌙';
+    try { localStorage.setItem('theme', currentTheme); } catch(e) {}
+  };
+
+  // Storage
+  const save = () => { 
+    try { localStorage.setItem('chat_messages', JSON.stringify(msgs)); } catch(e) {} 
+  };
+  
+  const load = () => { 
+    try {
+      const s = localStorage.getItem('chat_messages'); 
+      if(s) msgs = JSON.parse(s);
+    } catch(e) {} 
+  };
+
+  // Render Messages
+  const render = () => {
+    if (msgs.length === 0) {
+      stream.innerHTML = `
+        <div class="empty-state">
+          <div class="icon"></div>
+          <h3>Welcome to E-commerce Assistant!</h3>
+          <p>Ask me anything about products, prices, or recommendations</p>
+        </div>
+      `;
+      return;
+    }
+
+    stream.innerHTML = '';
+    msgs.forEach((m, idx) => {
+      const el = document.createElement('div');
+      el.style.animationDelay = `${idx * 0.05}s`;
+      
+      if (m.role === 'user') {
+        el.className = 'msg user';
+        el.innerHTML = `
+          <div>
+            <div class="text">${esc(m.text)}</div>
+            <div class="meta">
+              ${m.time ? new Date(m.time).toLocaleTimeString() : ''}
+              ${m.attachment ? `<span class="attachment-badge">📎 ${esc(m.attachment)}</span>` : ''}
+            </div>
+          </div>
+          <div class="msg-avatar">👤</div>
+        `;
+      } else if (m.role === 'product') {
+        const p = m.product || {};
+        const name = esc(p.name || 'Unknown Product');
+        const price = p.cost ? '₹' + Number(p.cost).toFixed(2) : '—';
+        const rating = p.rating != null ? '⭐ ' + Number(p.rating).toFixed(1) : '—';
+        const review = esc(p.review || 'No reviews available');
+        const img = p.image 
+          ? `<img src="${API_BASE}/images/${encodeURIComponent(p.image)}" alt="${name}"/>` 
+          : '<div style="font-size:48px;">📦</div>';
+
+        let recHTML = '';
+        if (m.recommendations && m.recommendations.length) {
+          recHTML = `
+            <div class="recommendations">
+              <h4>You might also like</h4>
+              <div class="rec-grid">`;
+          m.recommendations.forEach(r => {
+            const rn = esc(r.name || 'Unknown');
+            const rp = r.cost ? '₹' + Number(r.cost).toFixed(2) : '—';
+            const rr = r.rating != null ? '⭐ ' + Number(r.rating).toFixed(1) : '—';
+            const ri = r.image 
+              ? `<img src="${API_BASE}/images/${encodeURIComponent(r.image)}" alt="${rn}"/>` 
+              : '';
+            recHTML += `
+              <div class="rec-card">
+                ${ri || '<div style="height:100px;display:flex;align-items:center;justify-content:center;font-size:32px;">📦</div>'}
+                <div class="name">${rn}</div>
+                <div class="price">${rp}</div>
+                <div class="rating">${rr}</div>
+              </div>`;
+          });
+          recHTML += `</div></div>`;
+        }
+
+        el.className = 'msg product ai';
+        el.innerHTML = `
+          <div class="msg-avatar">🤖</div>
+          <div style="max-width:85%;">
+            <div class="product-card">
+              <div class="thumb">${img}</div>
+              <div class="prod-meta">
+                <h4 class="prod-title">${name}</h4>
+                <div class="prod-price">${price} • ${rating}</div>
+                <div class="prod-review">${review}</div>
+              </div>
+            </div>
+            ${recHTML}
+            <div class="meta">${m.time ? new Date(m.time).toLocaleTimeString() : ''}</div>
+          </div>
+        `;
+      } else {
+        el.className = 'msg ai';
+        const isLoading = m.text === '...';
+        const textContent = isLoading 
+          ? '<div class="loading-dots"><span></span><span></span><span></span></div>' 
+          : esc(m.text);
+        el.innerHTML = `
+          <div class="msg-avatar">🤖</div>
+          <div>
+            <div class="text">${textContent}</div>
+            <div class="meta">${m.time && !isLoading ? new Date(m.time).toLocaleTimeString() : ''}</div>
+          </div>
+        `;
+      }
+      stream.appendChild(el);
+    });
+    stream.scrollTop = stream.scrollHeight;
+  };
+
+  // Render History
+  const renderHist = () => {
+    historyList.innerHTML = '';
+    const recent = msgs.filter(m => m.role === 'user').slice(-50).reverse();
+    
+    if (!recent.length) { 
+      historyList.innerHTML = `
+        <div class="empty-state" style="padding:40px 20px;">
+          <div class="icon" style="font-size:48px;"></div>
+          <p style="color:var(--text-secondary);">No conversations yet</p>
+        </div>
+      `; 
+      return; 
+    }
+    
+    recent.forEach(q => {
+      const it = document.createElement('div');
+      it.className = 'history-item';
+      it.innerHTML = `
+        <div class="q">${esc(q.text)}</div>
+        <div class="t">${new Date(q.time).toLocaleString()}</div>
+      `;
+      it.onclick = () => { 
+        input.value = q.text; 
+        input.focus(); 
+        drawer.classList.add('hidden'); 
+        overlay.classList.add('hidden'); 
+      };
+      historyList.appendChild(it);
+    });
+  };
+
+  // Send Query
+  const sendQuery = async () => {
+    let txt = input.value.trim();
+    if (!txt && !attachment) return;
+    
+    if (attachment) txt += ` [attachment: ${attachment.name}]`;
+
+    msgs.push({
+      role: 'user', 
+      text: txt, 
+      time: Date.now(), 
+      attachment: attachment?.name || null
+    });
+    save(); 
+    render(); 
+    renderHist();
+
+    input.value = ''; 
+    attachment = null; 
+    attachLabel.innerHTML = '';
+
+    // Show loading
+    msgs.push({role: 'assistant', text: '...', time: Date.now()});
+    save(); 
+    render();
+
+    try {
+      const resp = await fetch(`${API_BASE}/query`, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({query: txt})
+      });
+      
+      // Remove loading message
+      if (msgs[msgs.length - 1].role === 'assistant' && msgs[msgs.length - 1].text === '...') {
+        msgs.pop();
+      }
+
+      if (!resp.ok) {
+        throw new Error((await resp.json().catch(() => null))?.detail || `HTTP ${resp.status}`);
+      }
+
+      const data = await resp.json();
+      
+      // Add response
+      msgs.push({
+        role: 'assistant', 
+        text: data.response || 'Welcome to our E-commerce chatbot. Please let me know how I can assist you today', 
+        time: Date.now()
+      });
+
+      // Add product if available
+      const prod = data.products?.[0];
+      if (prod) {
+        msgs.push({
+          role: 'product', 
+          product: prod, 
+          recommendations: data.recommendations || [], 
+          time: Date.now()
+        });
+      }
+
+      save(); 
+      render(); 
+      renderHist();
+      
+    } catch(e) {
+      // Remove loading message
+      if (msgs[msgs.length - 1].role === 'assistant' && msgs[msgs.length - 1].text === '...') {
+        msgs.pop();
+      }
+      
+      msgs.push({
+        role: 'assistant', 
+        text: `Error: ${e.message}. Please try again.`, 
+        time: Date.now()
+      });
+      save(); 
+      render(); 
+      renderHist();
+    }
+  };
+
+  // Auto-resize textarea
+  const autoResize = () => {
+    input.style.height = 'auto';
+    input.style.height = Math.min(input.scrollHeight, 120) + 'px';
+  };
+
+  // Event Listeners
+  attach.addEventListener('change', e => { 
+    const f = e.target.files?.[0]; 
+    if (!f) return; 
+    attachment = f; 
+    attachLabel.innerHTML = `<span class="attachment-badge">📎 ${esc(f.name)}</span>`; 
+  });
+
+  input.addEventListener('input', autoResize);
+  
+  input.addEventListener('keydown', e => { 
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendQuery();
+    } 
+  });
+
+  send.addEventListener('click', sendQuery);
+
+  webBtn.addEventListener('click', () => { 
+    const q = input.value.trim(); 
+    if (q) window.open(`https://www.google.com/search?q=${encodeURIComponent(q)}`, '_blank'); 
+  });
+
+  openDrawer.addEventListener('click', () => { 
+    drawer.classList.remove('hidden'); 
+    overlay.classList.remove('hidden'); 
+    renderHist(); 
+  });
+
+  closeDrawer.addEventListener('click', () => { 
+    drawer.classList.add('hidden'); 
+    overlay.classList.add('hidden'); 
+  });
+
+  overlay.addEventListener('click', () => { 
+    drawer.classList.add('hidden'); 
+    overlay.classList.add('hidden'); 
+  });
+
+  clearHist.addEventListener('click', () => { 
+    if (confirm('🗑️ Clear all chat history? This cannot be undone.')) { 
+      msgs = []; 
+      save(); 
+      render(); 
+      renderHist(); 
+    } 
+  });
+
+  themeToggle.addEventListener('click', toggleTheme);
+
+  // Initialize
+  loadTheme();
+  load(); 
+  render(); 
+  renderHist();
+
+  // Welcome message if empty
+  if (msgs.length === 0) {
+    setTimeout(() => {
+      msgs.push({
+        role: 'assistant',
+        text: '👋 Hello! I\'m your AI Ecommerce assistant. I can help you find products, check prices, and provide recommendations. What are you looking for today?',
+        time: Date.now()
+      });
+      save();
+      render();
+    }, 500);
+  }
+})();
+</script>
+</body>
+</html>

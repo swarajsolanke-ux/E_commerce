@@ -1,0 +1,12 @@
+{
+  "users": {
+    "guest": {
+      "wishlist": [],
+      "cart": [],
+      "favorites": [],
+      "past_queries": []
+    }
+  },
+  "orders": [],
+  "next_order_id": 1000
+}

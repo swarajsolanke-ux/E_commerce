@@ -1,0 +1,1001 @@
+product_id,name,category,cost,rating,review,image_path
+1,Denim Jeans Slim,Clothing,159.26,3.2,"Amazing sound quality, worth every penny!",E_commerce/data/images/denim.jpeg
+2,Tennis Racket Pro,Sports,57.86,3.4,"Comfortable fit, but color fades after wash.",E_commerce/data/images/tennisracket.jpeg
+3,Bike Helmet Safety,Clothing,345.27,3.1,Gripping story from start to finish.,E_commerce/data/images/bike.png
+4,Bluetooth Speaker,Electronics,225.67,3.7,Durable and easy to use in the garden.,E_commerce/data/images/bluetooth.png
+5,Cookbook Essentials,Home & Garden,69.8,3.8,Great support for long runs.,data/images/product_5.jpg
+6,Wireless Earbuds Pro,Electronics,252.64,3.5,"Battery lasts all day, sleek design.",E_commerce/data/images/wirelessearbuds.png
+7,Outdoor Grill Gas,Home & Garden,26.85,4.7,"Perfect length, material is soft.",data/images/product_7.jpg
+8,Stand Mixer Kitchen,Electronics,455.57,3.7,Recipes are simple and delicious.,data/images/product_8.jpg
+9,Yoga Mat Non-Slip,Sports,136.8,3.6,Stylish and holds water well.,E_commerce/data/images/yogamat.jpeg
+10,Running Shoes Cushion,Sports,334.64,4.1,"Non-slip surface, excellent for yoga.",E_commerce/data/images/runningshoes.png
+11,Laptop Stand Adjustable,Electronics,162.74,3.3,Loud and clear audio.,E_commerce/data/images/laptopstand.jpeg
+12,Bestselling Novel Fiction,Books,264.83,4.6,"Beautiful print, true to size.",data/images/product_12.jpg
+13,Cotton T-Shirt Blue,Clothing,277.89,3.1,Kept me up all night reading!,E_commerce/data/images/cottonshirt.jpg
+14,Blender High-Speed,Electronics,100.58,5.0,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/blender.png
+15,Smart Watch Ultra,Electronics,485.1,4.5,"Secure fit, lightweight.",E_commerce/data/images/smart_watch.png
+16,Noise-Cancelling Headphones,Electronics,389.82,3.4,Blocks out all noise effectively.,data/images/product_16.jpg
+17,Wool Sweater Warm,Clothing,470.35,3.0,Keeps me warm in winter.,E_commerce/data/images/sweater.jpeg
+18,Gardening Gloves Leather,Home & Garden,448.47,4.6,Inspirational and practical advice.,E_commerce/data/images/gloves.jpeg
+19,Air Fryer Compact,Home & Garden,302.97,4.4,"Even cooking, easy cleanup.",E_commerce/data/images/air_fryer.png
+20,Tennis Racket Beginner,Sports,461.72,4.5,"Well-balanced, good control.",E_commerce/data/images/tennisracket.jpeg
+21,Max Pen - Beige Edition,Office,60.22,4.3,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/max_pen_beige_edition.jpg
+22,Cookbook Classic S2,Clothing,279.54,4.1,Good value. Recipes are simple and delicious.,E_commerce/data/images/cookbook_classic_s2.jpg
+23,Cotton Action Figure Smart,Automotive,299.54,2.7,Durable and easy to use in the garden.,E_commerce/data/images/cotton_action_figure_smart.jpg
+24,Max Webcam - Gold Edition,Toys,97.29,3.2,"Well-balanced, good control. Works well.",E_commerce/data/images/max_webcam_gold_edition.jpg
+25,Blue Router Deluxe,Automotive,870.49,3.7,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/blue_router_deluxe.jpg
+26,Essential Brown Pen,Beauty,125.73,2.6,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/essential_brown_pen.jpg
+27,Smart White SSD,Toys,162.96,3.7,"Even cooking, easy cleanup. Works well.",E_commerce/data/images/smart_white_ssd.jpg
+28,Neoprene Nail Clippers Rugged,Home & Garden,100.99,4.5,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/neoprene_nail_clippers_rugged.jpg
+29,Modern Yellow Cookbook,Gaming,760.67,4.3,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/modern_yellow_cookbook.jpg
+30,Sofa Lite S17,Automotive,864.96,4.3,Stylish and holds water well. Works well.,E_commerce/data/images/sofa_lite_s17.jpg
+31,Silicone Lantern Wireless,Sports,487.35,4.3,Durable and easy to use in the garden. Works well.,E_commerce/data/images/silicone_lantern_wireless.jpg
+32,Purple Blender Rugged,Garden,328.23,4.6,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/purple_blender_rugged.jpg
+33,Comfort Red Camera,Beauty,55.77,3.9,Blocks out all noise effectively.,E_commerce/data/images/comfort_red_camera.jpg
+34,Synthetic Router Vintage,Kitchen,378.82,4.7,Kept me up all night reading. Works well.,E_commerce/data/images/synthetic_router_vintage.jpg
+35,Performance Red Novel,Health,180.61,3.4,Gripping story from start to finish.,E_commerce/data/images/performance_red_novel.jpg
+36,Cotton Stand Lite,Home & Garden,408.01,3.7,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/cotton_stand_lite.jpg
+37,Eco Grill - Silver Edition,Health,135.0,3.7,"Comfortable fit, but color fades after wash.",E_commerce/data/images/eco_grill_silver_edition.jpg
+38,Silver Brush Travel,Clothing,414.51,3.3,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/silver_brush_travel.jpg
+39,Lite Silver Brush,Garden,394.77,4.0,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/lite_silver_brush.jpg
+40,Pink Air Fryer Mini,Electronics,334.23,4.4,"Powerful motor, mixes everything smoothly. Would buy again.",E_commerce/data/images/pink_air_fryer_mini.jpg
+41,Comfort Mouse - White Edition,Office,275.68,4.1,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/comfort_mouse_white_edition.jpg
+42,Mat Performance V5,Outdoors,66.21,4.4,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/mat_performance_v5.jpg
+43,Watch Urban S38,Automotive,537.1,4.5,Loud and clear audio. Highly recommended.,E_commerce/data/images/watch_urban_s38.jpg
+44,Travel Brown Monitor,Books,54.19,4.3,Durable and easy to use in the garden.,E_commerce/data/images/travel_brown_monitor.jpg
+45,Polyester Speaker Deluxe,Outdoors,213.79,3.7,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/polyester_speaker_deluxe.jpg
+46,Rugged Router - Blue Edition,Kitchen,90.44,4.5,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/rugged_router_blue_edition.jpg
+47,Smart Air Fryer - Purple Edition,Electronics,525.68,3.4,"Comfortable fit, but color fades after wash.",E_commerce/data/images/smart_air_fryer_purple_edition.jpg
+48,Bamboo Jeans Mini,Office,89.18,3.6,Inspirational and practical advice.,E_commerce/data/images/bamboo_jeans_mini.jpg
+49,Jacket Lite X38,Sports,116.64,3.2,"Comfortable fit, but color fades after wash. Works well.",E_commerce/data/images/jacket_lite_x38.jpg
+50,Eco Board Game - Yellow Edition,Home & Garden,109.64,4.4,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/eco_board_game_yellow_edition.jpg
+51,Grey Brush Compact,Books,417.46,3.9,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/grey_brush_compact.jpg
+52,Silicone Pen Deluxe,Clothing,340.46,3.8,Inspirational and practical advice. Works well.,E_commerce/data/images/silicone_pen_deluxe.jpg
+53,Lamp Max V7,Clothing,373.83,4.1,"Well-balanced, good control. Would buy again.",E_commerce/data/images/lamp_max_v7.jpg
+54,Travel White Notebook,Sports,283.96,4.8,"Perfect length, material is soft. Works well.",E_commerce/data/images/travel_white_notebook.jpg
+55,Wooden Charger Lite,Toys,106.35,4.1,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/wooden_charger_lite.jpg
+56,Lens Deluxe S12,Electronics,476.83,3.3,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/lens_deluxe_s12.jpg
+57,Mini Monitor Series 429,Home & Garden,411.86,4.1,"Battery lasts all day, sleek design.",E_commerce/data/images/mini_monitor_series_429.jpg
+58,Nylon Watch Performance,Books,151.09,3.5,Good value. Gripping story from start to finish.,E_commerce/data/images/nylon_watch_performance.jpg
+59,Rugged Power Bank Series 813,Toys,56.36,4.9,Good value. Durable and easy to use in the garden.,E_commerce/data/images/rugged_power_bank_series_813.jpg
+60,Compact Sneakers Series 670,Home & Garden,97.34,3.9,Inspirational and practical advice. Would buy again.,E_commerce/data/images/compact_sneakers_series_670.jpg
+61,Advanced Drone Series 616,Beauty,180.47,4.3,Stylish and holds water well. Highly recommended.,E_commerce/data/images/advanced_drone_series_616.jpg
+62,Silver Board Game Rugged,Garden,172.01,3.4,Stylish and holds water well. Works well.,E_commerce/data/images/silver_board_game_rugged.jpg
+63,Black Racket Vintage,Beauty,144.22,3.0,Good value. Inspirational and practical advice.,E_commerce/data/images/black_racket_vintage.jpg
+64,Pro Gold Grill,Toys,172.78,4.2,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/pro_gold_grill.jpg
+65,Orange Controller Travel,Books,269.7,3.5,Kept me up all night reading. Works well.,E_commerce/data/images/orange_controller_travel.jpg
+66,Travel Gold Lantern,Office,454.4,4.1,Good value. Gripping story from start to finish.,E_commerce/data/images/travel_gold_lantern.jpg
+67,Advanced Notebook Series 488,Electronics,295.13,4.3,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/advanced_notebook_series_488.jpg
+68,Blue Controller Lite,Garden,393.59,4.8,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/blue_controller_lite.jpg
+69,Classic Black Novel,Home & Garden,347.1,3.0,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/classic_black_novel.jpg
+70,Mascot Urban X7,Automotive,54.91,3.3,Good value. Kept me up all night reading!,E_commerce/data/images/mascot_urban_x7.jpg
+71,Deluxe Purple HDD,Pet Supplies,210.67,3.2,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/deluxe_purple_hdd.jpg
+72,Tent Pro X5,Kitchen,460.33,3.1,Blocks out all noise effectively.,E_commerce/data/images/tent_pro_x5.jpg
+73,Racket Essential V47,Toys,193.44,2.6,Good value. Inspirational and practical advice.,E_commerce/data/images/racket_essential_v47.jpg
+74,Nylon Charger Mini,Health,265.67,3.3,"Good value. Well-balanced, good control.",E_commerce/data/images/nylon_charger_mini.jpg
+75,Neoprene Charger Classic,Beauty,161.59,2.5,Stylish and holds water well. Would buy again.,E_commerce/data/images/neoprene_charger_classic.jpg
+76,Novel Performance X32,Clothing,503.27,4.4,Good value. Blocks out all noise effectively.,E_commerce/data/images/novel_performance_x32.jpg
+77,Leather Cookbook Classic,Kitchen,471.49,3.7,"Good value. Beautiful print, true to size.",E_commerce/data/images/leather_cookbook_classic.jpg
+78,Wooden HDD Vintage,Pet Supplies,73.01,4.1,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/wooden_hdd_vintage.jpg
+79,Neoprene Drone Deluxe,Home & Garden,588.7,4.5,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/neoprene_drone_deluxe.jpg
+80,Polyester Pen Classic,Books,363.84,3.9,"Even cooking, easy cleanup. Works well.",E_commerce/data/images/polyester_pen_classic.jpg
+81,Comfort Yellow Mixers,Health,248.41,3.7,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/comfort_yellow_mixers.jpg
+82,Modern Novel Series 221,Electronics,504.74,4.3,Good value. Keeps me warm in winter.,E_commerce/data/images/modern_novel_series_221.jpg
+83,Lamp Advanced X37,Health,27.47,4.5,Stylish and holds water well.,E_commerce/data/images/lamp_advanced_x37.jpg
+84,Eco Sandals Series 260,Electronics,567.03,3.9,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/eco_sandals_series_260.jpg
+85,Advanced Cookbook - Brown Edition,Pet Supplies,242.15,3.4,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/advanced_cookbook_brown_edition.jpg
+86,Smart Sneakers - Red Edition,Gaming,827.76,4.7,"Secure fit, lightweight. Works well.",E_commerce/data/images/smart_sneakers_red_edition.jpg
+87,Mug Travel X6,Pet Supplies,16.76,3.7,Stylish and holds water well.,E_commerce/data/images/mug_travel_x6.jpg
+88,T-Shirt Eco S18,Sports,68.1,4.3,"Secure fit, lightweight. Works well.",E_commerce/data/images/t_shirt_eco_s18.jpg
+89,Silicone Mascot Modern,Electronics,356.26,3.7,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/silicone_mascot_modern.jpg
+90,Comfort Vacuum Series 933,Toys,26.73,3.5,Kept me up all night reading! Would buy again.,E_commerce/data/images/comfort_vacuum_series_933.jpg
+91,Polyester Grill Classic,Garden,377.35,4.0,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/polyester_grill_classic.jpg
+92,Vintage Green Sleeping Bag,Books,487.92,4.1,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/vintage_green_sleeping_bag.jpg
+93,Classic Grey Watch,Outdoors,460.44,3.1,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/classic_grey_watch.jpg
+94,Racket Eco V39,Health,226.42,3.0,Stylish and holds water well.,E_commerce/data/images/racket_eco_v39.jpg
+95,Router Wireless V29,Books,267.95,3.3,Good value. Kept me up all night reading!,E_commerce/data/images/router_wireless_v29.jpg
+96,Premium Novel Series 685,Gaming,62.77,4.8,Good value. Kept me up all night reading!,E_commerce/data/images/premium_novel_series_685.jpg
+97,Synthetic Jacket Rugged,Office,436.15,4.5,Good value. Keeps me warm in winter.,E_commerce/data/images/synthetic_jacket_rugged.jpg
+98,Silicone Monitor Ultra,Clothing,335.42,4.4,Loud and clear audio. Would buy again.,E_commerce/data/images/silicone_monitor_ultra.jpg
+99,Gold Mug Premium,Toys,129.92,4.2,Durable and easy to use in the garden.,E_commerce/data/images/gold_mug_premium.jpg
+100,Bamboo Jacket Compact,Health,118.7,3.0,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/bamboo_jacket_compact.jpg
+101,Purple Brush Compact,Electronics,423.25,4.0,Good value. Stylish and holds water well.,E_commerce/data/images/purple_brush_compact.jpg
+102,Classic SSD Series 659,Books,475.36,3.9,Good value. Kept me up all night reading!,E_commerce/data/images/classic_ssd_series_659.jpg
+103,Silicone Webcam Eco,Sports,59.87,4.4,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/silicone_webcam_eco.jpg
+104,Beige Gloves Pro,Garden,368.17,3.6,"Well-balanced, good control. Works well.",E_commerce/data/images/beige_gloves_pro.jpg
+105,Ultra Brown Monitor,Office,293.99,4.1,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/ultra_brown_monitor.jpg
+106,Speaker Mini S24,Pet Supplies,153.03,3.5,Blocks out all noise effectively. Works well.,E_commerce/data/images/speaker_mini_s24.jpg
+107,Premium Sandals - Pink Edition,Pet Supplies,203.95,3.1,Inspirational and practical advice. Works well.,E_commerce/data/images/premium_sandals_pink_edition.jpg
+108,Travel Mug - Green Edition,Sports,387.06,3.4,"Beautiful print, true to size.",E_commerce/data/images/travel_mug_green_edition.jpg
+109,Blue Chair Eco,Office,327.35,4.1,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/blue_chair_eco.jpg
+110,Blue Keyboard Ultra,Sports,449.27,3.1,Good value. Inspirational and practical advice.,E_commerce/data/images/blue_keyboard_ultra.jpg
+111,Ultra Backpack Series 953,Automotive,940.88,3.2,"Good value. Perfect length, material is soft.",E_commerce/data/images/ultra_backpack_series_953.jpg
+112,Wooden SSD Eco,Health,27.56,3.3,"Well-balanced, good control.",E_commerce/data/images/wooden_ssd_eco.jpg
+113,Puzzle Premium V5,Clothing,282.86,3.6,"Well-balanced, good control.",E_commerce/data/images/puzzle_premium_v5.jpg
+114,Ultra Notebook - Orange Edition,Books,439.9,3.4,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/ultra_notebook_orange_edition.jpg
+115,Sneakers Classic S27,Beauty,31.59,3.0,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/sneakers_classic_s27.jpg
+116,Max Cookbook - Orange Edition,Automotive,535.81,2.7,"Good value. Comfortable fit, but color fades after wash.",E_commerce/data/images/max_cookbook_orange_edition.jpg
+117,Travel Brown Backpack,Garden,540.57,3.8,Great support for long runs. Works well.,E_commerce/data/images/travel_brown_backpack.jpg
+118,Power Bank Rugged X39,Automotive,316.05,3.9,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/power_bank_rugged_x39.jpg
+119,Deluxe Nail Clippers Series 333,Pet Supplies,122.63,4.1,Loud and clear audio. Works well.,E_commerce/data/images/deluxe_nail_clippers_series_333.jpg
+120,Ultra Watch Series 951,Beauty,28.35,5.0,Inspirational and practical advice.,E_commerce/data/images/ultra_watch_series_951.jpg
+121,Vintage Router - Yellow Edition,Automotive,942.9,3.0,"Comfortable fit, but color fades after wash. Works well.",E_commerce/data/images/vintage_router_yellow_edition.jpg
+122,Wireless Pillow - Red Edition,Automotive,497.72,4.5,Inspirational and practical advice. Works well.,E_commerce/data/images/wireless_pillow_red_edition.jpg
+123,Action Figure Smart S50,Sports,326.11,4.0,Stylish and holds water well.,E_commerce/data/images/action_figure_smart_s50.jpg
+124,Webcam Smart V10,Electronics,543.01,4.0,"Secure fit, lightweight. Works well.",E_commerce/data/images/webcam_smart_v10.jpg
+125,Essential Beige Charger,Electronics,712.51,3.8,"Good value. Well-balanced, good control.",E_commerce/data/images/essential_beige_charger.jpg
+126,Smart Silver Mat,Toys,63.82,4.2,"Non-slip surface, excellent for yoga.",E_commerce/data/images/smart_silver_mat.jpg
+127,Blue Jeans Travel,Home & Garden,463.21,3.8,Good value. Blocks out all noise effectively.,E_commerce/data/images/blue_jeans_travel.jpg
+128,Ultra Power Bank - Orange Edition,Electronics,654.65,4.1,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/ultra_power_bank_orange_edition.jpg
+129,Travel Helmet - Yellow Edition,Sports,463.9,3.2,Keeps me warm in winter.,E_commerce/data/images/travel_helmet_yellow_edition.jpg
+130,Stand Wireless V5,Toys,130.31,3.8,"Beautiful print, true to size. Works well.",E_commerce/data/images/stand_wireless_v5.jpg
+131,White Backpack Rugged,Pet Supplies,182.71,4.6,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/white_backpack_rugged.jpg
+132,SSD Modern S41,Health,103.73,4.5,"Secure fit, lightweight.",E_commerce/data/images/ssd_modern_s41.jpg
+133,Pen Advanced V23,Health,31.52,3.8,"Beautiful print, true to size. Works well.",E_commerce/data/images/pen_advanced_v23.jpg
+134,Sofa Rugged X30,Sports,299.44,3.5,"Perfect length, material is soft. Works well.",E_commerce/data/images/sofa_rugged_x30.jpg
+135,Comfort Sneakers - Black Edition,Automotive,111.8,4.1,"Good value. Secure fit, lightweight.",E_commerce/data/images/comfort_sneakers_black_edition.jpg
+136,Performance Camera Series 481,Outdoors,546.64,4.0,Loud and clear audio.,E_commerce/data/images/performance_camera_series_481.jpg
+137,Max Lens - Brown Edition,Beauty,193.24,3.9,Gripping story from start to finish. Would buy again.,E_commerce/data/images/max_lens_brown_edition.jpg
+138,Green Monitor Ultra,Office,301.57,4.5,Kept me up all night reading. Works well.,E_commerce/data/images/green_monitor_ultra.jpg
+139,Polyester Monitor Ultra,Garden,20.76,3.3,"Perfect length, material is soft. Highly recommended.",E_commerce/data/images/polyester_monitor_ultra.jpg
+140,Leash Ultra V33,Electronics,676.34,3.2,Great support for long runs. Would buy again.,E_commerce/data/images/leash_ultra_v33.jpg
+141,Ultra Pet Bed - Black Edition,Toys,93.16,3.5,Good value. Recipes are simple and delicious.,E_commerce/data/images/ultra_pet_bed_black_edition.jpg
+142,White Mug Wireless,Automotive,386.81,3.8,Kept me up all night reading! Would buy again.,E_commerce/data/images/white_mug_wireless.jpg
+143,Synthetic Blender Mini,Outdoors,55.48,3.8,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/synthetic_blender_mini.jpg
+144,Toy Car Max X29,Garden,96.94,2.8,Good value. Recipes are simple and delicious.,E_commerce/data/images/toy_car_max_x29.jpg
+145,Grey Sneakers Essential,Gaming,398.44,3.3,Loud and clear audio.,E_commerce/data/images/grey_sneakers_essential.jpg
+146,Rugged Racket Series 240,Garden,420.68,2.7,"Secure fit, lightweight. Would buy again.",E_commerce/data/images/rugged_racket_series_240.jpg
+147,Lite Air Fryer - Green Edition,Clothing,443.55,3.4,Recipes are simple and delicious. Works well.,E_commerce/data/images/lite_air_fryer_green_edition.jpg
+148,Pro Grey Desk,Sports,99.89,4.8,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/pro_grey_desk.jpg
+149,Green Tent Eco,Automotive,583.54,2.9,Keeps me warm in winter. Works well.,E_commerce/data/images/green_tent_eco.jpg
+150,Performance Puzzle Series 619,Sports,443.0,3.0,"Beautiful print, true to size. Works well.",E_commerce/data/images/performance_puzzle_series_619.jpg
+151,Classic Sandals - Silver Edition,Pet Supplies,190.34,4.9,Loud and clear audio. Highly recommended.,E_commerce/data/images/classic_sandals_silver_edition.jpg
+152,Essential Mascot - Yellow Edition,Clothing,385.85,4.3,Great support for long runs.,E_commerce/data/images/essential_mascot_yellow_edition.jpg
+153,Cotton Blender Advanced,Pet Supplies,280.34,5.0,Good value. Inspirational and practical advice.,E_commerce/data/images/cotton_blender_advanced.jpg
+154,Stainless Webcam Pro,Books,172.95,4.5,Good value. Kept me up all night reading!,E_commerce/data/images/stainless_webcam_pro.jpg
+155,Gloves Travel X24,Gaming,281.39,3.2,"Powerful motor, mixes everything smoothly. Would buy again.",E_commerce/data/images/gloves_travel_x24.jpg
+156,Compact Charger - Green Edition,Garden,184.43,3.8,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/compact_charger_green_edition.jpg
+157,Cotton Brush Advanced,Beauty,131.5,4.1,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/cotton_brush_advanced.jpg
+158,Ultra Brown Puzzle,Clothing,294.4,4.0,"Even cooking, easy cleanup.",E_commerce/data/images/ultra_brown_puzzle.jpg
+159,Yellow Camera Ultra,Automotive,543.58,3.6,Recipes are simple and delicious.,E_commerce/data/images/yellow_camera_ultra.jpg
+160,Neoprene Lens Compact,Clothing,481.62,3.0,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/neoprene_lens_compact.jpg
+161,Ultra Mixers - Pink Edition,Sports,485.4,4.3,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/ultra_mixers_pink_edition.jpg
+162,Silver Camera Compact,Garden,477.32,3.5,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/silver_camera_compact.jpg
+163,Essential Silver Cushion,Automotive,330.01,4.0,"Even cooking, easy cleanup.",E_commerce/data/images/essential_silver_cushion.jpg
+164,Pink Lantern Premium,Electronics,708.47,4.7,"Battery lasts all day, sleek design. Highly recommended.",E_commerce/data/images/pink_lantern_premium.jpg
+165,Gold Headphones Performance,Toys,40.77,4.4,Keeps me warm in winter. Works well.,E_commerce/data/images/gold_headphones_performance.jpg
+166,Lite Desk - White Edition,Garden,188.67,4.1,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/lite_desk_white_edition.jpg
+167,Chair Ultra S22,Automotive,69.96,3.6,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/chair_ultra_s22.jpg
+168,Rugged Nail Clippers - Pink Edition,Automotive,957.95,3.8,Kept me up all night reading. Works well.,E_commerce/data/images/rugged_nail_clippers_pink_edition.jpg
+169,Black Sleeping Bag Lite,Health,108.66,3.5,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/black_sleeping_bag_lite.jpg
+170,White Lantern Max,Outdoors,115.8,4.4,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/white_lantern_max.jpg
+171,Modern Toy Car Series 263,Gaming,508.78,4.8,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/modern_toy_car_series_263.jpg
+172,Essential Mouse - Blue Edition,Automotive,486.47,4.1,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/essential_mouse_blue_edition.jpg
+173,Smart Silver Vacuum,Gaming,578.88,3.2,Good value. Gripping story from start to finish.,E_commerce/data/images/smart_silver_vacuum.jpg
+174,Advanced Green Mascot,Outdoors,107.49,3.1,Loud and clear audio. Would buy again.,E_commerce/data/images/advanced_green_mascot.jpg
+175,Ultra Purple Mat,Beauty,17.39,4.9,Good value. Keeps me warm in winter.,E_commerce/data/images/ultra_purple_mat.jpg
+176,Urban Charger Series 727,Electronics,792.96,4.3,Loud and clear audio. Would buy again.,E_commerce/data/images/urban_charger_series_727.jpg
+177,Performance Pink Power Bank,Garden,227.33,4.4,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/performance_pink_power_bank.jpg
+178,Smart Cookbook Series 838,Health,59.45,4.1,Kept me up all night reading! Highly recommended.,E_commerce/data/images/smart_cookbook_series_838.jpg
+179,Eco HDD Series 212,Garden,195.08,2.8,"Powerful motor, mixes everything smoothly. Would buy again.",E_commerce/data/images/eco_hdd_series_212.jpg
+180,Urban Leash - Gold Edition,Kitchen,113.9,3.6,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/urban_leash_gold_edition.jpg
+181,Premium Mug - Pink Edition,Toys,156.68,4.4,Stylish and holds water well. Would buy again.,E_commerce/data/images/premium_mug_pink_edition.jpg
+182,Stainless Cushion Deluxe,Health,214.42,4.2,Blocks out all noise effectively. Works well.,E_commerce/data/images/stainless_cushion_deluxe.jpg
+183,Smart Pillow Series 792,Outdoors,576.5,3.5,Gripping story from start to finish. Works well.,E_commerce/data/images/smart_pillow_series_792.jpg
+184,Bamboo Hose Advanced,Gaming,934.36,4.1,"Well-balanced, good control. Would buy again.",E_commerce/data/images/bamboo_hose_advanced.jpg
+185,Eco Brown Bottle,Home & Garden,78.11,3.7,Great support for long runs.,E_commerce/data/images/eco_brown_bottle.jpg
+186,Compact Nail Clippers - Brown Edition,Outdoors,155.63,4.5,"Comfortable fit, but color fades after wash.",E_commerce/data/images/compact_nail_clippers_brown_edition.jpg
+187,Modern Controller Series 840,Office,442.3,4.6,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/modern_controller_series_840.jpg
+188,Cotton Keyboard Wireless,Gaming,298.87,3.8,Good value. Keeps me warm in winter.,E_commerce/data/images/cotton_keyboard_wireless.jpg
+189,Leather Helmet Deluxe,Books,373.37,3.2,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/leather_helmet_deluxe.jpg
+190,Leash Deluxe X28,Office,170.68,3.7,Good value. Great support for long runs.,E_commerce/data/images/leash_deluxe_x28.jpg
+191,Cotton Lens Eco,Beauty,191.27,3.1,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/cotton_lens_eco.jpg
+192,Blue Router Essential,Office,208.65,3.8,"Non-slip surface, excellent for yoga.",E_commerce/data/images/blue_router_essential.jpg
+193,Purple Cookbook Wireless,Office,232.94,4.6,Good value. Inspirational and practical advice.,E_commerce/data/images/purple_cookbook_wireless.jpg
+194,Novel Vintage S6,Kitchen,323.79,4.2,"Even cooking, easy cleanup.",E_commerce/data/images/novel_vintage_s6.jpg
+195,Polyester Pillow Vintage,Clothing,541.79,3.6,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/polyester_pillow_vintage.jpg
+196,Performance Sneakers Series 564,Sports,255.56,3.0,"Non-slip surface, excellent for yoga.",E_commerce/data/images/performance_sneakers_series_564.jpg
+197,Smart Air Fryer Series 692,Toys,75.46,3.4,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/smart_air_fryer_series_692.jpg
+198,Travel Lens - Gold Edition,Gaming,877.06,3.8,Recipes are simple and delicious.,E_commerce/data/images/travel_lens_gold_edition.jpg
+199,SSD Classic S28,Kitchen,277.91,3.5,Great support for long runs. Works well.,E_commerce/data/images/ssd_classic_s28.jpg
+200,Max Silver Router,Home & Garden,159.59,2.9,"Secure fit, lightweight. Would buy again.",E_commerce/data/images/max_silver_router.jpg
+201,Jacket Pro X15,Office,116.46,3.8,"Even cooking, easy cleanup. Works well.",E_commerce/data/images/jacket_pro_x15.jpg
+202,Keyboard Urban V43,Automotive,244.41,3.7,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/keyboard_urban_v43.jpg
+203,Mini Sneakers Series 452,Office,395.04,3.5,Great support for long runs. Works well.,E_commerce/data/images/mini_sneakers_series_452.jpg
+204,Compact Novel - Pink Edition,Toys,37.43,3.8,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/compact_novel_pink_edition.jpg
+205,Performance Novel - Grey Edition,Outdoors,73.77,3.7,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/performance_novel_grey_edition.jpg
+206,Brown Sofa Smart,Clothing,521.86,4.1,"Good value. Perfect length, material is soft.",E_commerce/data/images/brown_sofa_smart.jpg
+207,Premium Air Fryer - Blue Edition,Home & Garden,599.75,4.0,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/premium_air_fryer_blue_edition.jpg
+208,Board Game Eco X30,Toys,133.26,3.5,Good value. Blocks out all noise effectively.,E_commerce/data/images/board_game_eco_x30.jpg
+209,Camera Comfort X3,Sports,438.84,3.9,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/camera_comfort_x3.jpg
+210,Lens Deluxe V32,Electronics,540.96,4.2,Good value. Blocks out all noise effectively.,E_commerce/data/images/lens_deluxe_v32.jpg
+211,Black Speaker Compact,Health,275.9,3.9,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/black_speaker_compact.jpg
+212,Silver Jeans Lite,Clothing,227.19,3.3,"Secure fit, lightweight. Works well.",E_commerce/data/images/silver_jeans_lite.jpg
+213,Router Urban V1,Clothing,420.66,4.7,"Battery lasts all day, sleek design.",E_commerce/data/images/router_urban_v1.jpg
+214,Polyester Novel Max,Gaming,818.91,3.5,"Good value. Beautiful print, true to size.",E_commerce/data/images/polyester_novel_max.jpg
+215,Modern Cookbook - Beige Edition,Health,297.59,4.0,Good value. Kept me up all night reading!,E_commerce/data/images/modern_cookbook_beige_edition.jpg
+216,Vintage Blue Desk,Toys,104.97,3.5,"Even cooking, easy cleanup.",E_commerce/data/images/vintage_blue_desk.jpg
+217,Performance Air Fryer Series 988,Gaming,285.67,3.4,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/performance_air_fryer_series_988.jpg
+218,Premium White Lamp,Gaming,313.29,4.1,Kept me up all night reading! Would buy again.,E_commerce/data/images/premium_white_lamp.jpg
+219,Travel HDD - Silver Edition,Beauty,195.12,3.0,Gripping story from start to finish. Works well.,E_commerce/data/images/travel_hdd_silver_edition.jpg
+220,Nylon Board Game Urban,Automotive,790.04,3.8,Good value. Inspirational and practical advice.,E_commerce/data/images/nylon_board_game_urban.jpg
+221,Brown Lens Compact,Toys,145.49,4.4,Kept me up all night reading. Works well.,E_commerce/data/images/brown_lens_compact.jpg
+222,Leather Keyboard Max,Beauty,29.42,3.1,Inspirational and practical advice. Would buy again.,E_commerce/data/images/leather_keyboard_max.jpg
+223,Watch Mini S6,Outdoors,426.67,3.5,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/watch_mini_s6.jpg
+224,Lite Pillow Series 633,Toys,42.21,3.5,Great support for long runs.,E_commerce/data/images/lite_pillow_series_633.jpg
+225,Bamboo Keyboard Mini,Electronics,758.17,4.4,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/bamboo_keyboard_mini.jpg
+226,Max Jeans Series 505,Health,243.18,3.5,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/max_jeans_series_505.jpg
+227,Premium Blender Series 590,Books,485.93,3.3,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/premium_blender_series_590.jpg
+228,Eco Grey Pen,Kitchen,653.81,2.6,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/eco_grey_pen.jpg
+229,Deluxe Mouse Series 951,Pet Supplies,203.53,3.3,Stylish and holds water well. Highly recommended.,E_commerce/data/images/deluxe_mouse_series_951.jpg
+230,Mini Sleeping Bag Series 712,Pet Supplies,162.64,3.7,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/mini_sleeping_bag_series_712.jpg
+231,Leather Board Game Rugged,Automotive,191.35,4.2,Kept me up all night reading. Works well.,E_commerce/data/images/leather_board_game_rugged.jpg
+232,Mini Backpack - Blue Edition,Kitchen,372.78,4.2,"Secure fit, lightweight. Works well.",E_commerce/data/images/mini_backpack_blue_edition.jpg
+233,Advanced Mat Series 254,Toys,29.86,3.3,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/advanced_mat_series_254.jpg
+234,Comfort Backpack Series 548,Outdoors,236.86,2.7,Durable and easy to use in the garden.,E_commerce/data/images/comfort_backpack_series_548.jpg
+235,Action Figure Premium S16,Garden,112.93,3.2,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/action_figure_premium_s16.jpg
+236,Travel Black Desk,Kitchen,521.42,4.7,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/travel_black_desk.jpg
+237,Deluxe Green Toy Car,Clothing,519.8,3.9,"Good value. Perfect length, material is soft.",E_commerce/data/images/deluxe_green_toy_car.jpg
+238,Desk Smart S25,Sports,226.64,3.2,"Secure fit, lightweight. Would buy again.",E_commerce/data/images/desk_smart_s25.jpg
+239,Wireless Purple Watch,Electronics,228.93,3.3,Great support for long runs. Would buy again.,E_commerce/data/images/wireless_purple_watch.jpg
+240,Mini Pillow Series 492,Toys,130.75,4.4,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/mini_pillow_series_492.jpg
+241,Comfort Black Mixers,Electronics,699.14,4.8,"Good value. Perfect length, material is soft.",E_commerce/data/images/comfort_black_mixers.jpg
+242,Performance SSD Series 603,Outdoors,352.32,4.2,Stylish and holds water well. Highly recommended.,E_commerce/data/images/performance_ssd_series_603.jpg
+243,Wireless Lantern Series 679,Outdoors,393.81,3.0,"Good value. Comfortable fit, but color fades after wash.",E_commerce/data/images/wireless_lantern_series_679.jpg
+244,Red Controller Deluxe,Outdoors,222.44,2.9,"Secure fit, lightweight.",E_commerce/data/images/red_controller_deluxe.jpg
+245,Eco Controller - Silver Edition,Kitchen,434.98,3.8,"Perfect length, material is soft. Highly recommended.",E_commerce/data/images/eco_controller_silver_edition.jpg
+246,Yellow Mug Pro,Kitchen,240.08,4.3,Stylish and holds water well. Would buy again.,E_commerce/data/images/yellow_mug_pro.jpg
+247,Max Puzzle - Silver Edition,Gaming,144.35,4.4,Loud and clear audio. Highly recommended.,E_commerce/data/images/max_puzzle_silver_edition.jpg
+248,Travel Pillow Series 747,Kitchen,275.12,4.5,Stylish and holds water well. Works well.,E_commerce/data/images/travel_pillow_series_747.jpg
+249,Comfort Jeans - Purple Edition,Health,291.92,4.3,Gripping story from start to finish. Would buy again.,E_commerce/data/images/comfort_jeans_purple_edition.jpg
+250,Silicone Air Fryer Deluxe,Toys,74.17,4.0,Blocks out all noise effectively. Works well.,E_commerce/data/images/silicone_air_fryer_deluxe.jpg
+251,Pro Red Desk,Gaming,930.84,3.3,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/pro_red_desk.jpg
+252,Ultra Brush - Black Edition,Pet Supplies,111.33,4.0,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/ultra_brush_black_edition.jpg
+253,Rugged Beige Backpack,Toys,35.21,2.9,"Amazing sound quality, worth every penny!",E_commerce/data/images/rugged_beige_backpack.jpg
+254,Premium Gold Tent,Pet Supplies,72.54,3.2,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/premium_gold_tent.jpg
+255,Ultra Bottle - Red Edition,Toys,41.18,3.6,Good value. Great support for long runs.,E_commerce/data/images/ultra_bottle_red_edition.jpg
+256,Advanced Backpack - Red Edition,Automotive,402.51,4.6,Great support for long runs. Highly recommended.,E_commerce/data/images/advanced_backpack_red_edition.jpg
+257,Cushion Rugged S47,Books,178.21,3.2,"Good value. Perfect length, material is soft.",E_commerce/data/images/cushion_rugged_s47.jpg
+258,Rugged Silver Puzzle,Books,158.49,4.2,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/rugged_silver_puzzle.jpg
+259,Synthetic Brush Premium,Gaming,555.43,3.3,Gripping story from start to finish.,E_commerce/data/images/synthetic_brush_premium.jpg
+260,Air Fryer Lite V26,Automotive,307.89,4.8,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/air_fryer_lite_v26.jpg
+261,Polyester Chair Rugged,Sports,85.56,3.3,"Even cooking, easy cleanup.",E_commerce/data/images/polyester_chair_rugged.jpg
+262,Mini Novel Series 188,Books,325.53,4.2,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/mini_novel_series_188.jpg
+263,Synthetic Webcam Classic,Pet Supplies,54.25,4.2,Gripping story from start to finish. Works well.,E_commerce/data/images/synthetic_webcam_classic.jpg
+264,Modern Lantern Series 623,Pet Supplies,258.51,3.4,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/modern_lantern_series_623.jpg
+265,Beige Mat Max,Office,32.53,2.5,"Battery lasts all day, sleek design.",E_commerce/data/images/beige_mat_max.jpg
+266,Silicone Charger Rugged,Outdoors,204.46,3.1,Keeps me warm in winter.,E_commerce/data/images/silicone_charger_rugged.jpg
+267,Polyester Vacuum Eco,Electronics,295.48,4.0,"Perfect length, material is soft. Works well.",E_commerce/data/images/polyester_vacuum_eco.jpg
+268,White Lantern Wireless,Automotive,740.49,4.1,Great support for long runs.,E_commerce/data/images/white_lantern_wireless.jpg
+269,Mini White Mug,Gaming,951.97,5.0,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/mini_white_mug.jpg
+270,Eco Pink Sneakers,Outdoors,49.85,2.9,"Secure fit, lightweight.",E_commerce/data/images/eco_pink_sneakers.jpg
+271,Desk Max X5,Automotive,580.79,2.5,Recipes are simple and delicious. Works well.,E_commerce/data/images/desk_max_x5.jpg
+272,Premium Pet Bed Series 853,Books,172.38,3.5,"Even cooking, easy cleanup.",E_commerce/data/images/premium_pet_bed_series_853.jpg
+273,Lantern Max X8,Electronics,318.72,4.4,"Secure fit, lightweight. Works well.",E_commerce/data/images/lantern_max_x8.jpg
+274,Max Action Figure - Black Edition,Garden,365.95,2.7,"Good value. Beautiful print, true to size.",E_commerce/data/images/max_action_figure_black_edition.jpg
+275,Pro Mascot Series 278,Outdoors,398.05,3.9,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/pro_mascot_series_278.jpg
+276,Classic Board Game Series 327,Sports,217.51,4.2,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/classic_board_game_series_327.jpg
+277,Lite Red Blender,Books,457.29,4.5,"Good value. Comfortable fit, but color fades after wash.",E_commerce/data/images/lite_red_blender.jpg
+278,Compact Grey Mascot,Clothing,353.09,3.7,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/compact_grey_mascot.jpg
+279,Advanced Chair - Blue Edition,Books,182.8,3.8,"Comfortable fit, but color fades after wash.",E_commerce/data/images/advanced_chair_blue_edition.jpg
+280,Travel Blender - Grey Edition,Books,497.34,4.0,Kept me up all night reading. Works well.,E_commerce/data/images/travel_blender_grey_edition.jpg
+281,Neoprene Pillow Vintage,Health,62.15,3.6,Stylish and holds water well.,E_commerce/data/images/neoprene_pillow_vintage.jpg
+282,Comfort Yellow Board Game,Kitchen,188.54,3.4,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/comfort_yellow_board_game.jpg
+283,Leash Travel V16,Automotive,338.46,4.3,"Even cooking, easy cleanup.",E_commerce/data/images/leash_travel_v16.jpg
+284,Racket Essential V32,Pet Supplies,96.17,3.8,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/racket_essential_v32.jpg
+285,Pink Jeans Classic,Home & Garden,217.64,2.8,Great support for long runs.,E_commerce/data/images/pink_jeans_classic.jpg
+286,Camera Performance S26,Garden,69.61,3.8,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/camera_performance_s26.jpg
+287,Rugged Charger - Brown Edition,Kitchen,624.93,4.2,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/rugged_charger_brown_edition.jpg
+288,Mixers Wireless V45,Toys,84.4,3.1,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/mixers_wireless_v45.jpg
+289,Lite Charger - Yellow Edition,Beauty,137.3,4.2,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/lite_charger_yellow_edition.jpg
+290,Eco Yellow Notebook,Home & Garden,47.93,3.9,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/eco_yellow_notebook.jpg
+291,Travel Lens - Orange Edition,Health,229.89,3.3,"Comfortable fit, but color fades after wash. Works well.",E_commerce/data/images/travel_lens_orange_edition.jpg
+292,Red Sandals Premium,Clothing,492.79,4.3,Gripping story from start to finish. Works well.,E_commerce/data/images/red_sandals_premium.jpg
+293,T-Shirt Urban S11,Automotive,893.06,3.5,Inspirational and practical advice. Would buy again.,E_commerce/data/images/t_shirt_urban_s11.jpg
+294,Backpack Wireless X37,Books,427.93,3.4,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/backpack_wireless_x37.jpg
+295,Pink Blender Rugged,Books,337.19,4.9,Durable and easy to use in the garden. Works well.,E_commerce/data/images/pink_blender_rugged.jpg
+296,Router Travel V42,Kitchen,283.52,3.8,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/router_travel_v42.jpg
+297,Smart Pink Notebook,Clothing,260.45,4.0,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/smart_pink_notebook.jpg
+298,Modern Sneakers Series 960,Toys,193.47,3.9,"Non-slip surface, excellent for yoga.",E_commerce/data/images/modern_sneakers_series_960.jpg
+299,Bottle Pro S44,Toys,38.02,4.6,"Battery lasts all day, sleek design. Highly recommended.",E_commerce/data/images/bottle_pro_s44.jpg
+300,Blue Tent Deluxe,Kitchen,698.14,4.8,Stylish and holds water well. Works well.,E_commerce/data/images/blue_tent_deluxe.jpg
+301,Leather Cushion Lite,Gaming,529.29,4.4,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/leather_cushion_lite.jpg
+302,Lamp Ultra V7,Toys,158.11,3.1,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/lamp_ultra_v7.jpg
+303,Pro Vacuum - Green Edition,Health,211.16,3.6,Blocks out all noise effectively. Works well.,E_commerce/data/images/pro_vacuum_green_edition.jpg
+304,Cotton Mascot Essential,Gaming,845.99,5.0,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/cotton_mascot_essential.jpg
+305,Advanced Green Drone,Books,134.57,5.0,"Beautiful print, true to size.",E_commerce/data/images/advanced_green_drone.jpg
+306,Power Bank Compact X9,Outdoors,617.95,3.3,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/power_bank_compact_x9.jpg
+307,Essential Orange Vacuum,Books,158.87,4.0,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/essential_orange_vacuum.jpg
+308,Essential Black Pet Bed,Outdoors,213.85,3.7,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/essential_black_pet_bed.jpg
+309,Air Fryer Eco S27,Garden,21.83,5.0,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/air_fryer_eco_s27.jpg
+310,Action Figure Ultra V17,Gaming,808.98,4.2,Kept me up all night reading. Works well.,E_commerce/data/images/action_figure_ultra_v17.jpg
+311,Smart Keyboard Series 793,Health,179.5,4.0,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/smart_keyboard_series_793.jpg
+312,Neoprene Stand Max,Office,137.96,3.6,Recipes are simple and delicious.,E_commerce/data/images/neoprene_stand_max.jpg
+313,Urban Brown Charger,Kitchen,465.67,3.9,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/urban_brown_charger.jpg
+314,Drone Modern V44,Pet Supplies,193.3,3.4,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/drone_modern_v44.jpg
+315,Compact Mouse - Black Edition,Books,166.39,5.0,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/compact_mouse_black_edition.jpg
+316,Stainless Cookbook Lite,Office,192.12,4.0,Good value. Durable and easy to use in the garden.,E_commerce/data/images/stainless_cookbook_lite.jpg
+317,Chair Rugged X13,Clothing,247.93,4.2,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/chair_rugged_x13.jpg
+318,White Stand Ultra,Garden,196.67,5.0,Blocks out all noise effectively. Works well.,E_commerce/data/images/white_stand_ultra.jpg
+319,Brown Sneakers Compact,Office,382.98,3.8,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/brown_sneakers_compact.jpg
+320,Mini Grey Tent,Automotive,547.77,3.9,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/mini_grey_tent.jpg
+321,Bamboo Backpack Essential,Home & Garden,116.87,4.5,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/bamboo_backpack_essential.jpg
+322,Nylon Stand Performance,Pet Supplies,298.86,3.8,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/nylon_stand_performance.jpg
+323,Speaker Eco S2,Clothing,401.85,4.3,Stylish and holds water well. Would buy again.,E_commerce/data/images/speaker_eco_s2.jpg
+324,Pro Blue Router,Automotive,699.06,3.8,Inspirational and practical advice. Works well.,E_commerce/data/images/pro_blue_router.jpg
+325,Ultra SSD Series 745,Health,201.88,4.0,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/ultra_ssd_series_745.jpg
+326,Max Beige Chair,Toys,104.57,4.3,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/max_beige_chair.jpg
+327,Mini Jacket - Black Edition,Beauty,187.29,4.8,Great support for long runs.,E_commerce/data/images/mini_jacket_black_edition.jpg
+328,Beige Drone Performance,Kitchen,330.59,3.6,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/beige_drone_performance.jpg
+329,Cotton Speaker Pro,Sports,210.89,3.6,Gripping story from start to finish. Works well.,E_commerce/data/images/cotton_speaker_pro.jpg
+330,Premium Vacuum Series 509,Garden,417.04,4.0,"Battery lasts all day, sleek design.",E_commerce/data/images/premium_vacuum_series_509.jpg
+331,Pro Grill - Red Edition,Electronics,378.62,4.4,"Well-balanced, good control.",E_commerce/data/images/pro_grill_red_edition.jpg
+332,Ultra Pink Headphones,Garden,164.35,3.4,Keeps me warm in winter. Would buy again.,E_commerce/data/images/ultra_pink_headphones.jpg
+333,Modern Brush - Brown Edition,Pet Supplies,211.67,2.6,Good value. Recipes are simple and delicious.,E_commerce/data/images/modern_brush_brown_edition.jpg
+334,Rugged Black Pet Bed,Beauty,12.21,4.7,Good value. Blocks out all noise effectively.,E_commerce/data/images/rugged_black_pet_bed.jpg
+335,Leather Gloves Compact,Garden,39.71,3.2,Kept me up all night reading! Highly recommended.,E_commerce/data/images/leather_gloves_compact.jpg
+336,Advanced Pillow Series 558,Sports,192.23,3.0,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/advanced_pillow_series_558.jpg
+337,Sofa Classic S20,Outdoors,402.39,4.1,Loud and clear audio. Works well.,E_commerce/data/images/sofa_classic_s20.jpg
+338,Lantern Pro S50,Garden,363.97,4.4,"Secure fit, lightweight.",E_commerce/data/images/lantern_pro_s50.jpg
+339,Webcam Eco S19,Sports,284.89,4.0,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/webcam_eco_s19.jpg
+340,Mini Chair Series 300,Electronics,211.69,4.3,Loud and clear audio.,E_commerce/data/images/mini_chair_series_300.jpg
+341,Mini Pet Bed Series 788,Kitchen,331.02,4.2,Blocks out all noise effectively.,E_commerce/data/images/mini_pet_bed_series_788.jpg
+342,Grey Pet Bed Pro,Outdoors,490.44,2.6,"Well-balanced, good control. Works well.",E_commerce/data/images/grey_pet_bed_pro.jpg
+343,Travel HDD Series 880,Outdoors,675.24,4.7,Great support for long runs. Highly recommended.,E_commerce/data/images/travel_hdd_series_880.jpg
+344,Urban Pet Bed - Green Edition,Toys,150.0,3.9,"Perfect length, material is soft. Would buy again.",E_commerce/data/images/urban_pet_bed_green_edition.jpg
+345,Speaker Wireless S12,Pet Supplies,165.03,4.3,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/speaker_wireless_s12.jpg
+346,Power Bank Modern S48,Health,92.92,3.8,Great support for long runs.,E_commerce/data/images/power_bank_modern_s48.jpg
+347,Pro Toy Car - Green Edition,Office,132.77,4.9,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/pro_toy_car_green_edition.jpg
+348,Vintage Mascot - Yellow Edition,Kitchen,522.85,4.1,"Non-slip surface, excellent for yoga.",E_commerce/data/images/vintage_mascot_yellow_edition.jpg
+349,Travel Grey Puzzle,Gaming,32.71,3.2,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/travel_grey_puzzle.jpg
+350,Silver Lamp Rugged,Gaming,780.62,4.6,"Battery lasts all day, sleek design.",E_commerce/data/images/silver_lamp_rugged.jpg
+351,Lens Compact X18,Electronics,248.18,5.0,"Well-balanced, good control. Works well.",E_commerce/data/images/lens_compact_x18.jpg
+352,Sandals Modern S21,Health,73.79,3.8,Good value. Inspirational and practical advice.,E_commerce/data/images/sandals_modern_s21.jpg
+353,Stainless Router Essential,Sports,148.3,4.4,Inspirational and practical advice.,E_commerce/data/images/stainless_router_essential.jpg
+354,Essential White Monitor,Sports,357.15,4.5,Inspirational and practical advice. Works well.,E_commerce/data/images/essential_white_monitor.jpg
+355,Performance Orange Action Figure,Clothing,318.57,4.0,Gripping story from start to finish.,E_commerce/data/images/performance_orange_action_figure.jpg
+356,Vintage Desk - Blue Edition,Electronics,630.19,4.6,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/vintage_desk_blue_edition.jpg
+357,Mini SSD - Beige Edition,Outdoors,245.57,4.5,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/mini_ssd_beige_edition.jpg
+358,Silicone Sleeping Bag Smart,Gaming,36.55,4.3,"Well-balanced, good control.",E_commerce/data/images/silicone_sleeping_bag_smart.jpg
+359,Modern Beige Leash,Kitchen,217.09,4.5,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/modern_beige_leash.jpg
+360,Travel Helmet - Pink Edition,Toys,84.29,4.5,Great support for long runs. Works well.,E_commerce/data/images/travel_helmet_pink_edition.jpg
+361,Rugged Blue Cushion,Office,30.47,3.9,Inspirational and practical advice.,E_commerce/data/images/rugged_blue_cushion.jpg
+362,White Grill Deluxe,Books,132.8,4.2,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/white_grill_deluxe.jpg
+363,Toy Car Modern X42,Office,45.84,4.0,"Perfect length, material is soft. Would buy again.",E_commerce/data/images/toy_car_modern_x42.jpg
+364,Wooden Router Premium,Health,189.66,4.4,"Secure fit, lightweight. Works well.",E_commerce/data/images/wooden_router_premium.jpg
+365,Wireless Pillow Series 680,Automotive,193.58,3.0,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/wireless_pillow_series_680.jpg
+366,Essential Drone Series 439,Garden,221.66,3.6,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/essential_drone_series_439.jpg
+367,Smart Orange Blender,Sports,377.34,4.5,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/smart_orange_blender.jpg
+368,Modern Cushion Series 366,Kitchen,464.66,3.4,"Even cooking, easy cleanup. Works well.",E_commerce/data/images/modern_cushion_series_366.jpg
+369,Advanced Orange Watch,Electronics,547.01,4.0,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/advanced_orange_watch.jpg
+370,Compact Pillow - Purple Edition,Health,150.22,3.6,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/compact_pillow_purple_edition.jpg
+371,Wooden Jacket Smart,Sports,224.64,4.0,Stylish and holds water well. Would buy again.,E_commerce/data/images/wooden_jacket_smart.jpg
+372,Modern Monitor - Grey Edition,Outdoors,630.79,3.2,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/modern_monitor_grey_edition.jpg
+373,Puzzle Essential S1,Toys,177.59,3.7,Keeps me warm in winter. Works well.,E_commerce/data/images/puzzle_essential_s1.jpg
+374,Ultra Camera - Black Edition,Home & Garden,153.6,5.0,Good value. Blocks out all noise effectively.,E_commerce/data/images/ultra_camera_black_edition.jpg
+375,Black Monitor Deluxe,Health,22.51,3.9,Keeps me warm in winter.,E_commerce/data/images/black_monitor_deluxe.jpg
+376,Modern Helmet Series 364,Gaming,607.37,4.0,"Non-slip surface, excellent for yoga.",E_commerce/data/images/modern_helmet_series_364.jpg
+377,Advanced Brush Series 593,Home & Garden,368.49,3.0,Stylish and holds water well. Highly recommended.,E_commerce/data/images/advanced_brush_series_593.jpg
+378,Premium Lamp Series 170,Pet Supplies,44.0,4.7,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/premium_lamp_series_170.jpg
+379,Urban Blue Nail Clippers,Gaming,111.33,5.0,Inspirational and practical advice.,E_commerce/data/images/urban_blue_nail_clippers.jpg
+380,Grill Rugged V45,Gaming,440.38,4.8,Kept me up all night reading. Works well.,E_commerce/data/images/grill_rugged_v45.jpg
+381,Grey Speaker Modern,Automotive,912.78,2.8,Good value. Inspirational and practical advice.,E_commerce/data/images/grey_speaker_modern.jpg
+382,Controller Deluxe V37,Books,103.02,4.3,"Beautiful print, true to size.",E_commerce/data/images/controller_deluxe_v37.jpg
+383,Notebook Mini S28,Electronics,324.23,3.2,"Good value. Perfect length, material is soft.",E_commerce/data/images/notebook_mini_s28.jpg
+384,Neoprene Camera Vintage,Outdoors,692.19,4.2,Kept me up all night reading! Highly recommended.,E_commerce/data/images/neoprene_camera_vintage.jpg
+385,Pink Puzzle Max,Garden,309.92,5.0,"Well-balanced, good control.",E_commerce/data/images/pink_puzzle_max.jpg
+386,Watch Travel V31,Electronics,376.53,3.3,Gripping story from start to finish. Would buy again.,E_commerce/data/images/watch_travel_v31.jpg
+387,Monitor Travel X46,Clothing,222.99,4.1,Good value. Blocks out all noise effectively.,E_commerce/data/images/monitor_travel_x46.jpg
+388,Blender Deluxe S33,Clothing,479.38,4.2,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/blender_deluxe_s33.jpg
+389,Classic Pen - Red Edition,Office,203.62,4.0,Gripping story from start to finish.,E_commerce/data/images/classic_pen_red_edition.jpg
+390,Webcam Wireless X15,Outdoors,674.88,3.7,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/webcam_wireless_x15.jpg
+391,Polyester Cushion Mini,Electronics,760.26,4.2,Kept me up all night reading! Would buy again.,E_commerce/data/images/polyester_cushion_mini.jpg
+392,Eco Silver Lantern,Health,149.77,3.4,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/eco_silver_lantern.jpg
+393,Silicone Bottle Premium,Kitchen,188.82,4.8,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/silicone_bottle_premium.jpg
+394,Modern Controller - Black Edition,Gaming,215.67,3.5,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/modern_controller_black_edition.jpg
+395,Watch Ultra S32,Beauty,11.26,4.4,Good value. Loud and clear audio.,E_commerce/data/images/watch_ultra_s32.jpg
+396,Modern Mixers Series 882,Gaming,237.65,4.0,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/modern_mixers_series_882.jpg
+397,Yellow Vacuum Pro,Outdoors,330.89,3.0,Loud and clear audio.,E_commerce/data/images/yellow_vacuum_pro.jpg
+398,Silicone Backpack Deluxe,Clothing,274.86,3.5,"Well-balanced, good control. Works well.",E_commerce/data/images/silicone_backpack_deluxe.jpg
+399,Neoprene Air Fryer Compact,Beauty,79.36,3.6,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/neoprene_air_fryer_compact.jpg
+400,Eco Pen Series 923,Automotive,860.62,4.4,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/eco_pen_series_923.jpg
+401,Synthetic Desk Comfort,Toys,159.21,3.3,"Even cooking, easy cleanup.",E_commerce/data/images/synthetic_desk_comfort.jpg
+402,Max Air Fryer - Blue Edition,Toys,28.3,4.1,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/max_air_fryer_blue_edition.jpg
+403,Grill Smart X44,Outdoors,155.29,4.0,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/grill_smart_x44.jpg
+404,Premium Board Game Series 854,Beauty,126.6,2.9,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/premium_board_game_series_854.jpg
+405,Purple Vacuum Rugged,Toys,75.29,3.2,Stylish and holds water well. Would buy again.,E_commerce/data/images/purple_vacuum_rugged.jpg
+406,Board Game Travel X48,Office,265.26,3.7,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/board_game_travel_x48.jpg
+407,Beige HDD Eco,Pet Supplies,122.13,3.8,Kept me up all night reading! Would buy again.,E_commerce/data/images/beige_hdd_eco.jpg
+408,Lite Chair Series 259,Kitchen,230.37,3.6,Great support for long runs. Highly recommended.,E_commerce/data/images/lite_chair_series_259.jpg
+409,Compact Router Series 465,Outdoors,682.99,3.9,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/compact_router_series_465.jpg
+410,Vintage Sofa - Purple Edition,Pet Supplies,263.8,3.6,Inspirational and practical advice. Works well.,E_commerce/data/images/vintage_sofa_purple_edition.jpg
+411,Neoprene Cookbook Essential,Gaming,378.47,3.5,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/neoprene_cookbook_essential.jpg
+412,Ultra Hose Series 647,Garden,568.7,4.0,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/ultra_hose_series_647.jpg
+413,Eco Camera Series 293,Automotive,412.91,2.6,Good value. Kept me up all night reading!,E_commerce/data/images/eco_camera_series_293.jpg
+414,Desk Smart S49,Home & Garden,488.39,4.3,Inspirational and practical advice. Works well.,E_commerce/data/images/desk_smart_s49.jpg
+415,Deluxe Speaker Series 396,Toys,127.37,3.2,"Perfect length, material is soft. Works well.",E_commerce/data/images/deluxe_speaker_series_396.jpg
+416,Cotton T-Shirt Ultra,Clothing,250.02,3.7,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/cotton_t_shirt_ultra.jpg
+417,Comfort Grill Series 419,Clothing,478.77,4.1,Good value. Stylish and holds water well.,E_commerce/data/images/comfort_grill_series_419.jpg
+418,Vintage Black Blender,Sports,104.88,4.2,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/vintage_black_blender.jpg
+419,Pro Controller - Pink Edition,Pet Supplies,294.72,3.7,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/pro_controller_pink_edition.jpg
+420,Rugged Cushion Series 633,Electronics,528.89,4.4,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/rugged_cushion_series_633.jpg
+421,Mini Blue Helmet,Office,203.95,4.1,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/mini_blue_helmet.jpg
+422,Stainless Gloves Lite,Beauty,186.86,4.8,Good value. Great support for long runs.,E_commerce/data/images/stainless_gloves_lite.jpg
+423,Premium Monitor - Silver Edition,Home & Garden,131.92,4.3,Great support for long runs. Works well.,E_commerce/data/images/premium_monitor_silver_edition.jpg
+424,Pro Sleeping Bag - Beige Edition,Gaming,500.29,4.1,Good value. Loud and clear audio.,E_commerce/data/images/pro_sleeping_bag_beige_edition.jpg
+425,Polyester Sandals Urban,Books,418.74,4.1,Good value. Keeps me warm in winter.,E_commerce/data/images/polyester_sandals_urban.jpg
+426,Cotton Leash Compact,Pet Supplies,217.7,4.2,Kept me up all night reading! Highly recommended.,E_commerce/data/images/cotton_leash_compact.jpg
+427,Comfort Chair - Black Edition,Outdoors,238.98,2.6,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/comfort_chair_black_edition.jpg
+428,Gloves Pro V3,Electronics,531.31,3.7,"Well-balanced, good control. Would buy again.",E_commerce/data/images/gloves_pro_v3.jpg
+429,White Sofa Pro,Books,345.09,3.9,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/white_sofa_pro.jpg
+430,Power Bank Mini S18,Pet Supplies,16.99,3.2,"Perfect length, material is soft. Would buy again.",E_commerce/data/images/power_bank_mini_s18.jpg
+431,Max Lens - Orange Edition,Sports,161.94,4.0,Good value. Inspirational and practical advice.,E_commerce/data/images/max_lens_orange_edition.jpg
+432,Max SSD Series 569,Pet Supplies,265.43,3.4,Kept me up all night reading! Would buy again.,E_commerce/data/images/max_ssd_series_569.jpg
+433,Polyester Sleeping Bag Compact,Beauty,170.52,3.6,Loud and clear audio. Would buy again.,E_commerce/data/images/polyester_sleeping_bag_compact.jpg
+434,Polyester Lens Modern,Home & Garden,228.8,2.8,"Amazing sound quality, worth every penny!",E_commerce/data/images/polyester_lens_modern.jpg
+435,Orange Speaker Urban,Books,146.67,3.2,Stylish and holds water well. Would buy again.,E_commerce/data/images/orange_speaker_urban.jpg
+436,Nylon Racket Vintage,Outdoors,126.15,3.5,"Non-slip surface, excellent for yoga.",E_commerce/data/images/nylon_racket_vintage.jpg
+437,Travel Drone Series 179,Automotive,197.72,5.0,"Even cooking, easy cleanup.",E_commerce/data/images/travel_drone_series_179.jpg
+438,Rugged Blue Drone,Automotive,786.72,4.6,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/rugged_blue_drone.jpg
+439,Max Monitor - Beige Edition,Gaming,781.87,3.7,"Comfortable fit, but color fades after wash. Works well.",E_commerce/data/images/max_monitor_beige_edition.jpg
+440,Modern Yellow Mat,Outdoors,478.07,4.4,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/modern_yellow_mat.jpg
+441,Speaker Wireless V31,Toys,151.61,3.9,Kept me up all night reading! Would buy again.,E_commerce/data/images/speaker_wireless_v31.jpg
+442,Ultra Cushion - Pink Edition,Toys,118.55,3.8,Good value. Stylish and holds water well.,E_commerce/data/images/ultra_cushion_pink_edition.jpg
+443,Leather Router Modern,Beauty,46.19,3.3,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/leather_router_modern.jpg
+444,Purple Racket Urban,Beauty,140.22,2.5,Gripping story from start to finish.,E_commerce/data/images/purple_racket_urban.jpg
+445,Stainless Racket Pro,Pet Supplies,209.67,3.1,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/stainless_racket_pro.jpg
+446,Vintage Mug Series 635,Home & Garden,381.36,4.3,Keeps me warm in winter.,E_commerce/data/images/vintage_mug_series_635.jpg
+447,Cotton Blender Compact,Books,73.89,3.8,"Beautiful print, true to size.",E_commerce/data/images/cotton_blender_compact.jpg
+448,Silicone Lens Wireless,Clothing,393.86,3.9,"Perfect length, material is soft. Would buy again.",E_commerce/data/images/silicone_lens_wireless.jpg
+449,Vintage Novel Series 642,Health,124.09,3.3,"Beautiful print, true to size. Works well.",E_commerce/data/images/vintage_novel_series_642.jpg
+450,Stainless Pen Wireless,Office,440.55,3.5,Kept me up all night reading! Highly recommended.,E_commerce/data/images/stainless_pen_wireless.jpg
+451,Brown Chair Travel,Sports,237.8,3.9,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/brown_chair_travel.jpg
+452,Air Fryer Advanced V38,Beauty,139.97,3.4,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/air_fryer_advanced_v38.jpg
+453,Ultra Charger - Black Edition,Toys,32.49,2.5,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/ultra_charger_black_edition.jpg
+454,Silicone Sleeping Bag Mini,Gaming,168.92,3.5,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/silicone_sleeping_bag_mini.jpg
+455,Purple Chair Smart,Automotive,696.76,3.4,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/purple_chair_smart.jpg
+456,Urban Monitor Series 482,Outdoors,342.22,3.4,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/urban_monitor_series_482.jpg
+457,White Controller Smart,Gaming,84.81,4.6,Good value. Loud and clear audio.,E_commerce/data/images/white_controller_smart.jpg
+458,Eco Board Game Series 142,Gaming,725.8,2.5,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/eco_board_game_series_142.jpg
+459,Orange Backpack Performance,Outdoors,372.72,3.4,Good value. Inspirational and practical advice.,E_commerce/data/images/orange_backpack_performance.jpg
+460,Cotton Mouse Rugged,Outdoors,333.72,3.6,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/cotton_mouse_rugged.jpg
+461,Monitor Ultra V47,Gaming,130.91,4.1,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/monitor_ultra_v47.jpg
+462,Classic Pink Lamp,Health,82.52,4.9,Durable and easy to use in the garden.,E_commerce/data/images/classic_pink_lamp.jpg
+463,Bottle Advanced X47,Sports,325.43,3.0,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/bottle_advanced_x47.jpg
+464,Gold Router Premium,Gaming,195.29,4.3,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/gold_router_premium.jpg
+465,Synthetic Speaker Rugged,Books,55.49,4.0,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/synthetic_speaker_rugged.jpg
+466,Comfort Lamp Series 775,Gaming,453.04,4.4,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/comfort_lamp_series_775.jpg
+467,Compact Blue Monitor,Clothing,466.8,4.3,Gripping story from start to finish.,E_commerce/data/images/compact_blue_monitor.jpg
+468,Mini SSD - Black Edition,Sports,364.93,4.0,"Secure fit, lightweight. Would buy again.",E_commerce/data/images/mini_ssd_black_edition.jpg
+469,Pro Silver Keyboard,Beauty,154.1,3.8,Stylish and holds water well. Works well.,E_commerce/data/images/pro_silver_keyboard.jpg
+470,Mini White HDD,Outdoors,408.53,4.3,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/mini_white_hdd.jpg
+471,Pillow Premium X9,Automotive,575.76,4.0,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/pillow_premium_x9.jpg
+472,Urban Beige Mouse,Gaming,475.59,5.0,"Perfect length, material is soft. Would buy again.",E_commerce/data/images/urban_beige_mouse.jpg
+473,Mini Yellow Webcam,Toys,131.72,4.1,Gripping story from start to finish. Works well.,E_commerce/data/images/mini_yellow_webcam.jpg
+474,Polyester Board Game Performance,Books,203.61,4.6,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/polyester_board_game_performance.jpg
+475,Brown Hose Premium,Home & Garden,299.27,5.0,Inspirational and practical advice. Works well.,E_commerce/data/images/brown_hose_premium.jpg
+476,Mini Bottle - Gold Edition,Health,101.5,3.8,Loud and clear audio. Works well.,E_commerce/data/images/mini_bottle_gold_edition.jpg
+477,T-Shirt Ultra X41,Sports,429.08,3.9,"Well-balanced, good control.",E_commerce/data/images/t_shirt_ultra_x41.jpg
+478,Wireless Jacket Series 378,Garden,527.46,3.2,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/wireless_jacket_series_378.jpg
+479,Red Camera Wireless,Outdoors,641.08,3.7,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/red_camera_wireless.jpg
+480,Wooden Drone Deluxe,Electronics,157.47,3.8,Keeps me warm in winter.,E_commerce/data/images/wooden_drone_deluxe.jpg
+481,Wireless Leash Series 708,Clothing,555.67,4.5,"Perfect length, material is soft. Works well.",E_commerce/data/images/wireless_leash_series_708.jpg
+482,Deluxe Green Mug,Home & Garden,178.14,3.6,"Well-balanced, good control. Would buy again.",E_commerce/data/images/deluxe_green_mug.jpg
+483,Orange Webcam Max,Outdoors,661.43,4.5,"Battery lasts all day, sleek design.",E_commerce/data/images/orange_webcam_max.jpg
+484,Urban Sleeping Bag Series 151,Books,456.48,3.2,Good value. Gripping story from start to finish.,E_commerce/data/images/urban_sleeping_bag_series_151.jpg
+485,Compact Desk Series 956,Toys,127.1,2.7,Inspirational and practical advice.,E_commerce/data/images/compact_desk_series_956.jpg
+486,Advanced Black Watch,Gaming,466.47,4.6,"Good value. Secure fit, lightweight.",E_commerce/data/images/advanced_black_watch.jpg
+487,Gold Chair Eco,Home & Garden,425.78,4.8,Good value. Loud and clear audio.,E_commerce/data/images/gold_chair_eco.jpg
+488,Pink Headphones Classic,Health,91.85,3.4,Keeps me warm in winter.,E_commerce/data/images/pink_headphones_classic.jpg
+489,Max Monitor Series 172,Toys,86.16,3.6,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/max_monitor_series_172.jpg
+490,Travel Air Fryer Series 933,Health,237.45,3.5,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/travel_air_fryer_series_933.jpg
+491,Lite Gloves Series 217,Electronics,294.03,3.2,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/lite_gloves_series_217.jpg
+492,Urban Mascot Series 710,Sports,340.25,3.2,Great support for long runs. Would buy again.,E_commerce/data/images/urban_mascot_series_710.jpg
+493,Racket Rugged V29,Gaming,305.67,4.1,"Perfect length, material is soft. Works well.",E_commerce/data/images/racket_rugged_v29.jpg
+494,Modern Grey Power Bank,Books,325.17,4.1,"Non-slip surface, excellent for yoga.",E_commerce/data/images/modern_grey_power_bank.jpg
+495,Cotton Power Bank Vintage,Beauty,174.48,2.9,Kept me up all night reading. Works well.,E_commerce/data/images/cotton_power_bank_vintage.jpg
+496,Grey Tent Travel,Pet Supplies,145.09,3.3,"Good value. Beautiful print, true to size.",E_commerce/data/images/grey_tent_travel.jpg
+497,Black Jeans Wireless,Electronics,591.0,3.9,Great support for long runs.,E_commerce/data/images/black_jeans_wireless.jpg
+498,Rugged Lantern Series 907,Electronics,517.44,3.8,"Good value. Secure fit, lightweight.",E_commerce/data/images/rugged_lantern_series_907.jpg
+499,Eco Sofa - Grey Edition,Beauty,54.98,3.8,Inspirational and practical advice. Would buy again.,E_commerce/data/images/eco_sofa_grey_edition.jpg
+500,Hose Pro X8,Beauty,101.49,4.0,Keeps me warm in winter. Works well.,E_commerce/data/images/hose_pro_x8.jpg
+501,Performance Nail Clippers Series 724,Health,192.89,4.3,Inspirational and practical advice. Would buy again.,E_commerce/data/images/performance_nail_clippers_series_724.jpg
+502,Urban Mug Series 897,Books,280.7,3.9,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/urban_mug_series_897.jpg
+503,Bamboo Jacket Wireless,Kitchen,514.34,4.1,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/bamboo_jacket_wireless.jpg
+504,Modern Brown Mouse,Electronics,265.11,3.0,Stylish and holds water well. Works well.,E_commerce/data/images/modern_brown_mouse.jpg
+505,Urban Green Leash,Electronics,502.87,4.2,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/urban_green_leash.jpg
+506,Eco Black Action Figure,Kitchen,677.8,4.6,Good value. Blocks out all noise effectively.,E_commerce/data/images/eco_black_action_figure.jpg
+507,Brown Sleeping Bag Travel,Kitchen,412.88,2.7,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/brown_sleeping_bag_travel.jpg
+508,Travel Hose Series 864,Health,208.22,3.6,Good value. Keeps me warm in winter.,E_commerce/data/images/travel_hose_series_864.jpg
+509,Wireless Grey SSD,Clothing,238.95,3.8,"Powerful motor, mixes everything smoothly. Would buy again.",E_commerce/data/images/wireless_grey_ssd.jpg
+510,Rugged Pen - Yellow Edition,Gaming,592.49,3.8,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/rugged_pen_yellow_edition.jpg
+511,SSD Deluxe V21,Kitchen,27.19,3.8,"Secure fit, lightweight. Works well.",E_commerce/data/images/ssd_deluxe_v21.jpg
+512,Wireless White Jacket,Home & Garden,564.33,5.0,"Well-balanced, good control.",E_commerce/data/images/wireless_white_jacket.jpg
+513,Max Sofa - Gold Edition,Pet Supplies,171.99,4.1,"Secure fit, lightweight.",E_commerce/data/images/max_sofa_gold_edition.jpg
+514,Bamboo Tent Advanced,Office,136.09,4.2,"Good value. Comfortable fit, but color fades after wash.",E_commerce/data/images/bamboo_tent_advanced.jpg
+515,Premium Green Mascot,Toys,103.43,4.9,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/premium_green_mascot.jpg
+516,Ultra Silver Tent,Sports,460.67,4.0,Gripping story from start to finish.,E_commerce/data/images/ultra_silver_tent.jpg
+517,Smart Blue Gloves,Automotive,934.91,4.1,Good value. Loud and clear audio.,E_commerce/data/images/smart_blue_gloves.jpg
+518,Classic Board Game Series 602,Automotive,848.73,5.0,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/classic_board_game_series_602.jpg
+519,Travel Pillow - Red Edition,Clothing,321.13,4.0,Loud and clear audio.,E_commerce/data/images/travel_pillow_red_edition.jpg
+520,Advanced Blender Series 280,Garden,399.83,3.7,Durable and easy to use in the garden. Works well.,E_commerce/data/images/advanced_blender_series_280.jpg
+521,Lite Beige Blender,Health,218.72,4.0,Gripping story from start to finish. Would buy again.,E_commerce/data/images/lite_beige_blender.jpg
+522,Wireless Orange Pet Bed,Office,176.25,3.2,Kept me up all night reading!,E_commerce/data/images/wireless_orange_pet_bed.jpg
+523,Rugged SSD - Pink Edition,Home & Garden,356.02,2.9,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/rugged_ssd_pink_edition.jpg
+524,Eco Blue Mixers,Clothing,382.47,3.0,Durable and easy to use in the garden.,E_commerce/data/images/eco_blue_mixers.jpg
+525,Nylon Sandals Urban,Health,245.34,3.9,"Perfect length, material is soft.",E_commerce/data/images/nylon_sandals_urban.jpg
+526,Compact Headphones Series 380,Automotive,193.01,3.7,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/compact_headphones_series_380.jpg
+527,Silver Leash Ultra,Clothing,206.25,3.8,"Battery lasts all day, sleek design.",E_commerce/data/images/silver_leash_ultra.jpg
+528,Green Grill Rugged,Pet Supplies,65.82,4.1,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/green_grill_rugged.jpg
+529,Urban Purple Mixers,Electronics,520.39,4.3,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/urban_purple_mixers.jpg
+530,Backpack Deluxe X49,Home & Garden,314.37,3.9,"Perfect length, material is soft. Works well.",E_commerce/data/images/backpack_deluxe_x49.jpg
+531,Silver Racket Deluxe,Clothing,263.9,3.6,Stylish and holds water well. Works well.,E_commerce/data/images/silver_racket_deluxe.jpg
+532,Red Controller Advanced,Automotive,791.93,3.9,Good value. Recipes are simple and delicious.,E_commerce/data/images/red_controller_advanced.jpg
+533,Grey Blender Modern,Automotive,785.61,3.7,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/grey_blender_modern.jpg
+534,Pink Lamp Eco,Toys,51.07,3.9,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/pink_lamp_eco.jpg
+535,Deluxe Blender - Green Edition,Health,174.91,3.5,"Good value. Secure fit, lightweight.",E_commerce/data/images/deluxe_blender_green_edition.jpg
+536,Compact Nail Clippers - White Edition,Toys,191.02,4.8,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/compact_nail_clippers_white_edition.jpg
+537,Mini Brush Series 321,Sports,175.63,4.7,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/mini_brush_series_321.jpg
+538,Mini Lamp Series 252,Beauty,196.23,2.9,Keeps me warm in winter.,E_commerce/data/images/mini_lamp_series_252.jpg
+539,Performance Action Figure Series 917,Toys,104.1,4.1,"Perfect length, material is soft. Highly recommended.",E_commerce/data/images/performance_action_figure_series_917.jpg
+540,Stainless Watch Wireless,Beauty,40.74,3.7,"Even cooking, easy cleanup.",E_commerce/data/images/stainless_watch_wireless.jpg
+541,Advanced Power Bank - Gold Edition,Health,144.65,4.8,Good value. Gripping story from start to finish.,E_commerce/data/images/advanced_power_bank_gold_edition.jpg
+542,Mouse Premium X45,Gaming,551.59,5.0,Gripping story from start to finish. Would buy again.,E_commerce/data/images/mouse_premium_x45.jpg
+543,Premium SSD Series 472,Gaming,378.28,4.1,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/premium_ssd_series_472.jpg
+544,Beige Board Game Lite,Pet Supplies,164.19,4.4,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/beige_board_game_lite.jpg
+545,Wooden Pen Eco,Kitchen,57.03,3.8,Keeps me warm in winter. Would buy again.,E_commerce/data/images/wooden_pen_eco.jpg
+546,Max Mug Series 794,Garden,376.36,4.0,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/max_mug_series_794.jpg
+547,Green Headphones Max,Sports,443.75,3.9,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/green_headphones_max.jpg
+548,Vintage Webcam - Pink Edition,Office,20.53,3.8,"Even cooking, easy cleanup. Works well.",E_commerce/data/images/vintage_webcam_pink_edition.jpg
+549,Lamp Rugged S34,Office,228.18,3.6,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/lamp_rugged_s34.jpg
+550,Stainless Camera Smart,Kitchen,213.38,3.2,"Battery lasts all day, sleek design. Highly recommended.",E_commerce/data/images/stainless_camera_smart.jpg
+551,White Headphones Ultra,Garden,270.12,3.8,"Comfortable fit, but color fades after wash. Works well.",E_commerce/data/images/white_headphones_ultra.jpg
+552,Ultra Pink Mug,Beauty,184.88,3.6,Good value. Great support for long runs.,E_commerce/data/images/ultra_pink_mug.jpg
+553,Premium Controller - Blue Edition,Gaming,711.34,3.9,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/premium_controller_blue_edition.jpg
+554,Modern Yellow HDD,Kitchen,114.81,4.1,Kept me up all night reading! Would buy again.,E_commerce/data/images/modern_yellow_hdd.jpg
+555,Eco Watch - Yellow Edition,Garden,125.14,4.1,Stylish and holds water well. Highly recommended.,E_commerce/data/images/eco_watch_yellow_edition.jpg
+556,Sleeping Bag Lite S6,Clothing,357.77,3.8,Keeps me warm in winter.,E_commerce/data/images/sleeping_bag_lite_s6.jpg
+557,Essential Power Bank Series 974,Gaming,385.37,3.6,"Secure fit, lightweight. Would buy again.",E_commerce/data/images/essential_power_bank_series_974.jpg
+558,Beige Grill Deluxe,Sports,412.55,4.6,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/beige_grill_deluxe.jpg
+559,Racket Modern X31,Garden,592.12,4.3,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/racket_modern_x31.jpg
+560,Pink Power Bank Compact,Toys,168.13,3.4,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/pink_power_bank_compact.jpg
+561,Beige Lantern Comfort,Books,168.2,3.9,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/beige_lantern_comfort.jpg
+562,Comfort Blue Headphones,Electronics,499.17,3.6,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/comfort_blue_headphones.jpg
+563,Leather Mat Comfort,Office,89.8,3.1,Great support for long runs. Works well.,E_commerce/data/images/leather_mat_comfort.jpg
+564,Bamboo Grill Pro,Electronics,268.75,4.1,"Perfect length, material is soft. Highly recommended.",E_commerce/data/images/bamboo_grill_pro.jpg
+565,Max Helmet - Silver Edition,Kitchen,563.92,3.2,"Beautiful print, true to size.",E_commerce/data/images/max_helmet_silver_edition.jpg
+566,Wooden Racket Modern,Outdoors,273.65,3.8,"Battery lasts all day, sleek design.",E_commerce/data/images/wooden_racket_modern.jpg
+567,Ultra Pet Bed - White Edition,Home & Garden,502.22,4.1,Inspirational and practical advice.,E_commerce/data/images/ultra_pet_bed_white_edition.jpg
+568,Leather Mascot Advanced,Toys,69.2,3.0,"Well-balanced, good control. Would buy again.",E_commerce/data/images/leather_mascot_advanced.jpg
+569,Beige Keyboard Premium,Kitchen,107.53,4.6,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/beige_keyboard_premium.jpg
+570,Ultra Grey HDD,Home & Garden,469.32,4.0,Durable and easy to use in the garden. Works well.,E_commerce/data/images/ultra_grey_hdd.jpg
+571,Jeans Lite V8,Clothing,282.16,4.3,"Beautiful print, true to size.",E_commerce/data/images/jeans_lite_v8.jpg
+572,Ultra Webcam - Purple Edition,Sports,325.83,3.8,"Even cooking, easy cleanup.",E_commerce/data/images/ultra_webcam_purple_edition.jpg
+573,Deluxe Helmet - Green Edition,Outdoors,87.11,3.2,Blocks out all noise effectively. Works well.,E_commerce/data/images/deluxe_helmet_green_edition.jpg
+574,Modern SSD Series 209,Pet Supplies,130.11,3.8,Loud and clear audio.,E_commerce/data/images/modern_ssd_series_209.jpg
+575,Polyester Gloves Max,Health,171.57,3.1,Good value. Durable and easy to use in the garden.,E_commerce/data/images/polyester_gloves_max.jpg
+576,Keyboard Advanced X15,Books,233.28,4.9,Good value. Gripping story from start to finish.,E_commerce/data/images/keyboard_advanced_x15.jpg
+577,Essential SSD Series 603,Office,224.65,4.0,Good value. Great support for long runs.,E_commerce/data/images/essential_ssd_series_603.jpg
+578,Leather Helmet Modern,Toys,48.05,4.4,Good value. Recipes are simple and delicious.,E_commerce/data/images/leather_helmet_modern.jpg
+579,Bamboo Power Bank Comfort,Pet Supplies,228.11,3.4,Good value. Kept me up all night reading!,E_commerce/data/images/bamboo_power_bank_comfort.jpg
+580,Smart Lantern Series 210,Outdoors,358.15,4.0,Durable and easy to use in the garden.,E_commerce/data/images/smart_lantern_series_210.jpg
+581,Lite T-Shirt - Brown Edition,Garden,202.9,3.5,Gripping story from start to finish. Would buy again.,E_commerce/data/images/lite_t_shirt_brown_edition.jpg
+582,Mouse Comfort X32,Kitchen,197.93,2.9,Inspirational and practical advice.,E_commerce/data/images/mouse_comfort_x32.jpg
+583,Pro Lens Series 560,Kitchen,332.57,4.5,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/pro_lens_series_560.jpg
+584,Ultra Lens - Beige Edition,Toys,103.21,3.9,Good value. Blocks out all noise effectively.,E_commerce/data/images/ultra_lens_beige_edition.jpg
+585,Compact Vacuum Series 369,Outdoors,439.52,3.6,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/compact_vacuum_series_369.jpg
+586,Essential Controller - Silver Edition,Garden,211.34,3.4,"Good value. Beautiful print, true to size.",E_commerce/data/images/essential_controller_silver_edition.jpg
+587,Pro White Novel,Beauty,182.97,3.2,Loud and clear audio. Highly recommended.,E_commerce/data/images/pro_white_novel.jpg
+588,Lantern Vintage X37,Clothing,560.56,3.0,"Even cooking, easy cleanup.",E_commerce/data/images/lantern_vintage_x37.jpg
+589,Travel Grey Charger,Beauty,141.26,3.2,Loud and clear audio. Highly recommended.,E_commerce/data/images/travel_grey_charger.jpg
+590,Blender Wireless S5,Automotive,237.66,3.6,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/blender_wireless_s5.jpg
+591,Watch Eco S7,Kitchen,249.05,4.0,Gripping story from start to finish. Works well.,E_commerce/data/images/watch_eco_s7.jpg
+592,Wireless Mug Series 420,Outdoors,190.86,3.8,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/wireless_mug_series_420.jpg
+593,Classic Mixers - Gold Edition,Gaming,962.87,4.4,Inspirational and practical advice. Would buy again.,E_commerce/data/images/classic_mixers_gold_edition.jpg
+594,Nylon Desk Mini,Garden,282.87,2.9,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/nylon_desk_mini.jpg
+595,Leather Air Fryer Premium,Toys,132.75,3.2,Kept me up all night reading! Highly recommended.,E_commerce/data/images/leather_air_fryer_premium.jpg
+596,Ultra Novel Series 916,Sports,301.92,3.6,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/ultra_novel_series_916.jpg
+597,Notebook Smart X43,Electronics,181.99,3.9,Gripping story from start to finish. Works well.,E_commerce/data/images/notebook_smart_x43.jpg
+598,Wireless Camera Series 787,Automotive,944.87,4.2,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/wireless_camera_series_787.jpg
+599,Router Performance S50,Pet Supplies,79.28,4.3,Durable and easy to use in the garden. Works well.,E_commerce/data/images/router_performance_s50.jpg
+600,Silver Controller Modern,Beauty,37.41,3.7,"Even cooking, easy cleanup.",E_commerce/data/images/silver_controller_modern.jpg
+601,Vintage Headphones Series 424,Health,207.99,4.5,"Beautiful print, true to size. Works well.",E_commerce/data/images/vintage_headphones_series_424.jpg
+602,Rugged Pet Bed - Blue Edition,Clothing,566.98,4.0,Kept me up all night reading. Works well.,E_commerce/data/images/rugged_pet_bed_blue_edition.jpg
+603,Essential Orange Brush,Office,455.8,3.5,Recipes are simple and delicious. Works well.,E_commerce/data/images/essential_orange_brush.jpg
+604,Compact Brown Charger,Home & Garden,178.94,4.0,Good value. Loud and clear audio.,E_commerce/data/images/compact_brown_charger.jpg
+605,Max Notebook Series 618,Gaming,610.07,5.0,"Secure fit, lightweight.",E_commerce/data/images/max_notebook_series_618.jpg
+606,Pro Brown Sleeping Bag,Kitchen,292.45,4.2,Gripping story from start to finish.,E_commerce/data/images/pro_brown_sleeping_bag.jpg
+607,Beige Board Game Eco,Electronics,685.22,4.8,Good value. Loud and clear audio.,E_commerce/data/images/beige_board_game_eco.jpg
+608,Black SSD Ultra,Health,34.48,3.6,Kept me up all night reading! Would buy again.,E_commerce/data/images/black_ssd_ultra.jpg
+609,Classic Orange Monitor,Home & Garden,584.99,3.0,"Battery lasts all day, sleek design.",E_commerce/data/images/classic_orange_monitor.jpg
+610,Purple Notebook Urban,Toys,189.98,3.0,"Good value. Secure fit, lightweight.",E_commerce/data/images/purple_notebook_urban.jpg
+611,Eco Brush - White Edition,Sports,272.38,3.1,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/eco_brush_white_edition.jpg
+612,Green Notebook Ultra,Toys,80.23,4.2,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/green_notebook_ultra.jpg
+613,Premium Air Fryer Series 830,Electronics,602.08,3.6,"Comfortable fit, but color fades after wash.",E_commerce/data/images/premium_air_fryer_series_830.jpg
+614,Eco Sofa - Yellow Edition,Beauty,163.87,4.0,Inspirational and practical advice.,E_commerce/data/images/eco_sofa_yellow_edition.jpg
+615,Black Mat Compact,Automotive,116.96,4.3,Stylish and holds water well.,E_commerce/data/images/black_mat_compact.jpg
+616,Synthetic Brush Pro,Beauty,185.99,4.3,Stylish and holds water well. Would buy again.,E_commerce/data/images/synthetic_brush_pro.jpg
+617,Mini Controller - Yellow Edition,Beauty,130.96,3.7,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/mini_controller_yellow_edition.jpg
+618,Pro Green Helmet,Electronics,796.4,3.4,Good value. Blocks out all noise effectively.,E_commerce/data/images/pro_green_helmet.jpg
+619,Red Webcam Max,Health,252.14,5.0,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/red_webcam_max.jpg
+620,Modern Orange Board Game,Home & Garden,162.77,4.0,Loud and clear audio.,E_commerce/data/images/modern_orange_board_game.jpg
+621,Max Yellow Lamp,Books,86.48,5.0,"Secure fit, lightweight. Works well.",E_commerce/data/images/max_yellow_lamp.jpg
+622,Classic Monitor - Blue Edition,Automotive,999.83,4.3,"Comfortable fit, but color fades after wash.",E_commerce/data/images/classic_monitor_blue_edition.jpg
+623,Urban Vacuum Series 361,Outdoors,80.65,4.2,Kept me up all night reading. Works well.,E_commerce/data/images/urban_vacuum_series_361.jpg
+624,Synthetic Keyboard Rugged,Office,452.83,4.0,Durable and easy to use in the garden. Works well.,E_commerce/data/images/synthetic_keyboard_rugged.jpg
+625,Nail Clippers Deluxe X18,Outdoors,428.23,3.1,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/nail_clippers_deluxe_x18.jpg
+626,Mini Jacket - Red Edition,Electronics,218.17,4.1,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/mini_jacket_red_edition.jpg
+627,Rugged Mouse Series 579,Office,157.19,3.5,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/rugged_mouse_series_579.jpg
+628,Pro Jacket Series 625,Automotive,430.63,3.8,Stylish and holds water well. Works well.,E_commerce/data/images/pro_jacket_series_625.jpg
+629,Modern Mat - Silver Edition,Books,258.3,3.2,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/modern_mat_silver_edition.jpg
+630,Purple Action Figure Advanced,Automotive,209.53,4.5,Good value. Durable and easy to use in the garden.,E_commerce/data/images/purple_action_figure_advanced.jpg
+631,Classic Headphones Series 113,Outdoors,332.91,3.5,"Good value. Well-balanced, good control.",E_commerce/data/images/classic_headphones_series_113.jpg
+632,Urban HDD Series 789,Books,412.09,4.2,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/urban_hdd_series_789.jpg
+633,Brown Novel Rugged,Health,34.97,4.1,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/brown_novel_rugged.jpg
+634,Compact Beige HDD,Sports,436.91,3.9,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/compact_beige_hdd.jpg
+635,Premium Desk Series 967,Clothing,539.45,4.4,Inspirational and practical advice. Works well.,E_commerce/data/images/premium_desk_series_967.jpg
+636,Comfort Mat - Pink Edition,Clothing,562.03,4.3,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/comfort_mat_pink_edition.jpg
+637,Mini Cushion Series 165,Clothing,555.66,2.8,"Good value. Beautiful print, true to size.",E_commerce/data/images/mini_cushion_series_165.jpg
+638,Cotton Mouse Mini,Pet Supplies,134.24,3.8,Loud and clear audio. Would buy again.,E_commerce/data/images/cotton_mouse_mini.jpg
+639,Advanced Drone - Green Edition,Garden,394.98,3.7,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/advanced_drone_green_edition.jpg
+640,Brown Hose Wireless,Home & Garden,371.33,3.3,Blocks out all noise effectively. Works well.,E_commerce/data/images/brown_hose_wireless.jpg
+641,Deluxe T-Shirt - Blue Edition,Home & Garden,111.99,3.8,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/deluxe_t_shirt_blue_edition.jpg
+642,Puzzle Comfort V50,Home & Garden,175.14,2.8,Keeps me warm in winter. Would buy again.,E_commerce/data/images/puzzle_comfort_v50.jpg
+643,Action Figure Max V7,Office,308.73,3.9,"Battery lasts all day, sleek design.",E_commerce/data/images/action_figure_max_v7.jpg
+644,Drone Deluxe S29,Garden,304.05,4.5,"Beautiful print, true to size. Works well.",E_commerce/data/images/drone_deluxe_s29.jpg
+645,Ultra Gold Blender,Garden,154.74,4.5,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/ultra_gold_blender.jpg
+646,Smart Toy Car - Beige Edition,Sports,160.45,4.4,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/smart_toy_car_beige_edition.jpg
+647,Silicone Lantern Mini,Kitchen,661.74,3.7,Keeps me warm in winter.,E_commerce/data/images/silicone_lantern_mini.jpg
+648,Premium Board Game Series 268,Sports,391.64,4.3,"Even cooking, easy cleanup.",E_commerce/data/images/premium_board_game_series_268.jpg
+649,Bamboo Vacuum Performance,Office,363.56,3.5,Stylish and holds water well. Would buy again.,E_commerce/data/images/bamboo_vacuum_performance.jpg
+650,Monitor Ultra S40,Automotive,662.48,4.4,"Perfect length, material is soft. Works well.",E_commerce/data/images/monitor_ultra_s40.jpg
+651,Yellow Lens Pro,Sports,284.21,3.9,Keeps me warm in winter. Would buy again.,E_commerce/data/images/yellow_lens_pro.jpg
+652,Desk Performance V2,Books,316.63,2.8,"Powerful motor, mixes everything smoothly. Would buy again.",E_commerce/data/images/desk_performance_v2.jpg
+653,Pro Green Desk,Sports,390.45,4.6,"Even cooking, easy cleanup.",E_commerce/data/images/pro_green_desk.jpg
+654,Premium Controller - Silver Edition,Health,203.0,4.3,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/premium_controller_silver_edition.jpg
+655,Modern Beige Lens,Office,170.65,4.3,"Good value. Beautiful print, true to size.",E_commerce/data/images/modern_beige_lens.jpg
+656,Ultra Grill Series 183,Sports,449.83,3.8,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/ultra_grill_series_183.jpg
+657,Modern Board Game Series 504,Toys,130.93,3.7,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/modern_board_game_series_504.jpg
+658,Advanced Mat - Beige Edition,Health,71.67,3.7,Inspirational and practical advice. Works well.,E_commerce/data/images/advanced_mat_beige_edition.jpg
+659,Grill Max V24,Gaming,303.8,3.9,"Non-slip surface, excellent for yoga. Works well.",E_commerce/data/images/grill_max_v24.jpg
+660,Wireless Puzzle Series 246,Books,71.89,4.0,"Beautiful print, true to size.",E_commerce/data/images/wireless_puzzle_series_246.jpg
+661,Silicone Pillow Pro,Garden,471.0,3.9,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/silicone_pillow_pro.jpg
+662,Ultra Lantern Series 879,Kitchen,121.31,4.3,"Well-balanced, good control. Would buy again.",E_commerce/data/images/ultra_lantern_series_879.jpg
+663,Travel Stand Series 653,Toys,149.82,4.9,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/travel_stand_series_653.jpg
+664,Brown Headphones Wireless,Office,478.03,4.0,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/brown_headphones_wireless.jpg
+665,Comfort Blue Headphones 665,Home & Garden,179.48,4.8,Gripping story from start to finish. Would buy again.,E_commerce/data/images/comfort_blue_headphones_665.jpg
+666,Premium Jacket Series 603,Automotive,205.09,2.9,Kept me up all night reading. Works well.,E_commerce/data/images/premium_jacket_series_603.jpg
+667,Leather Helmet Max,Sports,395.74,4.0,Loud and clear audio. Highly recommended.,E_commerce/data/images/leather_helmet_max.jpg
+668,Bamboo Backpack Pro,Clothing,303.17,3.2,"Well-balanced, good control. Would buy again.",E_commerce/data/images/bamboo_backpack_pro.jpg
+669,Comfort Silver Mat,Home & Garden,204.64,4.1,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/comfort_silver_mat.jpg
+670,Green Cushion Eco,Office,383.86,4.0,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/green_cushion_eco.jpg
+671,White Puzzle Lite,Health,236.79,3.9,Good value. Inspirational and practical advice.,E_commerce/data/images/white_puzzle_lite.jpg
+672,Classic Gold Chair,Clothing,224.07,4.4,Good value. Stylish and holds water well.,E_commerce/data/images/classic_gold_chair.jpg
+673,Purple Pet Bed Rugged,Beauty,150.44,3.9,Kept me up all night reading!,E_commerce/data/images/purple_pet_bed_rugged.jpg
+674,Nail Clippers Ultra V40,Garden,574.88,3.4,Loud and clear audio. Works well.,E_commerce/data/images/nail_clippers_ultra_v40.jpg
+675,Advanced Router Series 429,Kitchen,672.12,4.2,Good value. Blocks out all noise effectively.,E_commerce/data/images/advanced_router_series_429.jpg
+676,Lite T-Shirt - Orange Edition,Outdoors,103.92,4.6,"Well-balanced, good control. Works well.",E_commerce/data/images/lite_t_shirt_orange_edition.jpg
+677,Compact Red Lantern,Toys,52.09,3.1,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/compact_red_lantern.jpg
+678,Bamboo Power Bank Urban,Sports,66.56,3.8,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/bamboo_power_bank_urban.jpg
+679,Deluxe Brush Series 384,Clothing,268.19,2.6,"Well-balanced, good control. Would buy again.",E_commerce/data/images/deluxe_brush_series_384.jpg
+680,Controller Lite V17,Electronics,691.61,2.5,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/controller_lite_v17.jpg
+681,Smart Jeans - Pink Edition,Automotive,80.31,4.7,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/smart_jeans_pink_edition.jpg
+682,Pink Camera Performance,Sports,71.13,4.7,Loud and clear audio.,E_commerce/data/images/pink_camera_performance.jpg
+683,Red Nail Clippers Deluxe,Toys,195.84,3.7,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/red_nail_clippers_deluxe.jpg
+684,Premium Desk Series 740,Electronics,373.96,3.4,Loud and clear audio.,E_commerce/data/images/premium_desk_series_740.jpg
+685,Premium Novel Series 174,Garden,460.82,4.3,Gripping story from start to finish.,E_commerce/data/images/premium_novel_series_174.jpg
+686,Yellow Nail Clippers Pro,Gaming,80.76,4.1,Durable and easy to use in the garden.,E_commerce/data/images/yellow_nail_clippers_pro.jpg
+687,Pro Lens Series 511,Outdoors,178.52,4.1,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/pro_lens_series_511.jpg
+688,Advanced Chair - Purple Edition,Toys,158.76,3.7,"Perfect length, material is soft.",E_commerce/data/images/advanced_chair_purple_edition.jpg
+689,Beige Sandals Classic,Sports,336.81,3.4,"Good value. Well-balanced, good control.",E_commerce/data/images/beige_sandals_classic.jpg
+690,Jacket Eco V20,Electronics,376.89,2.5,Great support for long runs. Highly recommended.,E_commerce/data/images/jacket_eco_v20.jpg
+691,Mouse Wireless V34,Health,200.73,3.3,Inspirational and practical advice.,E_commerce/data/images/mouse_wireless_v34.jpg
+692,White Desk Essential,Toys,136.89,4.0,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/white_desk_essential.jpg
+693,Urban Grey Stand,Beauty,104.23,5.0,Good value. Recipes are simple and delicious.,E_commerce/data/images/urban_grey_stand.jpg
+694,Deluxe Controller Series 886,Automotive,229.16,3.7,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/deluxe_controller_series_886.jpg
+695,Bamboo Blender Ultra,Sports,69.76,4.1,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/bamboo_blender_ultra.jpg
+696,Deluxe Pet Bed - Black Edition,Electronics,152.93,5.0,Loud and clear audio. Highly recommended.,E_commerce/data/images/deluxe_pet_bed_black_edition.jpg
+697,Action Figure Advanced S11,Books,489.7,4.4,Kept me up all night reading. Works well.,E_commerce/data/images/action_figure_advanced_s11.jpg
+698,Brown Novel Urban,Beauty,172.34,3.6,Recipes are simple and delicious.,E_commerce/data/images/brown_novel_urban.jpg
+699,Smart Mat - Gold Edition,Office,49.89,3.7,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/smart_mat_gold_edition.jpg
+700,Polyester Gloves Travel,Outdoors,504.49,3.9,Good value. Blocks out all noise effectively.,E_commerce/data/images/polyester_gloves_travel.jpg
+701,Brown Puzzle Modern,Books,148.79,3.8,Kept me up all night reading! Would buy again.,E_commerce/data/images/brown_puzzle_modern.jpg
+702,Essential Watch Series 237,Electronics,439.12,3.9,"Good value. Secure fit, lightweight.",E_commerce/data/images/essential_watch_series_237.jpg
+703,Mini Silver Gloves,Toys,44.12,3.0,"Beautiful print, true to size.",E_commerce/data/images/mini_silver_gloves.jpg
+704,Performance Orange Monitor,Books,103.36,3.7,Loud and clear audio. Highly recommended.,E_commerce/data/images/performance_orange_monitor.jpg
+705,Green Controller Premium,Office,355.76,4.8,Stylish and holds water well.,E_commerce/data/images/green_controller_premium.jpg
+706,Webcam Wireless X26,Kitchen,535.31,4.5,"Good value. Perfect length, material is soft.",E_commerce/data/images/webcam_wireless_x26.jpg
+707,Performance Cushion Series 875,Home & Garden,217.58,2.7,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/performance_cushion_series_875.jpg
+708,Polyester Camera Advanced,Health,283.57,4.3,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/polyester_camera_advanced.jpg
+709,Travel Green Charger,Office,461.85,3.3,"Well-balanced, good control. Would buy again.",E_commerce/data/images/travel_green_charger.jpg
+710,White Vacuum Travel,Automotive,490.53,4.1,"Battery lasts all day, sleek design.",E_commerce/data/images/white_vacuum_travel.jpg
+711,Vintage Blue Mascot,Office,101.48,3.5,Keeps me warm in winter.,E_commerce/data/images/vintage_blue_mascot.jpg
+712,Pro Jeans Series 275,Health,55.54,2.9,Blocks out all noise effectively.,E_commerce/data/images/pro_jeans_series_275.jpg
+713,Deluxe Air Fryer - Gold Edition,Toys,100.21,5.0,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/deluxe_air_fryer_gold_edition.jpg
+714,Advanced Jeans Series 246,Outdoors,431.3,3.4,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/advanced_jeans_series_246.jpg
+715,Advanced Controller Series 193,Health,110.57,3.2,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/advanced_controller_series_193.jpg
+716,Beige Tent Compact,Home & Garden,425.14,4.1,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/beige_tent_compact.jpg
+717,Comfort Silver Cushion,Gaming,514.31,4.4,"Battery lasts all day, sleek design. Works well.",E_commerce/data/images/comfort_silver_cushion.jpg
+718,Performance T-Shirt - Pink Edition,Home & Garden,454.85,3.5,"Good value. Perfect length, material is soft.",E_commerce/data/images/performance_t_shirt_pink_edition.jpg
+719,Classic Power Bank - Red Edition,Clothing,385.7,3.8,Good value. Recipes are simple and delicious.,E_commerce/data/images/classic_power_bank_red_edition.jpg
+720,Comfort Gold Helmet,Electronics,182.93,2.9,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/comfort_gold_helmet.jpg
+721,Air Fryer Advanced V44,Electronics,212.12,5.0,Keeps me warm in winter.,E_commerce/data/images/air_fryer_advanced_v44.jpg
+722,Wireless Sofa Series 104,Toys,155.75,4.5,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/wireless_sofa_series_104.jpg
+723,Classic Jeans - Blue Edition,Sports,78.43,4.8,"Battery lasts all day, sleek design.",E_commerce/data/images/classic_jeans_blue_edition.jpg
+724,Gold Charger Performance,Toys,128.69,4.5,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/gold_charger_performance.jpg
+725,Deluxe Charger - Yellow Edition,Home & Garden,203.42,3.8,Gripping story from start to finish. Works well.,E_commerce/data/images/deluxe_charger_yellow_edition.jpg
+726,Sandals Urban X20,Office,254.79,3.9,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/sandals_urban_x20.jpg
+727,Brown Board Game Rugged,Beauty,130.72,4.4,Blocks out all noise effectively.,E_commerce/data/images/brown_board_game_rugged.jpg
+728,Classic Sleeping Bag - Purple Edition,Beauty,54.16,3.1,Durable and easy to use in the garden. Works well.,E_commerce/data/images/classic_sleeping_bag_purple_edition.jpg
+729,Mini Watch Series 161,Home & Garden,192.04,3.5,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/mini_watch_series_161.jpg
+730,Neoprene Nail Clippers Urban,Gaming,650.73,4.5,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/neoprene_nail_clippers_urban.jpg
+731,Gold Drone Classic,Kitchen,386.73,5.0,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/gold_drone_classic.jpg
+732,Travel Yellow Mixers,Automotive,873.77,3.4,Great support for long runs. Highly recommended.,E_commerce/data/images/travel_yellow_mixers.jpg
+733,Cushion Lite V16,Electronics,108.62,4.2,"Perfect length, material is soft. Highly recommended.",E_commerce/data/images/cushion_lite_v16.jpg
+734,Compact Keyboard - White Edition,Toys,48.27,4.5,"Good value. Beautiful print, true to size.",E_commerce/data/images/compact_keyboard_white_edition.jpg
+735,Compact Tent Series 617,Toys,154.46,3.0,Gripping story from start to finish. Works well.,E_commerce/data/images/compact_tent_series_617.jpg
+736,Vintage Drone Series 279,Automotive,326.67,3.4,Blocks out all noise effectively.,E_commerce/data/images/vintage_drone_series_279.jpg
+737,Racket Ultra V1,Beauty,148.77,3.6,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/racket_ultra_v1.jpg
+738,Essential Keyboard Series 756,Pet Supplies,266.07,4.9,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/essential_keyboard_series_756.jpg
+739,Comfort Sneakers - Beige Edition,Pet Supplies,77.8,3.5,"Beautiful print, true to size.",E_commerce/data/images/comfort_sneakers_beige_edition.jpg
+740,Synthetic Sofa Rugged,Pet Supplies,77.99,4.0,"Battery lasts all day, sleek design.",E_commerce/data/images/synthetic_sofa_rugged.jpg
+741,Grey Power Bank Lite,Sports,444.2,3.2,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/grey_power_bank_lite.jpg
+742,Travel Green Drone,Outdoors,452.6,4.2,Great support for long runs. Works well.,E_commerce/data/images/travel_green_drone.jpg
+743,Deluxe Beige Keyboard,Pet Supplies,33.58,4.3,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/deluxe_beige_keyboard.jpg
+744,Black Camera Mini,Pet Supplies,148.51,3.8,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/black_camera_mini.jpg
+745,Deluxe Mixers Series 928,Electronics,380.55,4.1,Good value. Gripping story from start to finish.,E_commerce/data/images/deluxe_mixers_series_928.jpg
+746,Smart T-Shirt Series 699,Sports,352.76,2.9,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/smart_t_shirt_series_699.jpg
+747,Performance Hose Series 875,Automotive,356.45,4.2,Loud and clear audio. Highly recommended.,E_commerce/data/images/performance_hose_series_875.jpg
+748,Travel Purple Sneakers,Beauty,96.81,4.5,Great support for long runs.,E_commerce/data/images/travel_purple_sneakers.jpg
+749,Max HDD Series 869,Automotive,629.8,4.2,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/max_hdd_series_869.jpg
+750,Wooden Desk Rugged,Clothing,471.17,3.3,"Well-balanced, good control.",E_commerce/data/images/wooden_desk_rugged.jpg
+751,Mini Leash Series 816,Beauty,65.83,3.4,Keeps me warm in winter. Would buy again.,E_commerce/data/images/mini_leash_series_816.jpg
+752,Performance Gloves - Black Edition,Kitchen,697.49,4.9,"Secure fit, lightweight.",E_commerce/data/images/performance_gloves_black_edition.jpg
+753,Vintage White Air Fryer,Health,40.59,4.5,Kept me up all night reading. Works well.,E_commerce/data/images/vintage_white_air_fryer.jpg
+754,Smart Headphones - Brown Edition,Home & Garden,440.74,4.7,Good value. Loud and clear audio.,E_commerce/data/images/smart_headphones_brown_edition.jpg
+755,Polyester Tent Travel,Gaming,133.38,4.2,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/polyester_tent_travel.jpg
+756,Controller Premium X4,Garden,326.01,3.7,Great support for long runs. Would buy again.,E_commerce/data/images/controller_premium_x4.jpg
+757,Urban Backpack Series 504,Office,164.8,4.3,Good value. Recipes are simple and delicious.,E_commerce/data/images/urban_backpack_series_504.jpg
+758,Advanced Mouse - Purple Edition,Office,26.83,3.4,Durable and easy to use in the garden. Works well.,E_commerce/data/images/advanced_mouse_purple_edition.jpg
+759,Modern Pet Bed - Brown Edition,Garden,580.23,2.7,Recipes are simple and delicious.,E_commerce/data/images/modern_pet_bed_brown_edition.jpg
+760,Compact Beige Vacuum,Gaming,556.98,3.4,"Good value. Beautiful print, true to size.",E_commerce/data/images/compact_beige_vacuum.jpg
+761,Lite Mouse - Beige Edition,Toys,172.69,3.7,"Even cooking, easy cleanup.",E_commerce/data/images/lite_mouse_beige_edition.jpg
+762,Wireless Helmet - Brown Edition,Garden,294.64,4.5,"Perfect length, material is soft.",E_commerce/data/images/wireless_helmet_brown_edition.jpg
+763,Modern Puzzle Series 979,Beauty,139.09,3.5,"Comfortable fit, but color fades after wash.",E_commerce/data/images/modern_puzzle_series_979.jpg
+764,Rugged Tent Series 252,Outdoors,186.6,3.1,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/rugged_tent_series_252.jpg
+765,Rugged Silver HDD,Electronics,633.3,5.0,Good value. Stylish and holds water well.,E_commerce/data/images/rugged_silver_hdd.jpg
+766,Classic Watch - Red Edition,Beauty,182.61,3.1,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/classic_watch_red_edition.jpg
+767,Max Lens Series 595,Books,184.26,3.4,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/max_lens_series_595.jpg
+768,Classic Orange Mascot,Toys,108.59,4.1,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/classic_orange_mascot.jpg
+769,Sofa Max V1,Office,229.14,3.6,"Even cooking, easy cleanup. Highly recommended.",E_commerce/data/images/sofa_max_v1.jpg
+770,Compact Orange Notebook,Office,258.01,3.5,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/compact_orange_notebook.jpg
+771,Wireless Puzzle Series 400,Home & Garden,101.12,4.0,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/wireless_puzzle_series_400.jpg
+772,Performance Beige Backpack,Outdoors,147.89,2.6,Great support for long runs. Would buy again.,E_commerce/data/images/performance_beige_backpack.jpg
+773,Deluxe Pen Series 231,Outdoors,70.56,3.4,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/deluxe_pen_series_231.jpg
+774,Brown Tent Lite,Health,30.46,4.1,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/brown_tent_lite.jpg
+775,Rugged Helmet Series 529,Office,195.68,4.4,Stylish and holds water well.,E_commerce/data/images/rugged_helmet_series_529.jpg
+776,Polyester Sandals Max,Outdoors,638.29,4.1,Recipes are simple and delicious. Works well.,E_commerce/data/images/polyester_sandals_max.jpg
+777,Lens Max V12,Clothing,491.33,2.7,Blocks out all noise effectively.,E_commerce/data/images/lens_max_v12.jpg
+778,Essential Gold Mouse,Outdoors,629.67,3.6,Inspirational and practical advice. Would buy again.,E_commerce/data/images/essential_gold_mouse.jpg
+779,Speaker Travel V44,Automotive,721.83,4.1,"Even cooking, easy cleanup. Works well.",E_commerce/data/images/speaker_travel_v44.jpg
+780,Rugged Board Game Series 355,Clothing,482.71,4.4,Good value. Stylish and holds water well.,E_commerce/data/images/rugged_board_game_series_355.jpg
+781,Bamboo Leash Eco,Outdoors,594.77,4.0,Recipes are simple and delicious.,E_commerce/data/images/bamboo_leash_eco.jpg
+782,Modern Red Controller,Electronics,771.62,3.7,Good value. Great support for long runs.,E_commerce/data/images/modern_red_controller.jpg
+783,Beige Headphones Performance,Health,274.16,4.7,Inspirational and practical advice. Works well.,E_commerce/data/images/beige_headphones_performance.jpg
+784,Sofa Performance V44,Home & Garden,544.2,3.5,Great support for long runs. Would buy again.,E_commerce/data/images/sofa_performance_v44.jpg
+785,Silicone Lens Pro,Beauty,183.67,3.2,Durable and easy to use in the garden. Works well.,E_commerce/data/images/silicone_lens_pro.jpg
+786,Air Fryer Comfort S41,Books,227.13,5.0,"Good value. Comfortable fit, but color fades after wash.",E_commerce/data/images/air_fryer_comfort_s41.jpg
+787,Neoprene Webcam Urban,Gaming,312.38,3.3,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/neoprene_webcam_urban.jpg
+788,Gloves Classic V34,Beauty,180.72,2.7,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/gloves_classic_v34.jpg
+789,Smart Vacuum Series 483,Kitchen,626.69,4.1,"Good value. Secure fit, lightweight.",E_commerce/data/images/smart_vacuum_series_483.jpg
+790,Beige Tent Ultra,Electronics,133.0,3.6,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/beige_tent_ultra.jpg
+791,Pro Brown Blender,Gaming,432.67,4.2,Great support for long runs. Works well.,E_commerce/data/images/pro_brown_blender.jpg
+792,Travel Beige Controller,Kitchen,671.22,4.3,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/travel_beige_controller.jpg
+793,Eco Pet Bed - Brown Edition,Clothing,203.21,3.8,Good value. Gripping story from start to finish.,E_commerce/data/images/eco_pet_bed_brown_edition.jpg
+794,Urban Beige Mat,Home & Garden,521.22,4.4,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/urban_beige_mat.jpg
+795,Gold Lamp Compact,Automotive,146.85,3.8,"Perfect length, material is soft. Highly recommended.",E_commerce/data/images/gold_lamp_compact.jpg
+796,Classic Watch Series 985,Toys,109.74,3.3,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/classic_watch_series_985.jpg
+797,Cotton Headphones Rugged,Toys,145.2,4.0,"Good value. Non-slip surface, excellent for yoga.",E_commerce/data/images/cotton_headphones_rugged.jpg
+798,Leather Mixers Urban,Books,186.96,4.4,Loud and clear audio. Works well.,E_commerce/data/images/leather_mixers_urban.jpg
+799,Nylon Sofa Essential,Pet Supplies,66.96,2.7,Great support for long runs. Would buy again.,E_commerce/data/images/nylon_sofa_essential.jpg
+800,Pro Mascot Series 295,Sports,466.48,2.8,Loud and clear audio. Works well.,E_commerce/data/images/pro_mascot_series_295.jpg
+801,Orange Drone Comfort,Pet Supplies,128.37,3.9,"Good value. Beautiful print, true to size.",E_commerce/data/images/orange_drone_comfort.jpg
+802,Max Red Hose,Office,91.8,3.8,Keeps me warm in winter.,E_commerce/data/images/max_red_hose.jpg
+803,Cushion Advanced X26,Electronics,253.62,3.5,"Perfect length, material is soft. Would buy again.",E_commerce/data/images/cushion_advanced_x26.jpg
+804,Polyester Mat Classic,Pet Supplies,94.51,2.8,Inspirational and practical advice.,E_commerce/data/images/polyester_mat_classic.jpg
+805,Orange Novel Eco,Electronics,756.53,3.6,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/orange_novel_eco.jpg
+806,Jeans Deluxe X41,Garden,583.61,4.5,Good value. Great support for long runs.,E_commerce/data/images/jeans_deluxe_x41.jpg
+807,Yellow Sneakers Urban,Gaming,735.87,3.6,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/yellow_sneakers_urban.jpg
+808,Leather Controller Modern,Office,436.31,4.1,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/leather_controller_modern.jpg
+809,Smart Desk Series 927,Beauty,54.03,4.2,Blocks out all noise effectively.,E_commerce/data/images/smart_desk_series_927.jpg
+810,Mascot Compact V13,Health,152.25,4.5,"Amazing sound quality, worth every penny. Works well.",E_commerce/data/images/mascot_compact_v13.jpg
+811,Compact Brown Sofa,Electronics,369.8,3.8,Kept me up all night reading!,E_commerce/data/images/compact_brown_sofa.jpg
+812,Performance Beige Toy Car,Pet Supplies,116.47,4.6,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/performance_beige_toy_car.jpg
+813,Lite Black Desk,Home & Garden,334.57,4.5,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/lite_black_desk.jpg
+814,Pro Beige Pen,Home & Garden,498.46,3.4,Good value. Keeps me warm in winter.,E_commerce/data/images/pro_beige_pen.jpg
+815,Stainless Cookbook Classic,Electronics,541.52,2.9,Good value. Durable and easy to use in the garden.,E_commerce/data/images/stainless_cookbook_classic.jpg
+816,Stainless Mouse Max,Electronics,138.76,4.9,"Good value. Battery lasts all day, sleek design.",E_commerce/data/images/stainless_mouse_max.jpg
+817,Premium SSD - Black Edition,Outdoors,225.06,4.3,Durable and easy to use in the garden. Works well.,E_commerce/data/images/premium_ssd_black_edition.jpg
+818,Green Action Figure Comfort,Gaming,782.23,3.5,"Good value. Secure fit, lightweight.",E_commerce/data/images/green_action_figure_comfort.jpg
+819,Lite Purple Tent,Garden,200.6,3.7,Good value. Blocks out all noise effectively.,E_commerce/data/images/lite_purple_tent.jpg
+820,Rugged Action Figure Series 769,Automotive,562.86,4.0,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/rugged_action_figure_series_769.jpg
+821,Lite Grill - Beige Edition,Toys,164.15,3.5,"Beautiful print, true to size.",E_commerce/data/images/lite_grill_beige_edition.jpg
+822,Wooden Hose Classic,Home & Garden,229.3,3.3,Good value. Inspirational and practical advice.,E_commerce/data/images/wooden_hose_classic.jpg
+823,Deluxe Controller - Blue Edition,Home & Garden,102.98,4.8,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/deluxe_controller_blue_edition.jpg
+824,Max Red Hose 824,Clothing,258.75,3.3,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/max_red_hose_824.jpg
+825,Mini Mixers - Silver Edition,Garden,321.2,4.9,Good value. Loud and clear audio.,E_commerce/data/images/mini_mixers_silver_edition.jpg
+826,Rugged Green Headphones,Kitchen,430.84,3.6,Good value. Kept me up all night reading!,E_commerce/data/images/rugged_green_headphones.jpg
+827,Polyester Pet Bed Advanced,Office,357.58,3.7,Gripping story from start to finish. Would buy again.,E_commerce/data/images/polyester_pet_bed_advanced.jpg
+828,Grey Chair Ultra,Toys,166.28,3.7,Good value. Kept me up all night reading!,E_commerce/data/images/grey_chair_ultra.jpg
+829,Pro Brown Tent,Electronics,108.36,4.6,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/pro_brown_tent.jpg
+830,Polyester Sandals Compact,Books,134.48,3.7,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/polyester_sandals_compact.jpg
+831,Modern Blue Sneakers,Clothing,592.22,3.8,Kept me up all night reading. Works well.,E_commerce/data/images/modern_blue_sneakers.jpg
+832,Grey Controller Max,Electronics,67.76,4.5,"Comfortable fit, but color fades after wash. Works well.",E_commerce/data/images/grey_controller_max.jpg
+833,Red Nail Clippers Ultra,Electronics,713.3,4.8,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/red_nail_clippers_ultra.jpg
+834,Polyester Stand Urban,Outdoors,265.02,4.4,Kept me up all night reading! Highly recommended.,E_commerce/data/images/polyester_stand_urban.jpg
+835,Urban Red Racket,Home & Garden,486.74,5.0,Good value. Gripping story from start to finish.,E_commerce/data/images/urban_red_racket.jpg
+836,Mouse Advanced V18,Sports,213.5,3.3,"Secure fit, lightweight. Works well.",E_commerce/data/images/mouse_advanced_v18.jpg
+837,Smart Brown Speaker,Health,115.41,3.4,"Well-balanced, good control. Highly recommended.",E_commerce/data/images/smart_brown_speaker.jpg
+838,Essential Chair - Gold Edition,Health,129.83,3.4,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/essential_chair_gold_edition.jpg
+839,Pro Beige Mascot,Office,152.42,3.2,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/pro_beige_mascot.jpg
+840,Advanced Lantern Series 579,Toys,30.73,3.4,Good value. Kept me up all night reading!,E_commerce/data/images/advanced_lantern_series_579.jpg
+841,Red Charger Travel,Home & Garden,427.33,4.0,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/red_charger_travel.jpg
+842,Air Fryer Comfort S3,Electronics,630.65,3.5,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/air_fryer_comfort_s3.jpg
+843,Smart Red Racket,Books,184.25,5.0,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/smart_red_racket.jpg
+844,Synthetic Sneakers Smart,Office,90.62,3.5,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/synthetic_sneakers_smart.jpg
+845,HDD Compact X1,Pet Supplies,236.01,3.9,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/hdd_compact_x1.jpg
+846,Wooden Racket Premium,Electronics,135.21,4.7,Keeps me warm in winter.,E_commerce/data/images/wooden_racket_premium.jpg
+847,Ultra Lamp - Brown Edition,Health,293.92,3.6,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/ultra_lamp_brown_edition.jpg
+848,Wooden Blender Deluxe,Toys,164.62,3.8,Good value. Blocks out all noise effectively.,E_commerce/data/images/wooden_blender_deluxe.jpg
+849,Wooden Pet Bed Mini,Toys,31.54,3.2,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/wooden_pet_bed_mini.jpg
+850,Compact Lens - Grey Edition,Automotive,454.37,3.3,Durable and easy to use in the garden.,E_commerce/data/images/compact_lens_grey_edition.jpg
+851,Max T-Shirt Series 731,Kitchen,529.96,4.3,"Secure fit, lightweight. Would buy again.",E_commerce/data/images/max_t_shirt_series_731.jpg
+852,Pro Grill Series 316,Automotive,565.04,4.6,"Good value. Secure fit, lightweight.",E_commerce/data/images/pro_grill_series_316.jpg
+853,Silicone Camera Rugged,Gaming,282.26,4.1,"Powerful motor, mixes everything smoothly. Highly recommended.",E_commerce/data/images/silicone_camera_rugged.jpg
+854,Mini T-Shirt - Blue Edition,Clothing,439.98,4.7,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/mini_t_shirt_blue_edition.jpg
+855,Beige Mixers Rugged,Electronics,378.05,3.9,Kept me up all night reading. Works well.,E_commerce/data/images/beige_mixers_rugged.jpg
+856,Vintage Air Fryer Series 195,Garden,16.81,4.3,"Well-balanced, good control. Would buy again.",E_commerce/data/images/vintage_air_fryer_series_195.jpg
+857,Lite T-Shirt Series 860,Gaming,641.77,4.3,Recipes are simple and delicious. Works well.,E_commerce/data/images/lite_t_shirt_series_860.jpg
+858,Stainless Board Game Vintage,Home & Garden,402.37,4.4,"Even cooking, easy cleanup.",E_commerce/data/images/stainless_board_game_vintage.jpg
+859,Red Backpack Advanced,Sports,91.75,3.8,"Good value. Perfect length, material is soft.",E_commerce/data/images/red_backpack_advanced.jpg
+860,Grey Sandals Comfort,Sports,359.3,3.6,"Secure fit, lightweight. Highly recommended.",E_commerce/data/images/grey_sandals_comfort.jpg
+861,Wireless Black Router,Electronics,137.91,3.7,"Well-balanced, good control. Would buy again.",E_commerce/data/images/wireless_black_router.jpg
+862,Controller Classic V13,Outdoors,40.1,2.8,Great support for long runs. Highly recommended.,E_commerce/data/images/controller_classic_v13.jpg
+863,Essential White T-Shirt,Garden,439.37,4.6,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/essential_white_t_shirt.jpg
+864,Essential Mouse Series 578,Sports,280.7,3.7,"Battery lasts all day, sleek design. Highly recommended.",E_commerce/data/images/essential_mouse_series_578.jpg
+865,Red Lamp Smart,Office,399.11,4.7,"Good value. Secure fit, lightweight.",E_commerce/data/images/red_lamp_smart.jpg
+866,Purple Backpack Smart,Automotive,580.13,3.5,Good value. Gripping story from start to finish.,E_commerce/data/images/purple_backpack_smart.jpg
+867,Pro Lamp - Green Edition,Electronics,762.78,4.0,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/pro_lamp_green_edition.jpg
+868,Silver Mixers Premium,Kitchen,466.73,3.4,Durable and easy to use in the garden.,E_commerce/data/images/silver_mixers_premium.jpg
+869,Lantern Classic X15,Beauty,22.58,3.5,"Perfect length, material is soft.",E_commerce/data/images/lantern_classic_x15.jpg
+870,Smart Brush - Silver Edition,Outdoors,306.79,4.2,Loud and clear audio. Highly recommended.,E_commerce/data/images/smart_brush_silver_edition.jpg
+871,Pro Pink Jacket,Home & Garden,282.62,4.3,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/pro_pink_jacket.jpg
+872,Wireless Puzzle Series 976,Clothing,313.75,4.4,Inspirational and practical advice. Would buy again.,E_commerce/data/images/wireless_puzzle_series_976.jpg
+873,Cotton Hose Premium,Clothing,309.87,4.2,Inspirational and practical advice. Works well.,E_commerce/data/images/cotton_hose_premium.jpg
+874,Urban Keyboard - Grey Edition,Health,290.47,3.2,"Well-balanced, good control.",E_commerce/data/images/urban_keyboard_grey_edition.jpg
+875,Eco Jeans - Gold Edition,Clothing,489.7,3.5,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/eco_jeans_gold_edition.jpg
+876,Pro Silver Jacket,Clothing,305.49,4.7,Kept me up all night reading. Works well.,E_commerce/data/images/pro_silver_jacket.jpg
+877,Purple Lantern Compact,Pet Supplies,227.15,3.6,Durable and easy to use in the garden. Would buy again.,E_commerce/data/images/purple_lantern_compact.jpg
+878,Eco Router - Pink Edition,Outdoors,348.24,4.1,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/eco_router_pink_edition.jpg
+879,Pink Sneakers Lite,Pet Supplies,143.1,3.6,Loud and clear audio. Highly recommended.,E_commerce/data/images/pink_sneakers_lite.jpg
+880,Modern Leash Series 420,Garden,396.62,4.4,Great support for long runs. Highly recommended.,E_commerce/data/images/modern_leash_series_420.jpg
+881,Essential Brush Series 735,Gaming,204.19,3.6,"Non-slip surface, excellent for yoga. Would buy again.",E_commerce/data/images/essential_brush_series_735.jpg
+882,Pink Nail Clippers Max,Office,18.13,3.7,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/pink_nail_clippers_max.jpg
+883,Red Cushion Essential,Health,53.68,3.8,"Good value. Comfortable fit, but color fades after wash.",E_commerce/data/images/red_cushion_essential.jpg
+884,Blue Monitor Essential,Books,182.3,3.8,Keeps me warm in winter. Would buy again.,E_commerce/data/images/blue_monitor_essential.jpg
+885,Performance Red SSD,Health,73.68,3.5,Durable and easy to use in the garden. Works well.,E_commerce/data/images/performance_red_ssd.jpg
+886,Urban Vacuum - Grey Edition,Home & Garden,175.59,2.6,"Beautiful print, true to size. Works well.",E_commerce/data/images/urban_vacuum_grey_edition.jpg
+887,Urban Jeans - Beige Edition,Pet Supplies,188.52,4.0,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/urban_jeans_beige_edition.jpg
+888,Neoprene Jeans Premium,Electronics,65.62,2.5,"Amazing sound quality, worth every penny! Would buy again.",E_commerce/data/images/neoprene_jeans_premium.jpg
+889,Comfort Blue Gloves,Beauty,18.58,3.5,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/comfort_blue_gloves.jpg
+890,Ultra Keyboard Series 923,Kitchen,353.65,3.7,Blocks out all noise effectively. Works well.,E_commerce/data/images/ultra_keyboard_series_923.jpg
+891,Webcam Advanced S22,Beauty,157.16,3.9,Keeps me warm in winter.,E_commerce/data/images/webcam_advanced_s22.jpg
+892,Brown Racket Mini,Electronics,483.19,4.3,"Perfect length, material is soft.",E_commerce/data/images/brown_racket_mini.jpg
+893,Travel Nail Clippers Series 741,Home & Garden,592.65,4.5,"Beautiful print, true to size. Works well.",E_commerce/data/images/travel_nail_clippers_series_741.jpg
+894,Keyboard Modern V38,Toys,143.35,4.2,"Secure fit, lightweight. Would buy again.",E_commerce/data/images/keyboard_modern_v38.jpg
+895,Essential Jeans Series 610,Kitchen,483.03,4.0,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/essential_jeans_series_610.jpg
+896,Comfort Red Action Figure,Books,147.8,4.4,Blocks out all noise effectively. Works well.,E_commerce/data/images/comfort_red_action_figure.jpg
+897,Brown Pet Bed Mini,Clothing,340.09,2.5,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/brown_pet_bed_mini.jpg
+898,Synthetic Blender Smart,Sports,148.49,3.8,Good value. Kept me up all night reading!,E_commerce/data/images/synthetic_blender_smart.jpg
+899,Max Sofa Series 418,Toys,139.0,3.4,"Perfect length, material is soft. Works well.",E_commerce/data/images/max_sofa_series_418.jpg
+900,Keyboard Mini V20,Electronics,745.34,3.9,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/keyboard_mini_v20.jpg
+901,Neoprene Charger Performance,Electronics,401.28,3.8,"Good value. Powerful motor, mixes everything smoothly.",E_commerce/data/images/neoprene_charger_performance.jpg
+902,Cotton Grill Vintage,Clothing,514.65,3.9,"Well-balanced, good control. Would buy again.",E_commerce/data/images/cotton_grill_vintage.jpg
+903,Modern Toy Car Series 965,Gaming,676.68,3.7,Good value. Keeps me warm in winter.,E_commerce/data/images/modern_toy_car_series_965.jpg
+904,Leather Pen Pro,Garden,360.66,4.8,Loud and clear audio.,E_commerce/data/images/leather_pen_pro.jpg
+905,Power Bank Modern S14,Sports,114.87,4.3,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/power_bank_modern_s14.jpg
+906,Rugged Jeans - Beige Edition,Books,140.31,4.8,Recipes are simple and delicious. Highly recommended.,E_commerce/data/images/rugged_jeans_beige_edition.jpg
+907,Comfort Gold Mat,Sports,184.97,3.8,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/comfort_gold_mat.jpg
+908,Gold Router Urban,Books,336.29,4.2,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/gold_router_urban.jpg
+909,Bamboo Router Comfort,Health,203.63,3.4,Good value. Durable and easy to use in the garden.,E_commerce/data/images/bamboo_router_comfort.jpg
+910,Mini Mouse Series 568,Toys,12.09,3.2,"Good value. Well-balanced, good control.",E_commerce/data/images/mini_mouse_series_568.jpg
+911,Essential Pink Nail Clippers,Clothing,592.7,2.8,Keeps me warm in winter. Highly recommended.,E_commerce/data/images/essential_pink_nail_clippers.jpg
+912,Silicone Sandals Performance,Beauty,134.63,3.9,Great support for long runs. Works well.,E_commerce/data/images/silicone_sandals_performance.jpg
+913,Wireless Pet Bed Series 760,Kitchen,431.97,2.9,Keeps me warm in winter. Would buy again.,E_commerce/data/images/wireless_pet_bed_series_760.jpg
+914,Ultra Lamp Series 456,Books,80.41,3.2,Good value. Blocks out all noise effectively.,E_commerce/data/images/ultra_lamp_series_456.jpg
+915,Eco Nail Clippers Series 278,Beauty,185.25,3.2,"Comfortable fit, but color fades after wash.",E_commerce/data/images/eco_nail_clippers_series_278.jpg
+916,Essential Brown Pet Bed,Health,212.63,3.9,Good value. Stylish and holds water well.,E_commerce/data/images/essential_brown_pet_bed.jpg
+917,White Controller Wireless,Health,34.95,4.5,Gripping story from start to finish. Works well.,E_commerce/data/images/white_controller_wireless.jpg
+918,Rugged Blender Series 952,Electronics,425.64,2.5,Great support for long runs.,E_commerce/data/images/rugged_blender_series_952.jpg
+919,Sandals Mini V9,Health,96.49,3.3,"Well-balanced, good control. Would buy again.",E_commerce/data/images/sandals_mini_v9.jpg
+920,Classic Mouse - Gold Edition,Beauty,78.0,4.3,"Non-slip surface, excellent for yoga.",E_commerce/data/images/classic_mouse_gold_edition.jpg
+921,Modern Bottle Series 725,Outdoors,440.68,4.2,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/modern_bottle_series_725.jpg
+922,Cotton Stand Smart,Gaming,890.27,3.3,Loud and clear audio.,E_commerce/data/images/cotton_stand_smart.jpg
+923,Comfort Silver Pillow,Home & Garden,220.59,3.2,"Well-balanced, good control.",E_commerce/data/images/comfort_silver_pillow.jpg
+924,Vintage Black Pen,Gaming,506.66,3.5,Blocks out all noise effectively. Works well.,E_commerce/data/images/vintage_black_pen.jpg
+925,T-Shirt Eco V35,Kitchen,605.0,4.7,Good value. Inspirational and practical advice.,E_commerce/data/images/t_shirt_eco_v35.jpg
+926,Speaker Travel S28,Clothing,255.11,3.2,"Beautiful print, true to size. Works well.",E_commerce/data/images/speaker_travel_s28.jpg
+927,Premium Blue Novel,Home & Garden,151.73,4.7,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/premium_blue_novel.jpg
+928,Pro Blue Speaker,Garden,195.33,5.0,"Non-slip surface, excellent for yoga. Highly recommended.",E_commerce/data/images/pro_blue_speaker.jpg
+929,Neoprene Headphones Travel,Automotive,940.22,2.9,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/neoprene_headphones_travel.jpg
+930,Cushion Wireless S16,Health,268.96,3.4,Durable and easy to use in the garden.,E_commerce/data/images/cushion_wireless_s16.jpg
+931,Pen Mini V9,Beauty,53.8,4.1,"Beautiful print, true to size. Highly recommended.",E_commerce/data/images/pen_mini_v9.jpg
+932,Eco Toy Car Series 564,Clothing,534.53,3.2,"Non-slip surface, excellent for yoga.",E_commerce/data/images/eco_toy_car_series_564.jpg
+933,Smart Gloves Series 119,Clothing,217.77,3.4,"Powerful motor, mixes everything smoothly. Would buy again.",E_commerce/data/images/smart_gloves_series_119.jpg
+934,Cotton Toy Car Wireless,Clothing,569.08,4.2,Loud and clear audio. Would buy again.,E_commerce/data/images/cotton_toy_car_wireless.jpg
+935,Mini Backpack - Silver Edition,Toys,64.61,3.5,Keeps me warm in winter. Works well.,E_commerce/data/images/mini_backpack_silver_edition.jpg
+936,Travel Novel - Beige Edition,Electronics,763.23,3.3,Inspirational and practical advice. Works well.,E_commerce/data/images/travel_novel_beige_edition.jpg
+937,Modern Chair - Blue Edition,Beauty,57.6,4.5,"Amazing sound quality, worth every penny!",E_commerce/data/images/modern_chair_blue_edition.jpg
+938,Modern Notebook Series 967,Books,57.77,3.6,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/modern_notebook_series_967.jpg
+939,Pro Red Pen,Toys,93.68,2.6,Good value. Stylish and holds water well.,E_commerce/data/images/pro_red_pen.jpg
+940,Black Brush Eco,Electronics,135.83,4.8,"Comfortable fit, but color fades after wash. Would buy again.",E_commerce/data/images/black_brush_eco.jpg
+941,Cotton Notebook Eco,Pet Supplies,164.43,3.2,Durable and easy to use in the garden.,E_commerce/data/images/cotton_notebook_eco.jpg
+942,Sandals Advanced V21,Outdoors,272.52,4.4,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/sandals_advanced_v21.jpg
+943,Classic Puzzle - Purple Edition,Electronics,331.04,4.5,"Amazing sound quality, worth every penny! Highly recommended.",E_commerce/data/images/classic_puzzle_purple_edition.jpg
+944,Black Lamp Pro,Beauty,163.53,3.9,Keeps me warm in winter. Would buy again.,E_commerce/data/images/black_lamp_pro.jpg
+945,Essential Pet Bed - Grey Edition,Pet Supplies,49.27,4.6,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/essential_pet_bed_grey_edition.jpg
+946,Performance Cushion - Brown Edition,Automotive,147.61,4.2,Good value. Keeps me warm in winter.,E_commerce/data/images/performance_cushion_brown_edition.jpg
+947,Gold Pillow Smart,Beauty,161.81,4.2,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/gold_pillow_smart.jpg
+948,Sandals Essential S31,Sports,153.66,4.2,Great support for long runs. Would buy again.,E_commerce/data/images/sandals_essential_s31.jpg
+949,Nylon Speaker Mini,Home & Garden,202.03,3.3,Great support for long runs. Would buy again.,E_commerce/data/images/nylon_speaker_mini.jpg
+950,Rugged Black Nail Clippers,Health,131.4,4.7,Blocks out all noise effectively.,E_commerce/data/images/rugged_black_nail_clippers.jpg
+951,HDD Pro V9,Electronics,700.16,3.6,Inspirational and practical advice. Highly recommended.,E_commerce/data/images/hdd_pro_v9.jpg
+952,Mascot Wireless S39,Pet Supplies,36.79,4.0,"Good value. Beautiful print, true to size.",E_commerce/data/images/mascot_wireless_s39.jpg
+953,Mini Pet Bed Series 546,Gaming,706.11,4.8,"Even cooking, easy cleanup. Would buy again.",E_commerce/data/images/mini_pet_bed_series_546.jpg
+954,Ultra Lamp Series 478,Sports,220.72,3.7,"Even cooking, easy cleanup. Works well.",E_commerce/data/images/ultra_lamp_series_478.jpg
+955,Gloves Max V37,Kitchen,630.17,4.5,"Powerful motor, mixes everything smoothly. Works well.",E_commerce/data/images/gloves_max_v37.jpg
+956,Travel Mixers - Silver Edition,Beauty,50.03,3.8,"Well-balanced, good control. Works well.",E_commerce/data/images/travel_mixers_silver_edition.jpg
+957,Essential Headphones Series 394,Sports,150.64,3.2,Durable and easy to use in the garden. Highly recommended.,E_commerce/data/images/essential_headphones_series_394.jpg
+958,Red Air Fryer Smart,Office,23.4,4.0,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/red_air_fryer_smart.jpg
+959,Classic Mouse Series 684,Garden,317.33,4.5,Durable and easy to use in the garden.,E_commerce/data/images/classic_mouse_series_684.jpg
+960,Mini Watch - Green Edition,Health,203.93,4.1,Gripping story from start to finish. Works well.,E_commerce/data/images/mini_watch_green_edition.jpg
+961,Performance Lantern - Green Edition,Electronics,632.78,4.2,"Good value. Comfortable fit, but color fades after wash.",E_commerce/data/images/performance_lantern_green_edition.jpg
+962,Performance White Pet Bed,Sports,477.13,4.0,"Good value. Even cooking, easy cleanup.",E_commerce/data/images/performance_white_pet_bed.jpg
+963,Eco Hose - Green Edition,Garden,303.07,3.0,Gripping story from start to finish. Would buy again.,E_commerce/data/images/eco_hose_green_edition.jpg
+964,Grey Sandals Deluxe,Garden,428.89,4.3,Recipes are simple and delicious. Works well.,E_commerce/data/images/grey_sandals_deluxe.jpg
+965,Performance Pet Bed Series 337,Health,152.16,4.1,Good value. Inspirational and practical advice.,E_commerce/data/images/performance_pet_bed_series_337.jpg
+966,Max Nail Clippers Series 873,Books,196.43,4.2,"Secure fit, lightweight. Works well.",E_commerce/data/images/max_nail_clippers_series_873.jpg
+967,Max Vacuum Series 821,Office,421.66,4.7,Recipes are simple and delicious.,E_commerce/data/images/max_vacuum_series_821.jpg
+968,Nail Clippers Smart X4,Books,397.31,3.6,Good value. Kept me up all night reading!,E_commerce/data/images/nail_clippers_smart_x4.jpg
+969,Bamboo Pen Travel,Toys,130.89,3.0,Recipes are simple and delicious. Would buy again.,E_commerce/data/images/bamboo_pen_travel.jpg
+970,Board Game Compact V40,Gaming,343.09,4.0,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/board_game_compact_v40.jpg
+971,Premium Silver Board Game,Sports,283.39,3.6,"Battery lasts all day, sleek design. Would buy again.",E_commerce/data/images/premium_silver_board_game.jpg
+972,Silver Helmet Eco,Toys,115.06,3.9,Blocks out all noise effectively.,E_commerce/data/images/silver_helmet_eco.jpg
+973,Wireless Blue Cookbook,Electronics,254.34,4.1,Stylish and holds water well.,E_commerce/data/images/wireless_blue_cookbook.jpg
+974,Lite Beige Power Bank,Sports,56.63,4.7,Great support for long runs.,E_commerce/data/images/lite_beige_power_bank.jpg
+975,Modern Pet Bed Series 720,Pet Supplies,156.14,3.1,"Perfect length, material is soft.",E_commerce/data/images/modern_pet_bed_series_720.jpg
+976,Pink Lens Rugged,Books,485.1,4.1,Inspirational and practical advice. Would buy again.,E_commerce/data/images/pink_lens_rugged.jpg
+977,Drone Travel X49,Home & Garden,434.46,3.9,"Good value. Amazing sound quality, worth every penny!",E_commerce/data/images/drone_travel_x49.jpg
+978,Neoprene Hose Eco,Kitchen,246.06,3.5,Blocks out all noise effectively. Would buy again.,E_commerce/data/images/neoprene_hose_eco.jpg
+979,Lite Chair - Grey Edition,Home & Garden,507.0,4.3,Blocks out all noise effectively. Works well.,E_commerce/data/images/lite_chair_grey_edition.jpg
+980,Racket Wireless X45,Toys,123.76,4.3,"Perfect length, material is soft. Would buy again.",E_commerce/data/images/racket_wireless_x45.jpg
+981,Comfort Charger Series 767,Kitchen,502.03,4.1,Gripping story from start to finish.,E_commerce/data/images/comfort_charger_series_767.jpg
+982,Lite Toy Car - Black Edition,Toys,33.08,3.8,Good value. Keeps me warm in winter.,E_commerce/data/images/lite_toy_car_black_edition.jpg
+983,Silicone Jeans Vintage,Electronics,589.96,4.4,Loud and clear audio. Would buy again.,E_commerce/data/images/silicone_jeans_vintage.jpg
+984,Essential Helmet - Brown Edition,Gaming,220.37,4.3,Keeps me warm in winter. Would buy again.,E_commerce/data/images/essential_helmet_brown_edition.jpg
+985,White Stand Comfort,Books,285.97,3.9,Gripping story from start to finish.,E_commerce/data/images/white_stand_comfort.jpg
+986,Deluxe Beige Backpack,Books,77.5,4.0,"Beautiful print, true to size. Would buy again.",E_commerce/data/images/deluxe_beige_backpack.jpg
+987,Eco Jeans Series 297,Gaming,592.78,3.4,Kept me up all night reading. Works well.,E_commerce/data/images/eco_jeans_series_297.jpg
+988,Red Lamp Vintage,Outdoors,210.39,3.5,Keeps me warm in winter. Would buy again.,E_commerce/data/images/red_lamp_vintage.jpg
+989,Wooden Board Game Travel,Office,483.66,4.4,Blocks out all noise effectively. Highly recommended.,E_commerce/data/images/wooden_board_game_travel.jpg
+990,White Watch Classic,Electronics,173.61,4.5,"Comfortable fit, but color fades after wash. Highly recommended.",E_commerce/data/images/white_watch_classic.jpg
+991,Advanced Brown Hose,Outdoors,183.73,3.3,Blocks out all noise effectively. Works well.,E_commerce/data/images/advanced_brown_hose.jpg
+992,Performance Watch - Orange Edition,Books,425.12,5.0,Good value. Inspirational and practical advice.,E_commerce/data/images/performance_watch_orange_edition.jpg
+993,Smart Orange Tent,Health,261.18,3.5,"Well-balanced, good control. Would buy again.",E_commerce/data/images/smart_orange_tent.jpg
+994,Deluxe Mixers Series 865,Gaming,373.77,3.1,Loud and clear audio.,E_commerce/data/images/deluxe_mixers_series_865.jpg
+995,Essential Jeans - Orange Edition,Gaming,289.45,3.9,Stylish and holds water well. Works well.,E_commerce/data/images/essential_jeans_orange_edition.jpg
+996,T-Shirt Pro S31,Office,319.8,3.8,Inspirational and practical advice.,E_commerce/data/images/t_shirt_pro_s31.jpg
+997,Purple Power Bank Essential,Clothing,548.37,3.1,Durable and easy to use in the garden.,E_commerce/data/images/purple_power_bank_essential.jpg
+998,Yellow Backpack Rugged,Health,199.98,4.2,Loud and clear audio. Highly recommended.,E_commerce/data/images/yellow_backpack_rugged.jpg
+999,Modern Jeans - Orange Edition,Gaming,676.25,3.9,Gripping story from start to finish. Highly recommended.,E_commerce/data/images/modern_jeans_orange_edition.jpg
+1000,Purple Blender Pro,Health,194.24,3.4,Durable and easy to use in the garden. Works well.,E_commerce/data/images/purple_blender_pro.jpg

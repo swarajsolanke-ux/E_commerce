@@ -1,0 +1,184 @@
+{
+  "users": {
+    "guest": {
+      "wishlist": [
+        "Denim Jeans Slim",
+        "Tennis Racket Beginner",
+        "Smart Watch Ultra"
+      ],
+      "cart": [],
+      "favorites": [
+        "Denim Jeans Slim",
+        "Tennis Racket Beginner"
+      ],
+      "past_queries": [
+        "what is the price of denim jeans?",
+        "what is the rating of denim jeans?",
+        "what is the price of denim jeans?",
+        "what is the price of denim jeans?",
+        "hello",
+        "price of tennis racket?",
+        "hi",
+        "what is the price of tennis racket",
+        "what is the price of denim jeans?",
+        "price of tennis racket?",
+        "price of Tennis Racket Pro?",
+        "price of denim jeans?",
+        "what is price of denim jeans?",
+        "what is the price of denim jeans?",
+        "price of denim jeans?",
+        "price of denim jeans?",
+        "what is the price of denim jeans?",
+        "what is the rating of tennis racket?",
+        "hello",
+        "what is my name ?"
+      ]
+    },
+    "swaraj": {
+      "password": "14920a8e9ad1c06cd2cb23fedb847d11922647190ee3518a078f319b1934cabb",
+      "cart": [
+        "Denim Jeans Slim",
+        "Wireless Earbuds Pro"
+      ],
+      "wishlist": [
+        "Denim Jeans Slim"
+      ],
+      "favorites": [
+        "Denim Jeans Slim"
+      ],
+      "conversations": [
+        {
+          "id": "default",
+          "title": "\ud83d\udc4b Welcome back, swaraj! I'm yo...",
+          "messages": [
+            {
+              "role": "assistant",
+              "content": "\ud83d\udc4b Welcome back, swaraj! I'm your AI shopping assistant. How can I help you today?"
+            },
+            {
+              "role": "user",
+              "content": "how may help you?"
+            },
+            {
+              "role": "assistant",
+              "content": "I couldn't find specific information about that. Try asking about products in our catalog!"
+            },
+            {
+              "role": "user",
+              "content": "what is the price of denim jeans?"
+            },
+            {
+              "role": "assistant",
+              "content": "The price is \u20b9159.26"
+            },
+            {
+              "role": "product",
+              "product": {
+                "name": "Denim Jeans Slim",
+                "cost": 159.26,
+                "rating": 3.2,
+                "image": "denim.jpeg",
+                "description": "Amazing sound quality, worth every penny!",
+                "category": "Clothing"
+              }
+            }
+          ]
+        },
+        {
+          "id": "1762837620734",
+          "title": "New Chat",
+          "messages": []
+        }
+      ],
+      "theme": "dark",
+      "past_queries": [
+        "price of denim jeans?",
+        "price of wireless earbuds?",
+        "what is the rating of denim jeans?",
+        "hello",
+        "how may help you ?",
+        "what is the price Wireless Earbuds Pro?",
+        "ji",
+        "what is he price of ttshirt",
+        "price of Air Fryer Compact?",
+        "Tennis Racket Beginner price of it?",
+        "how may help you?",
+        "what is the price of denim jeans?"
+      ]
+    }
+  },
+  "orders": [
+    {
+      "order_id": 1000,
+      "user_id": "guest",
+      "items": [
+        "Denim Jeans Slim"
+      ],
+      "status": "Confirmed",
+      "order_date": "2025-11-10T12:43:38.997865",
+      "shipping_date": "2025-11-13",
+      "tracking": "TRK1000XYZ"
+    },
+    {
+      "order_id": 1001,
+      "user_id": "guest",
+      "items": [
+        "Bestselling Novel Fiction",
+        "Denim Jeans Slim",
+        "Tennis Racket Pro",
+        "Cotton T-Shirt Blue"
+      ],
+      "status": "Confirmed",
+      "order_date": "2025-11-10T15:41:10.177577",
+      "shipping_date": "2025-11-13",
+      "tracking": "TRK1001XYZ"
+    },
+    {
+      "order_id": 1002,
+      "user_id": "guest",
+      "items": [
+        "Tennis Racket Beginner",
+        "Denim Jeans Slim"
+      ],
+      "status": "Confirmed",
+      "order_date": "2025-11-10T16:29:19.205002",
+      "shipping_date": "2025-11-13",
+      "tracking": "TRK1002XYZ"
+    },
+    {
+      "order_id": 1003,
+      "user_id": "guest",
+      "items": [
+        "Wireless Earbuds Pro",
+        "Denim Jeans Slim"
+      ],
+      "status": "Confirmed",
+      "order_date": "2025-11-10T16:51:48.222163",
+      "shipping_date": "2025-11-13",
+      "tracking": "TRK1003XYZ"
+    },
+    {
+      "order_id": 1004,
+      "user_id": "guest",
+      "items": [
+        "Jeans Deluxe X41"
+      ],
+      "status": "Confirmed",
+      "order_date": "2025-11-10T17:16:07.707378",
+      "shipping_date": "2025-11-13",
+      "tracking": "TRK1004XYZ"
+    },
+    {
+      "order_id": 1005,
+      "user_id": "swaraj",
+      "items": [
+        "Denim Jeans Slim"
+      ],
+      "status": "Confirmed",
+      "order_date": "2025-11-11T10:35:59.378705",
+      "shipping_date": "2025-11-14",
+      "tracking": "TRK1005XYZ"
+    }
+  ],
+  "next_order_id": 1006
+}

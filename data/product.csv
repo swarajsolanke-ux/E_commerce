@@ -1,21 +1,21 @@
 product_id,name,category,cost,rating,review,image_path
-1,Denim Jeans Slim,Clothing,159.26,3.2,"Amazing sound quality, worth every penny!",E_commerce/data/images/denim_jeans.jpeg
-2,Tennis Racket Pro,Sports,57.86,3.4,"Comfortable fit, but color fades after wash.",data/images/product_2.jpg
-3,Bike Helmet Safety,Clothing,345.27,3.1,"Gripping story from start to finish.",data/images/product_3.jpg
-4,Bluetooth Speaker,Electronics,225.67,3.7,"Durable and easy to use in the garden.",data/images/product_4.jpg
+1,Denim Jeans Slim,Clothing,159.26,3.2,"Amazing sound quality, worth every penny!",E_commerce/data/images/denim.jpeg
+2,Tennis Racket Pro,Sports,57.86,3.4,"Comfortable fit, but color fades after wash.",E_commerce/data/images/tennisracket.jpeg
+3,Bike Helmet Safety,Clothing,345.27,3.1,"Gripping story from start to finish.",E_commerce/data/images/bike.png
+4,Bluetooth Speaker,Electronics,225.67,3.7,"Durable and easy to use in the garden.",E_commerce/data/images/bluetooth.png
 5,Cookbook Essentials,Home & Garden,69.8,3.8,"Great support for long runs.",data/images/product_5.jpg
-6,Wireless Earbuds Pro,Electronics,252.64,3.5,"Battery lasts all day, sleek design.",data/images/product_6.jpg
+6,Wireless Earbuds Pro,Electronics,252.64,3.5,"Battery lasts all day, sleek design.",E_commerce/data/images/wirelessearbuds.png
 7,Outdoor Grill Gas,Home & Garden,26.85,4.7,"Perfect length, material is soft.",data/images/product_7.jpg
-8,Stand Mixer Kitchen,Electronics,455.57,3.7,"Recipes are simple and delicious.",data/images/product_8.jpg
-9,Yoga Mat Non-Slip,Sports,136.8,3.6,"Stylish and holds water well.",data/images/product_9.jpg
-10,Running Shoes Cushion,Sports,334.64,4.1,"Non-slip surface, excellent for yoga.",data/images/product_10.jpg
-11,Laptop Stand Adjustable,Electronics,162.74,3.3,"Loud and clear audio.",data/images/product_11.jpg
+8,Stand Mixer Kitchen,Electronics,455.57,3.7,"Recipes are simple and delicious.",E_commerce/data/images/standard_mixer.png
+9,Yoga Mat Non-Slip,Sports,136.8,3.6,"Stylish and holds water well.",E_commerce/data/images/yogamat.jpeg
+10,Running Shoes Cushion,Sports,334.64,4.1,"Non-slip surface, excellent for yoga.",E_commerce/data/images/runningshoes.png
+11,Laptop Stand Adjustable,Electronics,162.74,3.3,"Loud and clear audio.",E_commerce/data/images/laptopstand.jpeg
 12,Bestselling Novel Fiction,Books,264.83,4.6,"Beautiful print, true to size.",data/images/product_12.jpg
-13,Cotton T-Shirt Blue,Clothing,277.89,3.1,"Kept me up all night reading!",data/images/product_13.jpg
-14,Blender High-Speed,Electronics,100.58,5.0,"Powerful motor, mixes everything smoothly.",data/images/product_14.jpg
-15,Smart Watch Ultra,Electronics,485.1,4.5,"Secure fit, lightweight.",data/images/product_15.jpg
-16,Noise-Cancelling Headphones,Electronics,389.82,3.4,"Blocks out all noise effectively.",data/images/product_16.jpg
-17,Wool Sweater Warm,Clothing,470.35,3.0,"Keeps me warm in winter.",data/images/product_17.jpg
-18,Gardening Gloves Leather,Home & Garden,448.47,4.6,"Inspirational and practical advice.",data/images/product_18.jpg
-19,Air Fryer Compact,Home & Garden,302.97,4.4,"Even cooking, easy cleanup.",data/images/product_19.jpg
-20,Tennis Racket Beginner,Sports,461.72,4.5,"Well-balanced, good control.",data/images/product_20.jpg
+13,Cotton T-Shirt Blue,Clothing,277.89,3.1,"Kept me up all night reading!",E_commerce/data/images/cottonshirt.jpg
+14,Blender High-Speed,Electronics,100.58,5.0,"Powerful motor, mixes everything smoothly.",E_commerce/data/images/blender.png
+15,Smart Watch Ultra,Electronics,485.1,4.5,"Secure fit, lightweight.",E_commerce/data/images/smart_watch.png
+16,Noise-Cancelling Headphones,Electronics,389.82,3.4,"Blocks out all noise effectively.",E_commerce/data/images/noice_earbuds.png
+17,Wool Sweater Warm,Clothing,470.35,3.0,"Keeps me warm in winter.",E_commerce/data/images/sweater.jpeg
+18,Gardening Gloves Leather,Home & Garden,448.47,4.6,"Inspirational and practical advice.",E_commerce/data/images/gloves.jpeg
+19,Air Fryer Compact,Home & Garden,302.97,4.4,"Even cooking, easy cleanup.",E_commerce/data/images/air_fryer.png
+20,Tennis Racket Beginner,Sports,461.72,4.5,"Well-balanced, good control.",E_commerce/data/images/tennisracket.jpeg
