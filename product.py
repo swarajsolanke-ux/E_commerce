@@ -552,7 +552,7 @@ def search_products(request: QueryRequest):
             })
 
         return JSONResponse({
-            "response": "Here are the best matches for your query.",
+            #"response": "Here are the best matches for your query.",
             "products": top_products,
             "recommendations": recs,
             "debug": {"relevance": True, "top_score": top_products[0].get("score")}
