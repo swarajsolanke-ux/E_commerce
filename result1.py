@@ -151,6 +151,7 @@ PRODUCT_KEYWORDS = VALID_PRODUCT_FIELDS.union(VALID_CATEGORIES).union({
 
 def is_product_query(query: str) -> bool:
     query_lower = query.lower()
+    print(f"query_lower:{query_lower}")
     query_tokens = set(re.findall(r'\b\w+\b', query_lower))
     has_keyword = bool(PRODUCT_KEYWORDS.intersection(query_tokens))
     product_patterns = [
@@ -206,12 +207,13 @@ def is_relevant_result(query: str, doc_metadata: Dict[str, Any], vector_score: f
 
 
 
+
 def extract_answer_from_query(query: str, product: Dict[str, Any]) -> str:
     query_lower = query.lower()
     if any(word in query_lower for word in ['rating', 'rated', 'star', 'stars']):
         rating = product.get('rating', 0)
         return f"{float(rating):.1f}" if rating else "No rating available"
-    if any(word in query_lower for word in ['price', 'cost', 'expensive', 'cheap', 'how much']):
+    if any(word in query_lower for word in ['price', 'cost', 'expensive', 'cheap', 'how much',"give me"]):
         cost = product.get('cost', 0)
         return f"Rs{float(cost):.2f}" if cost else "Price not available"
     if any(word in query_lower for word in ['review', 'reviews', 'feedback', 'opinion']):
@@ -241,12 +243,14 @@ def get_recommendations(main: Dict[str, Any], k: int = 3) -> List[Dict[str, Any]
         main_name = main.get("name", "").lower()
         if not cat or not main_name:
             return []
+        
 
        
         results = vectorstore.similarity_search_with_score(
             f"{main_name} {cat}", k=10
         )
-
+        print(f"results:{results}")
+        
         recs = []
         seen = {main_name}
         for doc, _ in results:
@@ -390,5 +394,5 @@ def health_check():
     })
 
 if __name__ == "__main__":
-    uvicorn.run("result1:app", host="192.168.5.155", port=5000, reload=True)
+    uvicorn.run("result1:app", host="0.0.0.0", port=5000, reload=True)
     #192.168.5.155
