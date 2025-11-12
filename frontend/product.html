@@ -1,12 +1,13 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>E-commerce AI Assistant</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
-    /* (Same styles as your provided file — unchanged) */
+    /* (styles unchanged from your file) */
     :root {
       --bg-primary: #ffffff;
       --bg-secondary: #f8f9fa;
@@ -84,7 +85,7 @@
     .msg-avatar { width: 50px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; box-shadow: var(--shadow); background: var(--card); }
     .msg.user .msg-avatar { background: var(--bg-gradient); }
     .msg.ai .msg-avatar { background: var(--card); border: 4px solid var(--accent); }
-    .msg .text { padding: 15px 20px; border-radius: 18px; max-width: 70%; word-wrap: break-word; box-shadow: var(--shadow); transition: all 0.3s ease; position: relative; }
+    .msg .text { padding: 10px 3px; border-radius: 16px; max-width: 90%; word-wrap: break-word; box-shadow: var(--shadow); transition: all 0.3s ease; position: relative;}
     .msg .text:hover { transform: translateY(-2px); box-shadow: var(--shadow-lg); }
     .msg.user .text { background: var(--bg-gradient); color: white; border-radius: 10px 10px 4px 10px; }
     .msg.ai .text { background: var(--card); color: var(--text-primary); border: 6px solid var(--border); border-radius: 14px 14px 14px 4px; }
@@ -235,32 +236,57 @@
   const save = () => { try{ localStorage.setItem('chat_messages', JSON.stringify(msgs)); } catch(e){} };
   const load = () => { try { const s = localStorage.getItem('chat_messages'); if (s) msgs = JSON.parse(s); } catch(e){} };
 
+  // Helper: get basename from path safely
+  function basenameFromPath(p) {
+    if (!p || typeof p !== 'string') return '';
+    const parts = p.split(/[\\/]+/);
+    return parts[parts.length-1] || '';
+  }
+
   // Helpers: normalize backend product -> frontend friendly keys
   function normalizeProduct(prod) {
     if (!prod || typeof prod !== 'object') return null;
-    // backend returns: title, selling_price, product_rating, description, image (could be /images/.. or url), metadata
     const name = prod.title || prod.name || (prod.metadata && (prod.metadata.title || prod.metadata.name)) || 'Unknown Product';
     const costRaw = prod.selling_price || prod.cost || (prod.metadata && (prod.metadata.selling_price || prod.metadata.cost)) || '';
-    // cost might be "₹1,615" or "1615"
     const costNum = (costRaw && typeof costRaw === 'string') ? costRaw.replace(/[^\d.]/g,'') : costRaw;
     const cost = costNum === '' ? '' : Number(costNum);
     const rating = (prod.product_rating != null) ? Number(prod.product_rating) : (prod.rating != null ? Number(prod.rating) : (prod.metadata && prod.metadata.product_rating ? Number(prod.metadata.product_rating) : null));
     const review = prod.description || prod.review || (prod.metadata && (prod.metadata.description || prod.metadata.review)) || '';
+
     let image = prod.image || (prod.metadata && (prod.metadata.image_path || (prod.metadata.image_urls && prod.metadata.image_urls[0]))) || null;
 
     // Fix image URL resolution:
-    if (image) {
-      // if backend returned a server path (starts with '/'), prefix with API_BASE
-      if (typeof image === 'string') {
-        if (image.startsWith('/')) {
-          image = API_BASE + image;
-        } else if (image.startsWith('http://') || image.startsWith('https://')) {
-          // leave as is
+    if (image && typeof image === 'string') {
+      const trimmed = image.trim();
+      // If it's already a full http(s) URL -> use as is
+      if (/^https?:\/\//i.test(trimmed)) {
+        image = trimmed;
+      } else if (trimmed.startsWith('/images/')) {
+        // Already in server route form: prefix with API_BASE
+        image = API_BASE + trimmed;
+      } else {
+        // Might be a filesystem full path or project path or bare basename.
+        // If it contains platform path fragments like "/Users/" or "data/images" or "E_commerce"
+        if (trimmed.indexOf('/Users/') !== -1 || trimmed.indexOf('data/images') !== -1 || trimmed.indexOf('E_commerce') !== -1 || trimmed.indexOf('\\') !== -1 || trimmed.indexOf('/') !== -1) {
+          // extract basename and serve via /images/<basename>
+          const b = basenameFromPath(trimmed);
+          if (b) {
+            image = API_BASE + '/images/' + encodeURIComponent(b);
+          } else {
+            image = null;
+          }
         } else {
-          // bare basename -> treat as served by /images/<basename>
-          image = API_BASE + '/images/' + encodeURIComponent(image);
+          // treat as basename or relative name -> serve via /images/<basename>
+          const b = basenameFromPath(trimmed);
+          if (b) {
+            image = API_BASE + '/images/' + encodeURIComponent(b);
+          } else {
+            image = null;
+          }
         }
       }
+    } else {
+      image = null;
     }
 
     return {
@@ -280,18 +306,27 @@
     const costNum = (costRaw && typeof costRaw === 'string') ? costRaw.replace(/[^\d.]/g,'') : costRaw;
     const cost = costNum === '' ? '' : Number(costNum);
     const rating = (rec.product_rating != null) ? Number(rec.product_rating) : (rec.rating != null ? Number(rec.rating) : null);
+
     let image = rec.image || (rec.metadata && (rec.metadata.image_path || (rec.metadata.image_urls && rec.metadata.image_urls[0]))) || null;
-    if (image) {
-      if (typeof image === 'string') {
-        if (image.startsWith('/')) {
-          image = API_BASE + image;
-        } else if (image.startsWith('http://') || image.startsWith('https://')) {
-          // ok
+    if (image && typeof image === 'string') {
+      const t = image.trim();
+      if (/^https?:\/\//i.test(t)) {
+        image = t;
+      } else if (t.startsWith('/images/')) {
+        image = API_BASE + t;
+      } else {
+        if (t.indexOf('/Users/') !== -1 || t.indexOf('data/images') !== -1 || t.indexOf('E_commerce') !== -1 || t.indexOf('\\') !== -1 || t.indexOf('/') !== -1) {
+          const b = basenameFromPath(t);
+          image = b ? API_BASE + '/images/' + encodeURIComponent(b) : null;
         } else {
-          image = API_BASE + '/images/' + encodeURIComponent(image);
+          const b = basenameFromPath(t);
+          image = b ? API_BASE + '/images/' + encodeURIComponent(b) : null;
         }
       }
+    } else {
+      image = null;
     }
+
     return { name, cost, rating, image };
   }
 
@@ -322,7 +357,6 @@
           <div class="msg-avatar">👤</div>
         `;
       } else if (m.role === 'product') {
-        // m.product expected in backend-normalized format -> normalize to UI keys
         const p = normalizeProduct(m.product || {});
         const recsRaw = m.recommendations || [];
         const recs = (Array.isArray(recsRaw) ? recsRaw.map(normalizeRecommendation).filter(x => x) : []);

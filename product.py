@@ -420,12 +420,12 @@ def search_products(request: QueryRequest):
         q_tokens = set(re.findall(r"\b\w+\b", q_lower))
 
         if q_tokens & GREETING_WORDS:
-            return JSONResponse({"response": "Welcome to ecommerce chatbot, how may I help you?"})
+            return JSONResponse({"response": "Hello and welcome to the E-commerce world! I'm your shopping assistant—let me know what product you're looking for, and I'll help you find it. How can I assist you today?"})
 
   
         if is_general_query(query):
             return JSONResponse({
-                "response": "Sorry — I can only answer product-related questions. Please ask about product names, prices, ratings, reviews, or categories (for example: 'price of denim jeans', 't-shirt under 500', 'show me black shoes').",
+                "response": "Sorry — I can only answer query related to the E-commerce.kindly asked the question related to this?",
                # "products": [],
                 "debug": {"relevance": False, "reason": "General / conversational query detected"}
             })
