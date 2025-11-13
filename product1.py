@@ -1,7 +1,6 @@
-
+#hndling the all available products
 import os
 import re
-import sys
 import traceback
 from typing import Tuple, Dict, Any, List, Set
 from difflib import SequenceMatcher
@@ -15,10 +14,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from langchain_community.vectorstores import FAISS
 from langchain_community.embeddings import HuggingFaceEmbeddings
-import logging 
-import uvicorn 
-
-
+import logging
+import uvicorn
 try:
     from langchain_classic.chains import RetrievalQA
     from langchain_huggingface import HuggingFacePipeline
@@ -34,11 +31,11 @@ STATIC_DIR = os.path.join(FRONTEND_DIR, "static")
 IMAGES_DIR = os.path.join(BASE_DIR, "data", "images")
 
 DB_PATH = os.path.join(BASE_DIR, "db", "products_DB.db")
-VECTOR_DIR = os.path.join(BASE_DIR, "vect","vector_store")
+VECTOR_DIR = os.path.join(BASE_DIR, "vect", "vector_store")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-model_path="/Users/swarajsolanke/.cache/huggingface/hub/models--gpt2/snapshots/607a30d783dfa663caf39e06633721c8d4cfcd7e"
-MODEL_ID = "gpt2"
-print(f"model loaded:{MODEL_ID}")
+model_path = "/Users/swarajsolanke/.cache/huggingface/hub/models--gpt2/snapshots/607a30d783dfa663caf39e06633721c8d4cfcd7e"
+
+
 
 K_SEMANTIC_CANDIDATES = 10
 TOP_RETURN = 1
@@ -72,18 +69,15 @@ try:
 except Exception as e:
     print("Failed to load vectorstore:", e)
     traceback.print_exc()
-print(f"embdeddings:{embeddings}")
-print(f"vecorstore:{vectorstore}")
 
 llm = None
 qa_chain = None
 if LLM_AVAILABLE:
     try:
         print("Loading language model (optional)...")
-        tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
+        tokenizer = AutoTokenizer.from_pretrained(model_path)
         model = AutoModelForCausalLM.from_pretrained(
             model_path,
-            #MODEL_ID,
             torch_dtype=torch.float16 if device == "mps" else torch.float32,
             use_safetensors=True,
             device_map="auto" if device == "mps" else None
@@ -102,7 +96,6 @@ if LLM_AVAILABLE:
             return_full_text=False
         )
         llm = HuggingFacePipeline(pipeline=pipe)
-     
 
         prompt_template = """
 You are a strict database lookup assistant for an e-commerce product database.
@@ -143,10 +136,8 @@ engine = create_engine(f"sqlite:///{DB_PATH}")
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 origins = [
-    "http://localhost:5500",
-    "http://127.0.0.1:5500",
-    "http://localhost:8000",
-    "http://127.0.0.1:8000",
+    "http://localhost:5500", "http://127.0.0.1:5500",
+    "http://localhost:8000", "http://127.0.0.1:8000",
 ]
 app.add_middleware(
     CORSMiddleware,
@@ -162,17 +153,15 @@ class QueryRequest(BaseModel):
 
 # Greeting words (lowercased)
 GREETING_WORDS: Set[str] = {
-    "hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening",
+    "hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening","hii","helo",
     "morning", "afternoon", "evening"
 }
 
-
 PRODUCT_KEYWORDS = set([
-    "product", "item", "buy", "purchase", "show", "tell", "find", "what", "which","give me","tell me"
-    "how", "how much", "price", "cost", "rating", "review", "images", "image", "selling_price","shoes"
-    "product_rating", "title", "category", "t-shirt", "shoe", "bat", "cricket", "plastic", "pvc","T-shirt","sarre","sarres"
+    "product", "item", "buy", "purchase", "show", "tell", "find", "what", "which", "give me", "tell me",
+    "how", "how much", "price", "cost", "rating", "review", "images", "image", "selling_price", "shoes",
+    "product_rating", "title", "category", "t-shirt", "shoe", "bat", "cricket", "plastic", "pvc", "T-shirt", "sarre", "sarres"
 ])
-
 
 GENERAL_INTENT_PATTERNS = [
     r"^\s*how\s+are\s+you\b",
@@ -198,37 +187,57 @@ GENERAL_INTENT_PATTERNS = [
 
 GENERAL_INTENT_REGEXES = [re.compile(p, re.IGNORECASE) for p in GENERAL_INTENT_PATTERNS]
 
+def get_all_categories() -> List[str]:
+    if vectorstore is None:
+        return []
+    try:
+        all_docs = vectorstore.docstore._dict.values()
+        categories = set()
+        for doc in all_docs:
+            meta = getattr(doc, "metadata", {})
+            for key in ["category_1", "category_2", "category_3", "product_category"]:
+                val = str(meta.get(key, "")).strip()
+                if val and val.lower() not in ["nan", "none", ""]:
+                    categories.add(val)
+        return sorted(categories)
+    except Exception as e:
+        print("Error fetching categories:", e)
+        return []
+
+
+def is_list_categories_query(query: str) -> bool:
+    q = query.lower().strip()
+    patterns = [
+        r"list.*all.*product.*categor",
+        r"what.*categor.*available",
+        r"show.*categor",
+        r"categor.*list",
+        r"all.*categor",
+        r"can you.*list the *product availables in the *database",
+    
+    ]
+    return any(re.search(p, q) for p in patterns)
+
+
 def is_general_query(query: str) -> bool:
-    """
-    Detects conversational/general queries that should NOT be answered from the product DB.
-    Returns True for chit-chat, personal questions, definitions, weather/news/time, etc.
-    """
     if not query or not isinstance(query, str):
         return True
     q = query.strip()
-    print(f"general query check for:{q}")
     if q == "":
         return True
-
-
     for rx in GENERAL_INTENT_REGEXES:
         if rx.search(q):
             return True
-
-  
     pronoun_patterns = re.compile(r"\b(i|my|me|mine|you)\b", re.IGNORECASE)
     if pronoun_patterns.search(q):
         tokens = set(re.findall(r"\b\w+\b", q.lower()))
         if not (tokens & PRODUCT_KEYWORDS):
             return True
-
-
     tokens = re.findall(r"\b\w+\b", q)
     if 0 < len(tokens) <= 3:
         tokset = set(t.lower() for t in tokens)
         if not (tokset & PRODUCT_KEYWORDS):
             return True
-
     return False
 
 def parse_price(value: Any) -> float:
@@ -260,7 +269,7 @@ def is_product_query(query: str) -> bool:
         return True
     patterns = [
         r"\b(price|cost|rating|review)\b",
-        r"\b(show|find|tell|get|give)\b.*\b(product|item|title|t-shirt|shoe|bat|cricket|shoes|sarres|sarre|T-shirt|)\b",
+        r"\b(show|find|tell|get|give|provide)\b.*\b(product|item|title|t-shirt|shoe|bat|cricket|shoes|sarres|sarre|T-shirt|)\b",
         r"\b(how much|what is|what's)\b.*\b(price|cost|selling_price)\b",
     ]
     return any(re.search(p, q) for p in patterns)
@@ -270,7 +279,6 @@ def normalize_vector_score(score) -> float:
         if score is None:
             return 0.5
         s = float(score)
-        print(f"vector score:{s}")
         if 0.0 <= s <= 1.0:
             return s
         return 1.0 / (1.0 + abs(s))
@@ -283,6 +291,7 @@ def fuzzy_ratio(a: str, b: str) -> float:
     return SequenceMatcher(None, a.lower(), b.lower()).ratio()
 
 PRICE_RE = re.compile(r"(?:under|below|less than|<|<=)\s*₹?\s*([\d,]+)|(?:above|over|greater than|>|>=)\s*₹?\s*([\d,]+)", re.IGNORECASE)
+
 def parse_price_constraints(query: str) -> Dict[str, float]:
     q = str(query).lower()
     max_price = None
@@ -294,7 +303,7 @@ def parse_price_constraints(query: str) -> Dict[str, float]:
         except:
             pass
     m2 = re.search(r"(?:above|over|greater than|>|>=)\s*₹?\s*([\d,]+)", q)
-    logging.info(f"minimum price regex match:{m2}")
+    print(f"price constraint")
     if m2:
         try:
             min_price = float(re.sub(r"[^\d.]", "", m2.group(1)))
@@ -345,16 +354,9 @@ def build_product_card(metadata: Dict[str, Any]) -> Dict[str, Any]:
 def get_primary_category(metadata: Dict[str, Any]) -> str:
     for k in ("category_2", "category_1", "category_3"):
         v = str(metadata.get(k, "")).strip()
-        logging.info(f"checking category:{k} values:{v}")
         if v:
             return v.lower()
     return ""
-
-def safe_convert(value, type_func, default):
-    try:
-        return type_func(value) if value is not None and value != "" else default
-    except:
-        return default
 
 def get_recommendations(main_meta: Dict[str, Any], k: int = 3) -> List[Dict[str, Any]]:
     try:
@@ -362,23 +364,25 @@ def get_recommendations(main_meta: Dict[str, Any], k: int = 3) -> List[Dict[str,
             return []
         cat = get_primary_category(main_meta)
         main_title = (main_meta.get("title") or "").lower()
+        print(f"title for recommendations:{main_title}")
         if not cat or not main_title:
             return []
 
         query_text = f"{main_title} {cat}"
         results = vectorstore.similarity_search_with_score(query_text, k=10)
-        print(f"recommendation results:{results}")
+        logging.info(f"recommendation candidates:{results}")
         recs = []
         seen_titles = {main_title}
+        logging.info(f"primary category for recommendations:{cat}")
         for item in results:
             if isinstance(item, tuple) and len(item) == 2:
                 doc, _score = item
             else:
                 doc = item
             m = dict(getattr(doc, "metadata", {}) or {})
+            print(f"recommendate candidate metadata:{m}")
             title = str(m.get("title", "")).lower()
             prod_cat = get_primary_category(m)
-            logging.info(f"primary category of recommendation:{prod_cat}")
             if not title or title in seen_titles or prod_cat != cat:
                 continue
             rec = {
@@ -389,9 +393,8 @@ def get_recommendations(main_meta: Dict[str, Any], k: int = 3) -> List[Dict[str,
                 "category": prod_cat,
                 "image": m.get("image_path") or (m.get("image_urls")[0] if m.get("image_urls") else None)
             }
-            logging.debug(f"recommendation:{rec}")
-            print(f"recommendation candidate:{rec}")
             recs.append(rec)
+            print(f"rec:{recs}")
             seen_titles.add(title)
             if len(recs) >= k:
                 break
@@ -401,72 +404,68 @@ def get_recommendations(main_meta: Dict[str, Any], k: int = 3) -> List[Dict[str,
         traceback.print_exc()
         return []
 
-
-@app.get("/", response_class=HTMLResponse)
-def root():
-    index_path = os.path.join(FRONTEND_DIR, "product.html")
-    if os.path.exists(index_path):
-        return FileResponse(index_path)
-    return HTMLResponse("<h1>E-commerce Chatbot</h1><p>Backend is running</p>")
-
-@app.get("/ui", response_class=HTMLResponse)
-def ui():
-    index_path = os.path.join(FRONTEND_DIR, "product.html")
-    if os.path.exists(index_path):
-        return FileResponse(index_path)
-    return HTMLResponse("<h3>UI not found</h3>", status_code=404)
-
 @app.post("/query")
 def search_products(request: QueryRequest):
     try:
         query = request.query.strip()
-        print(f"user query given :{query}")
+        print(f"user query given: {query}")
         if not query:
             raise HTTPException(status_code=400, detail="Empty query")
 
         q_lower = query.lower()
-        print(f"q_lower:{q_lower}")
+
+        
+        if is_list_categories_query(query):
+            categories = get_all_categories()
+            print(f"available categories:{categories}")
+            if categories:
+                return JSONResponse({
+                    "response": f"Available product categories:\n" + "\n".join([f"• {c}" for c in categories]),
+                    "categories": categories,
+                    "debug": {"type": "list_categories"}
+                })
+            else:
+                return JSONResponse({
+                    "response": "No categories found in the database.",
+                    "categories": [],
+                    "debug": {"type": "list_categories", "error": "empty"}
+                })
+
+      
         q_tokens = set(re.findall(r"\b\w+\b", q_lower))
-
         if q_tokens & GREETING_WORDS:
-            return JSONResponse({"response": "Hello and welcome to the E-commerce world! I'm your shopping assistant—let me know what product you're looking for, and I'll help you find it. How can I assist you today?"})
+            return JSONResponse({
+                "response": "Hello and welcome to the E-commerce world! I'm your shopping assistant—let me know what product you're looking for, and I'll help you find it. How can I assist you today?"
+            })
 
-  
+        
         if is_general_query(query):
             return JSONResponse({
-                "response": "Sorry — I can only answer query related to the E-commerce.kindly asked the question related to this?",
-               # "products": [],
+                "response": "Sorry — I can only answer queries related to e-commerce products. Please ask about product price, rating, reviews, or name.",
                 "debug": {"relevance": False, "reason": "General / conversational query detected"}
             })
 
-       
+
         if not is_product_query(query):
             return JSONResponse({
                 "response": "Sorry — that doesn't look like a product query. Please ask about product price, rating, reviews, or name.",
-                #"products": [],
                 "debug": {"relevance": False, "reason": "Not a product query"}
             })
 
         if vectorstore is None:
             return JSONResponse({
                 "response": "Server vectorstore unavailable.",
-               # "products": [],
                 "debug": {"relevance": False, "reason": "No vectorstore loaded"}
             })
 
-        
-        price_constraints = parse_price_constraints(query)
-        print(f"price constraints:{price_constraints}")
-        max_price = price_constraints.get("max_price")
-        print(f"max_price :{max_price}")
-        min_price = price_constraints.get("min_price")
-        print(f"minimum price:{min_price}")
-
       
+        price_constraints = parse_price_constraints(query)
+        max_price = price_constraints.get("max_price")
+        min_price = price_constraints.get("min_price")
+
+        
         results = vectorstore.similarity_search_with_score(query, k=K_SEMANTIC_CANDIDATES)
-        print(f"results of vector:{results}")
         candidates = []
-        print(f"candidates before loop:{candidates}")
         for item in results:
             if isinstance(item, tuple) and len(item) == 2:
                 doc, score = item
@@ -475,27 +474,24 @@ def search_products(request: QueryRequest):
                 score = None
             metadata = dict(getattr(doc, "metadata", {}) or {})
             candidates.append((metadata, score))
-            print(f"candidates in loop:{candidates}")
 
         scored = []
         for meta, vscore in candidates:
             price_ok = True
-            if max_price is not None:
-                p = parse_price(meta.get("selling_price") or meta.get("cost") or "")
-                if p == 0 or p > max_price:
-                    price_ok = False
-            if min_price is not None:
-                p = parse_price(meta.get("selling_price") or meta.get("cost") or "")
-                if p < min_price:
-                    price_ok = False
+            p = parse_price(meta.get("selling_price") or meta.get("cost") or "")
+            if max_price is not None and (p == 0 or p > max_price):
+                price_ok = False
+            if min_price is not None and p < min_price:
+                price_ok = False
             sc = score_candidate(query, meta, vscore)
             if (max_price is not None or min_price is not None) and not price_ok:
                 sc *= 0.25
             scored.append((sc, meta, vscore))
+        logging.info(f"scrored candidates before sort :{scored}")
 
         scored.sort(key=lambda x: x[0], reverse=True)
 
-        
+      
         if not scored or scored[0][0] < 0.35:
             fallback_hits = []
             extra = vectorstore.similarity_search_with_score(query, k=50)
@@ -512,8 +508,6 @@ def search_products(request: QueryRequest):
                 qtok = set(re.findall(r"\b\w+\b", query.lower()))
                 if qtok & set(re.findall(r"\b\w+\b", title)) or qtok & set(re.findall(r"\b\w+\b", desc)) or qtok & set(re.findall(r"\b\w+\b", cats)):
                     fallback_hits.append((score_candidate(query, meta, vscore) + 0.1, meta, vscore))
-            print(f"fallbackes count:{len(fallback_hits)}")
-            print(f"fallbackes hits:{fallback_hits}")
             if fallback_hits:
                 combined = fallback_hits + scored
                 seen = set()
@@ -526,42 +520,47 @@ def search_products(request: QueryRequest):
                     dedup.append((sc, m, vs))
                 scored = dedup
 
-        
         top_products = []
         for sc, meta, vs in scored[:TOP_RETURN]:
+            if sc < 0.3:  # Strict threshold
+                continue
             card = build_product_card(meta)
             card["score"] = round(float(sc), 4)
             top_products.append(card)
-            print(f"top_products:{top_products}")
+            print(f"top_products category:{top_products}")
 
+        
         if not top_products:
             return JSONResponse({
                 "response": "No matching products found.",
-                #"products": [],
                 "recommendations": [],
-                "debug": {"relevance": False, "reason": "No candidates returned from vectorstore/fallback"}
+                "debug": {"relevance": False, "reason": "No candidates above threshold"}
             })
 
         best_meta = dict(top_products[0]["metadata"] or {})
         recs = get_recommendations(best_meta, k=3)
-        print(f"recommendations:{recs}")
 
-   
-        if any(w in q_lower for w in ["price", "cost", "how much", "selling_price","give me","tell me"]) and len(top_products) > 0:
-            best = top_products[0]
-            price_str = best.get("selling_price") or best["metadata"].get("selling_price") or ""
-            pval = parse_price(price_str)
-            answer = f"Rs{pval:.2f}" if pval > 0 else "Price not available"
-            print(f"answer price:{answer}")
-            return JSONResponse({
-                "response": answer,
-                "products": [best],
-                "recommendations": recs,
-                "debug": {"relevance": True, "top_score": top_products[0].get("score")}
-            })
+       
+        specific_keywords = ["price", "cost", "how much", "rating", "review", "description"]
+        if any(k in q_lower for k in specific_keywords) and qa_chain and top_products:
+            context_docs = vectorstore.similarity_search(query, k=1)
+            if context_docs:
+                context = context_docs[0].page_content
+                try:
+                    result = qa_chain.invoke({"query": query, "context": context})
+                    llm_answer = result["result"].strip()
+                    if llm_answer and llm_answer not in ["No data found", ""]:
+                        return JSONResponse({
+                            "response": llm_answer,
+                            "products": top_products,
+                            "recommendations": recs,
+                            "debug": {"llm_used": True, "top_score": top_products[0].get("score")}
+                        })
+                except Exception as e:
+                    print("LLM failed:", e)
 
+      
         return JSONResponse({
-            #"response": "Here are the best matches for your query.",
             "products": top_products,
             "recommendations": recs,
             "debug": {"relevance": True, "top_score": top_products[0].get("score")}
@@ -572,11 +571,26 @@ def search_products(request: QueryRequest):
         print(traceback.format_exc())
         raise HTTPException(status_code=500, detail=f"Error: {str(e)}")
 
+
+@app.get("/", response_class=HTMLResponse)
+def root():
+    index_path = os.path.join(FRONTEND_DIR, "product.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return HTMLResponse("<h1>E-commerce Chatbot</h1><p>Backend is running</p>")
+
+@app.get("/ui", response_class=HTMLResponse)
+def ui():
+    index_path = os.path.join(FRONTEND_DIR, "product.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    return HTMLResponse("<h3>UI not found</h3>", status_code=404)
+
 @app.get("/images/{filename}")
 def get_image(filename: str):
     safe_name = os.path.basename(filename)
     path = os.path.join(IMAGES_DIR, safe_name)
-    print(f"path of an image requested: {path}")
+    logging.info(f"fetching image path:{path}")
     if os.path.exists(path):
         return FileResponse(path)
     raise HTTPException(status_code=404, detail="Image not found")
@@ -591,5 +605,4 @@ def health_check():
     })
 
 if __name__ == "__main__":
-    import uvicorn
-    uvicorn.run("product:app", host="0.0.0.0", port=5000, reload=True)
+    uvicorn.run("product1:app", host="0.0.0.0", port=5000, reload=True)

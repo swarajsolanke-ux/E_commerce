@@ -214,7 +214,7 @@
 
   let msgs = [], attachment = null, currentTheme = 'light';
 
-  // Theme
+  
   const loadTheme = () => {
     try {
       const saved = localStorage.getItem('theme');
@@ -236,14 +236,14 @@
   const save = () => { try{ localStorage.setItem('chat_messages', JSON.stringify(msgs)); } catch(e){} };
   const load = () => { try { const s = localStorage.getItem('chat_messages'); if (s) msgs = JSON.parse(s); } catch(e){} };
 
-  // Helper: get basename from path safely
+  
   function basenameFromPath(p) {
     if (!p || typeof p !== 'string') return '';
     const parts = p.split(/[\\/]+/);
     return parts[parts.length-1] || '';
   }
 
-  // Helpers: normalize backend product -> frontend friendly keys
+  
   function normalizeProduct(prod) {
     if (!prod || typeof prod !== 'object') return null;
     const name = prod.title || prod.name || (prod.metadata && (prod.metadata.title || prod.metadata.name)) || 'Unknown Product';
@@ -352,7 +352,7 @@
         el.innerHTML = `
           <div>
             <div class="text">${esc(m.text)}</div>
-            <div class="meta">${m.time ? new Date(m.time).toLocaleTimeString() : ''} ${m.attachment ? `<span class="attachment-badge">📎 ${esc(m.attachment)}</span>` : ''}</div>
+            <div class="meta">${m.time ? new Date(m.time).toLocaleTimeString() : ''} ${m.attachment ? `<span class="attachment-badge">${esc(m.attachment)}</span>`:''}</div>
           </div>
           <div class="msg-avatar">👤</div>
         `;
@@ -490,13 +490,13 @@
     }
   };
 
-  // Resize textarea
+
   const autoResize = () => {
     input.style.height = 'auto';
     input.style.height = Math.min(input.scrollHeight, 120) + 'px';
   };
 
-  // Events
+
   attach.addEventListener('change', e => {
     const f = e.target.files?.[0];
     if (!f) return;
@@ -513,7 +513,7 @@
   clearHist.addEventListener('click', () => { if (confirm('🗑️ Clear all chat history? This cannot be undone.')) { msgs = []; save(); render(); renderHist(); } });
   themeToggle.addEventListener('click', toggleTheme);
 
-  // Init
+ 
   loadTheme();
   load(); render(); renderHist();
   if (msgs.length === 0) {
