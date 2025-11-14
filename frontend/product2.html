@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-commerce AI Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div id="app" class="app">
+  <aside id="leftDrawer" class="left-drawer hidden">
+    <div class="drawer-head">
+      <h3>Chat History</h3>
+      <p>Your recent conversations</p>
+    </div>
+    <div id="historyList" class="history-list"></div>
+    <div class="drawer-foot">
+      <button id="closeDrawer" class="btn subtle" style="flex:1">Close</button>
+      <button id="clearHistory" class="btn subtle" style="flex:1">Clear All</button>
+    </div>
+  </aside>
+  <div id="overlay" class="overlay hidden"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left"><h1>E-commerce Assistant</h1></div>
+      <div class="top-right">
+        <button id="openDrawer" class="btn subtle"> History</button>
+        <div id="themeToggle" class="theme-toggle" data-tooltip="Toggle theme">Dark Mode</div>
+      </div>
+    </header>
+
+    <section class="content">
+      <div id="stream" class="stream" aria-live="polite"></div>
+    </section>
+
+    <footer class="composer">
+      <div class="composer-inner">
+        <div class="left-controls">
+          <label for="attachInput" class="tool-btn" data-tooltip="Attach file">📎 </label>
+          <input id="attachInput" type="file" style="display:none" accept="image/*,.pdf"/>
+        </div>
+        <textarea id="composerInput" class="composer-text" placeholder='Ask me anything: "about the product"...' rows="1"></textarea>
+        <div class="composer-actions">
+          <button id="webSearchBtn" class="btn subtle" data-tooltip="Search web">🌐Web</button>
+          <button id="sendBtn" class="btn send">Send</button>
+        </div>
+      </div>
+      <div class="composer-meta"><span id="attachmentLabel" class="muted"></span></div>
+    </footer>
+  </main>
+</div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>

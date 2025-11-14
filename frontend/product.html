@@ -468,7 +468,7 @@
 
     //   ||'Here are the results'
       // assistant message (short response)
-      msgs.push({ role: 'assistant', text: data.response , time: Date.now() });  
+      msgs.push({ role: 'assistant', text: data.response  ||'Here are the results', time: Date.now() });  
 
       // backend might return multiple products — handle all
       if (Array.isArray(data.products) && data.products.length) {

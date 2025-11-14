@@ -97,33 +97,19 @@ if LLM_AVAILABLE:
 
 
         prompt_template ="""
-        You are an intelligent e-commerce assistant chatbot trained to answer questions in the following domains:
-
+You are an intelligent e-commerce assistant chatbot trained to answer questions in the following domains:
 1. Product Database Lookup:
 - ONLY answer questions about products in the database.
 - ONLY provide information that exists in the context below.
 - Answer with ONLY the requested value - no explanations or extra text.
 - If the question cannot be answered from the context, respond: "No data found".
 - If the question is general (not product-specific), respond: "Sorry — that doesn't look like a product query. Please ask about product price, rating, reviews, or name."
-
-2. Order & Shipping:
-- Answer queries about order status, tracking numbers, delivery times, shipment status, shipping costs, shipping countries, shipping options, address changes, confirmation emails, and backordered items.
-
-3. Returns, Refunds & Exchanges:
-- Answer queries about return policies, initiating returns/exchanges, refund eligibility and processing times, damaged items, exchanges, return shipping, and return conditions.
-
-4. Product Information:
-- Answer queries about product functionality, materials, size guides, stock availability, restocking, product features, color variations, compatibility, recommendations, customer reviews, and product certifications (organic/vegan/etc.).
-
-5. Discounts, Payments & Promotions:
-- Answer queries about discount codes, payment methods, payment issues, financing options, and upcoming sales.
-
-6. Account Management:
-- Answer queries about password resets, login issues, updating personal info, loyalty points, order history, and account deletion.
-
-7. General & Technical Support:
-- Answer queries about speaking to human agents, problem reporting, product search help, mobile website, service hours, customer support contacts, and privacy policies.
-
+- if asked provide me the product under , below ,above , over ,greater than , less than , in between the price range then provide the product accordingly
+- if asked to compare two products then provide then provde the product cheapest among them
+- if asked how many products are there just list the product names availables in the database 
+- if asked highest rated product or cheapest product or expensive product then product accordingly 
+- if asked list the product in specific categories the provide the list of the product accordingly 
+- if asked provide me the list of the product in 'X' speficific category it should answer accordingly.
 If the question is outside these categories or requires information not in the product database context (for product-specific questions), politely respond with the above generic replies or "No data found" as appropriate.
 
 Context from database:
@@ -134,23 +120,7 @@ Question: {question}
 Answer:
 """
 
-#         prompt_template = """
-#     You are a strict database lookup assistant for an e-commerce product database.
 
-#     STRICT RULES:
-#     1. ONLY answer questions about products in the database
-#     2. ONLY provide information that exists in the context below
-#     3. Answer with ONLY the requested value - no explanations or extra text
-#     4. If the question cannot be answered from the context, respond: "No data found"
-#     5. if the question are generalize one then simple answer "Sorry — that doesn't look like a product query. Please ask about product price, rating, reviews, or name."
-
-#     Context from database:
-#     {context}
-
-#     Question: {question}
-
-#     Answer:
-# """
         PROMPT = PromptTemplate(template=prompt_template, input_variables=["context", "question"])
         if llm is not None and vectorstore is not None:
             qa_chain = RetrievalQA.from_chain_type(
@@ -222,15 +192,15 @@ GENERAL_INTENT_PATTERNS = [
 
 GENERAL_INTENT_REGEXES = [re.compile(p, re.IGNORECASE) for p in GENERAL_INTENT_PATTERNS]
 
-
+print(f"general intent regexes:{GENERAL_INTENT_PATTERNS}")
 
 def _all_docs_from_vectorstore() -> List[Any]:
     """Return all doc objects in vectorstore.docstore. Returns empty list if unavailable."""
     if vectorstore is None:
         return []
     try:
-     
         all_docs = list(getattr(vectorstore.docstore, "_dict", {}).values())
+        print(f"all_docs:{all_docs}")
         return all_docs
     except Exception as e:
         print("Error reading docs from vectorstore:", e)
@@ -322,6 +292,7 @@ def get_highest_rating_product() -> Optional[Dict[str, Any]]:
         if best_rating is None or r > best_rating:
             best_rating = r
             best = build_product_card(m)
+            print(f"best rating product so far:{best}")
     return best
 
 
@@ -481,10 +452,11 @@ def parse_price_constraints(query: str) -> Dict[str, float]:
     q = str(query).lower()
     max_price = None
     min_price = None
-    m = re.search(r"(?:under|below|less than|<|<=)\s*₹?\s*([\d,]+)", q)
+    m = re.search(r"(?:under|below|less than|under budget<|<=)\s*₹?\s*([\d,]+)", q)
     if m:
         try:
             max_price = float(re.sub(r"[^\d.]", "", m.group(1)))
+            print(f"max_price :{max_price}")
         except:
             pass
     m2 = re.search(r"(?:above|over|greater than|>|>=)\s*₹?\s*([\d,]+)", q)
@@ -595,6 +567,8 @@ def get_recommendations(main_meta: Dict[str, Any], k: int = 3) -> List[Dict[str,
         traceback.print_exc()
         return []
 
+
+
 @app.post("/query")
 def search_products(request: QueryRequest):
     try:
@@ -658,8 +632,26 @@ def search_products(request: QueryRequest):
                 "categories": categories,
                 "debug": {"type": "kinds_of_products"}
             })
-        if re.search(r"\b(what are the main categories|main categories available|main categories)\b", q_lower):
+        if re.search(r"\b(what you are serving|what you are|What products do you offer)\b", q_lower):
+            return JSONResponse({
+                "response": "I am your E-commerce assistant offer a wide range of e-commerce products including electronics, clothing, home goods, and more. How can I assist you in finding the perfect product?",
+                "debug": {"type": "what_you_are_serving"
+            }
+            }
+            )
+        
+        if re.search(r"\b(how many products are available|number of products available|total products available|total number of products)\b", q_lower):
+            docs = _all_docs_from_vectorstore()
+            count = len(docs)
+            return JSONResponse({
+                "response": f"There are {count} products available in the database.",
+                "count": count,
+                "debug": {"type": "total_products"}
+            })
+        if re.search(r"\b(what are the main categories|main categories available|main categories|can you show me list of product availables|Give me the list of products available|List all available items.|What can I buy from your store?|)\b", q_lower):
             categories = get_all_categories()
+            print(categories)
+    
             return JSONResponse({
                 "response": f"Main categories:\n" + "\n".join([f"• {c}" for c in categories]) if categories else "No categories found.",
                 "categories": categories,
@@ -670,6 +662,7 @@ def search_products(request: QueryRequest):
             return JSONResponse({
                 "response": "Hello and welcome to the E-commerce world! I'm your shopping assistant—let me know what product you're looking for, and I'll help you find it. How can I assist you today?"
             })
+        
 
         if is_general_query(query):
             return JSONResponse({
@@ -751,16 +744,15 @@ def search_products(request: QueryRequest):
 
         # Also support "Can I see all products within a price range, e.g., ₹50 to ₹200?" generic phrasing
         if re.search(r"\b(products within a price range|products between|within.*price range|products from)\b", q_lower):
-           
             between2 = parse_between_price_constraints(query)
             if between2.get("min_price") is not None or between2.get("max_price") is not None:
                 min_p = between2.get("min_price") or 0.0
                 max_p = between2.get("max_price") or 1e9
                 list_in_range = list_products_in_price_range(min_p, max_p)
                 return JSONResponse({
-                    "response": f"Found {len(list_in_range)} products between Rs{min_p:.2f} and Rs{max_p:.2f}.",
+                    #"response": f"Found products between Rs{min_p:.2f} and Rs{max_p:.2f}.",
                     "products": list_in_range[:3],
-                    "debug": {"type": "price_range", "min": min_p, "max": max_p, "count": len(list_in_range)}
+                    "debug": {"type": "price_range", "min": min_p, "max": max_p} #"count": len(list_in_range)}
                 })
 
        
@@ -827,7 +819,7 @@ def search_products(request: QueryRequest):
 
         top_products = []
         for sc, meta, vs in scored[:TOP_RETURN]:
-            if sc < 0.3:  # Strict threshold
+            if sc < 0.3:  
                 continue
             card = build_product_card(meta)
             card["score"] = round(float(sc), 4)
@@ -843,6 +835,7 @@ def search_products(request: QueryRequest):
 
         best_meta = dict(top_products[0]["metadata"] or {})
         recs = get_recommendations(best_meta, k=3)
+        print(f"recommendation list:{recs}")
 
         specific_keywords = ["price", "cost", "how much", "rating", "review", "description"]
         if any(k in q_lower for k in specific_keywords) and qa_chain and top_products:
@@ -876,14 +869,14 @@ def search_products(request: QueryRequest):
 
 @app.get("/", response_class=HTMLResponse)
 def root():
-    index_path = os.path.join(FRONTEND_DIR, "product.html")
+    index_path = os.path.join(FRONTEND_DIR, "product2.html")
     if os.path.exists(index_path):
         return FileResponse(index_path)
     return HTMLResponse("<h1>E-commerce Chatbot</h1><p>Backend is running</p>")
 
 @app.get("/ui", response_class=HTMLResponse)
 def ui():
-    index_path = os.path.join(FRONTEND_DIR, "product.html")
+    index_path = os.path.join(FRONTEND_DIR, "product2.html")
     if os.path.exists(index_path):
         return FileResponse(index_path)
     return HTMLResponse("<h3>UI not found</h3>", status_code=404)
