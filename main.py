@@ -847,6 +847,8 @@ def search_products(request: QueryRequest):
             
             response_text = f"Here are all available products:\n\n" + "\n".join(product_list)
             response_products = [doc_to_card(d) for d in all_docs]
+            print(f"response_products:{response_products}")
+
             
             response_data = {
                 "response": response_text,
@@ -953,7 +955,7 @@ def search_products(request: QueryRequest):
                 "recommendations": recommendations
             }
             
-            # Save to chat history if user is logged in
+           
             if user_id:
                 save_chat_history(user_id, query, response_text, [main_product])
             
