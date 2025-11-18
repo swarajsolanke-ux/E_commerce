@@ -206,12 +206,14 @@ from langchain_core.documents import Document
 from langchain_text_splitters import CharacterTextSplitter
 from langchain_community.embeddings import HuggingFaceEmbeddings
 from langchain_community.vectorstores import FAISS
+import logging
 
 
 CSV_PATH = "/Users/swarajsolanke/Chatbot/E_commerce/data/dataset.csv"
 DB_PATH = "/Users/swarajsolanke/Chatbot/E_commerce/db/products_DB.db"
 VECTOR_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/vect/vector_store"
-IMG_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/data/images"  
+IMG_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/data/images" 
+order_path="/Users/swarajsolanke/Chatbot/E_commerce/data/orders_from_db.csv" 
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 CHUNK_SIZE = 500
 CHUNK_OVERLAP = 0
@@ -303,7 +305,7 @@ def main():
         df.to_sql("products", engine, if_exists="replace", index=False)
         print("Saved to DB, rows:", len(df))
 
-        # Prepare text and metadata for FAISS (use image_urls_json -> load list back into metadata)
+       
         texts = []
         metadatas = []
         for _, r in df.iterrows():
@@ -326,7 +328,7 @@ def main():
             }
             metadatas.append(meta)
 
-        # Create Documents and split
+      
         docs = [Document(page_content=t, metadata=m) for t,m in zip(texts, metadatas)]
         splitter = CharacterTextSplitter(chunk_size=CHUNK_SIZE, chunk_overlap=CHUNK_OVERLAP)
         split_docs = splitter.split_documents(docs)
@@ -368,6 +370,87 @@ def main():
         print("Fatal error in ingest:", e)
         traceback.print_exc()
         sys.exit(1)
+#added the embedding of the order data to product info data and store into the index.faiss and index.pkl file
+def compose_order_text(row):
+   
+    parts = [
+        f"Product: {row.get('product_name','')}",
+        f"OrderID: {row.get('orderid','')}",
+        f"Date: {row.get('orderdate','')}",
+        f"Status: {row.get('status','')}",
+    ]
+    return " | ".join([p for p in parts if p and p.strip()])
+def ingest_orders_csv_to_vectorstore(csv_path=order_path,
+                                     vector_dir=VECTOR_DIR,
+                                     embedding_model=EMBEDDING_MODEL,
+                                     chunk_size=CHUNK_SIZE,
+                                     chunk_overlap=CHUNK_OVERLAP):
+    
 
+ 
+    print("Loading orders CSV:", csv_path)
+    df = pd.read_csv(csv_path, dtype=str)
+    df.fillna("", inplace=True)
+
+    
+    before = len(df)
+    df = df[(df.get("product_name", "") != "") & (df.get("orderid", "") != "")]
+    after = len(df)
+    if before != after:
+        print(f"Skipped {before-after} rows with empty product_name or orderid.")
+
+  
+    texts = []
+    metadatas = []
+    for _, r in df.iterrows():
+        text = compose_order_text(r)
+        print(f"text is added:{text}")
+        meta = {
+            "orderid": r.get("orderid", ""),
+            "product_name": r.get("product_name", ""),
+            "orderdate": r.get("orderdate", ""),
+            "status": r.get("status", "")
+        }
+        texts.append(text)
+        metadatas.append(meta)
+    logging.info("metadata data sucessfully")
+
+   
+    docs = [Document(page_content=t, metadata=m) for t, m in zip(texts, metadatas)]
+    splitter = CharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+    split_docs = splitter.split_documents(docs)
+    print("Created document chunks from orders:", len(split_docs))
+
+    
+    print("Loading embedding model:", embedding_model)
+    embeddings = HuggingFaceEmbeddings(model_name=embedding_model)
+
+    
+    try:
+        index_file = os.path.join(vector_dir, "index.faiss")
+        meta_file = os.path.join(vector_dir, "index.pkl")
+        if os.path.exists(index_file) and os.path.exists(meta_file):
+            print("Existing FAISS index found. Loading and updating it...")
+            vectorstore = FAISS.load_local(vector_dir, embeddings,allow_dangerous_deserialization=True)
+           
+            vectorstore.add_documents(split_docs)
+            print(f"vectorstore:{vectorstore}")
+        else:
+            print("No existing FAISS index found. Creating a new one...")
+            vectorstore = FAISS.from_documents(split_docs, embeddings)
+
+        
+        print("Saving FAISS vectorstore to:", vector_dir)
+        vectorstore.save_local(vector_dir)
+        print("Ingest complete. Vectorstore updated.")
+    except Exception as e:
+        print("Error while ingesting to FAISS vectorstore:", e)
+        traceback.print_exc()
+
+ingest_orders_csv_to_vectorstore(csv_path=order_path,
+                                     vector_dir=VECTOR_DIR,
+                                     embedding_model=EMBEDDING_MODEL,
+                                     chunk_size=CHUNK_SIZE,
+                                     chunk_overlap=CHUNK_OVERLAP)
 if __name__ == "__main__":
     main()

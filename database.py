@@ -4,9 +4,11 @@ import sqlite3
 import hashlib
 import json
 from typing import Dict, Any, List, Optional
+import pandas as pd
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 USER_DB_PATH = os.path.join(BASE_DIR, "db", "users_chat.db")
+path="/Users/swarajsolanke/Chatbot/E_commerce/data/orders_from_db.csv"
 
 
 os.makedirs(os.path.join(BASE_DIR, "db"), exist_ok=True)
@@ -45,11 +47,51 @@ def init_user_db():
     cursor.execute("""
         CREATE INDEX IF NOT EXISTS idx_user_id ON chat_history(user_id)
     """)
+
+    cursor.execute("""
+        CREATE TABLE IF NOT EXISTS orders(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        orderid TEXT NOT NULL,
+        product_name TEXT ,
+        orderdate TEXT NOT NULL, 
+        status TEXT NOT NULL)
+        """)
     
     conn.commit()
     conn.close()
     print("User database initialized")
 
+def insert_orders_from_csv(path):
+    conn = sqlite3.connect(USER_DB_PATH)
+    cursor = conn.cursor()
+
+    df = pd.read_csv(path)
+
+    for _, row in df.iterrows():
+
+        
+        if pd.isna(row['product_name']) or str(row['product_name']).strip() == "":
+            continue
+        
+        cursor.execute("""
+            INSERT INTO orders (orderid, product_name, orderdate, status)
+            VALUES (?, ?, ?, ?)
+        """, (
+            row['orderid'], 
+            row['product_name'], 
+            row['orderdate'], 
+            row['status']
+        ))
+
+    conn.commit()
+    conn.close()
+
+    print("Data inserted successfully!")
+
+
+   
+init_user_db()
+insert_orders_from_csv(path)
 
 def hash_password(password: str) -> str:
     """Hash password using SHA256"""

@@ -1,4 +1,5 @@
-
+import csv
+from pathlib import Path
 import os
 import re
 import traceback
@@ -14,7 +15,7 @@ from pydantic import BaseModel
 
 from database import (
     init_user_db, hash_password, verify_password, get_user_by_email,
-    create_user, save_chat_history, get_chat_history, user_exists
+    create_user, save_chat_history, get_chat_history, user_exists,insert_orders_from_csv
 )
 import torch
 from sqlalchemy import create_engine
@@ -69,6 +70,29 @@ try:
 except Exception as e:
     print("Failed to load vectorstore:", e)
 
+
+# Load orders data from CSV at startup
+ORDERS_CSV_PATH = Path(BASE_DIR) / "data/orders_from_db.csv"  
+print(f"ORDERS_CSV_PATH LODADED SUCESSFULLY:{ORDERS_CSV_PATH}")
+order_data: dict[str, dict] = {}
+
+if ORDERS_CSV_PATH.exists():
+    try:
+        with open(ORDERS_CSV_PATH, newline='', encoding='utf-8') as f:
+            reader = csv.DictReader(f)
+            for row in reader:
+                oid = row['orderid'].strip()
+                if oid:
+                    order_data[oid] = {
+                    "product_name": row['product_name'].strip(),
+                    "orderdate": row['orderdate'].strip(),
+                    "status": row['status'].strip()
+                }
+        print(f"✓ Loaded {len(order_data)} orders from CSV")
+    except Exception as e:
+        print(f"Failed to load orders CSV: {e}")
+else:
+    print("orders_from_db.csv not found!")
 # Greeting detection
 GREETING_WORDS: Set[str] = {
     "hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening","hiiiii","helo","hii"
@@ -93,7 +117,19 @@ INTENT_PATTERNS = {
         r"\bgive\s+me\s+the\s+list\s+of\s+products?\s+available",
         r"\bwhat\s+can\s+i\s+buy\s+from\s+your\s+store",
         r"\bshow\s+all\s+available\s+products?",
+        r"\bcan\s+you\s+show\s+me\s+all\s+product\s+categories\s+availables?"
     ],
+           "order_status": [
+           r"status.*order",
+           r"order.*status",
+           r"track.*order",
+           r"where.*my.*order",
+           r"delivery.*status",
+           r"order\s*id",
+           r"ord\d+",
+           r"what.*status.*order",
+           r"check.*order",
+       ],
     "list_categories": [
         r"\b(show|list|display|give)\s+me\s+(all\s+)?(product\s+)?categor(ies|y)",
         r"\bwhat\s+(are\s+)?(the\s+)?(product\s+)?categor(ies|y)",
@@ -220,7 +256,7 @@ if LLM_AVAILABLE and vectorstore:
             model=model,
             tokenizer=tokenizer,
             max_new_tokens=512,
-            temperature=0.01,
+            temperature=0.1,
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id,
             truncation=True,
@@ -311,6 +347,7 @@ def doc_to_metadata(doc) -> Dict[str, Any]:
     if isinstance(doc, dict):
         return doc.get("metadata", doc)
     m = getattr(doc, "metadata", None)
+    print(f"metadata:{m}")
     if isinstance(m, dict):
         return m
     try:
@@ -359,13 +396,14 @@ def doc_to_card(doc) -> dict:
         "image": image
     }
 
+
 def detect_intent(query: str) -> Optional[str]:
     """Detect the primary intent of the query"""
     query_lower = query.lower()
     print(f"detect the intent:{query_lower}")
     
     # Priority order: check specific intents first
-    priority_intents = ["cheapest", "most_expensive", "highest_rating", "list_categories", "list_all", "price_range", "category", "compare", "recommend", "product_by_name"]
+    priority_intents = ["order_status","cheapest", "most_expensive", "highest_rating", "list_categories", "list_all", "price_range", "category", "compare", "recommend", "product_by_name"]
     
     for intent in priority_intents:
         if intent in COMPILED_PATTERNS:
@@ -382,6 +420,12 @@ def detect_intent(query: str) -> Optional[str]:
                     return intent
     
     return None
+
+def extract_order_id(query: str) -> str | None:
+    """Extract order ID like ORD10000, ORD10234, etc."""
+    import re
+    match = re.search(r'\b(ORD\d+)\b', query, re.IGNORECASE)
+    return match.group(1).upper() if match else None
 
 def extract_price_values(query: str) -> Tuple[Optional[float], Optional[float]]:
     """Extract min and max price values from query"""
@@ -618,7 +662,44 @@ def search_products(request: QueryRequest):
             
             return JSONResponse(response_data)
 
-        
+        #handling the query by orderid       
+        order_id = extract_order_id(query)
+        query_lower = query.lower()
+
+        if order_id or ("status" in query_lower and "order" in query_lower):
+            if order_id and order_id in order_data:
+                info = order_data[order_id]
+                status = info["status"].capitalize()
+                product = info["product_name"]
+                date = info["orderdate"]
+
+                response_text = f"""Order : {order_id} status:{status}
+
+Product: {product}
+Order Date: {date}"""
+
+                response_data = {
+                    "response": response_text,
+                    "order_info": {
+                        "orderid": order_id,
+                        "product_name": product,
+                        "orderdate": date,
+                        "status": status
+                    }
+                }
+
+                if user_id:
+                    save_chat_history(user_id, query, response_text, None)
+
+                return JSONResponse(response_data)
+
+            else:
+                # Order ID not found
+                response_text = "I couldn't find that order ID. Please check and try again."
+                if user_id:
+                    save_chat_history(user_id, query, response_text, None)
+                return JSONResponse({"response": response_text})
+       
         query_lower = query.lower()
         if is_list_all_products_query(query) or "show" in query_lower and "all" in query_lower and ("product" in query_lower or "available" in query_lower):
             all_docs = _all_docs_from_vectorstore()
@@ -649,6 +730,7 @@ def search_products(request: QueryRequest):
                         "recommendations": recommendations,
                         "list_format": True
                     }
+                    print(f"response data:{response_data}")
                 else:
                     response_data = {
                         "response": response_text,
@@ -1314,3 +1396,4 @@ def health_check():
 
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
+#192.168.5.255 192.168.5.146 

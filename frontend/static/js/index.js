@@ -12,6 +12,8 @@
         openDrawer = $('openDrawer'), closeDrawer = $('closeDrawer'),
         historyList = $('historyList'), clearHist = $('clearHistory'),
         themeToggle = $('themeToggle');
+  
+
 
   let msgs = [], attachment = null, currentTheme = 'light';
 
@@ -383,7 +385,7 @@
   clearHist.addEventListener('click', () => { if (confirm('Clear all chat history? This cannot be undone.')) { msgs = []; save(); render(); renderHist(); } });
   themeToggle.addEventListener('click', toggleTheme);
 
-  // Account Menu Functionality - ChatGPT Style Modal
+  
   const accountMenu = document.getElementById('accountMenu');
   const accountBtn = document.getElementById('accountBtn');
   const accountModal = document.getElementById('accountModal');
@@ -403,7 +405,7 @@
     const username = localStorage.getItem('username') || 'User';
     const email = localStorage.getItem('email') || '';
     
-    // Set account initials (first letter of username)
+    
     if (accountInitials) {
       accountInitials.textContent = username.charAt(0).toUpperCase();
     }
@@ -411,7 +413,7 @@
       modalAccountInitials.textContent = username.charAt(0).toUpperCase();
     }
     
-    // Set account name and email in modal
+
     if (modalAccountName) {
       modalAccountName.textContent = username;
     }
@@ -458,7 +460,7 @@
       }
     });
 
-    // Notifications button
+    
     if (notificationsBtn) {
       notificationsBtn.addEventListener('click', () => {
         closeModal();
@@ -467,7 +469,7 @@
       });
     }
 
-    // Settings button
+  
     if (settingsBtn) {
       settingsBtn.addEventListener('click', () => {
         closeModal();
@@ -515,7 +517,50 @@
   console.log(`API Base URL:${API_BASE}`);
   loadTheme();
   load(); 
-  
+
+  const newChatBtn = $("newChatBtn");
+
+  if (newChatBtn) {
+    newChatBtn.addEventListener('click', () => {
+      // Now everything (msgs, save, render) exists!
+      msgs = [];                                   // Clear messages
+      input.value = '';                            // Clear input
+      input.style.height = 'auto';                 // Reset height
+
+      // Clear attachment
+      if (attach.value) attach.value = '';
+      attachment = null;
+      attachLabel.innerHTML = '';
+      attachLabel.style.display = 'none';
+
+      // Save & render fresh state
+      save();
+      render();
+
+      // Close sidebar if open
+      if (drawer && !drawer.classList.contains('hidden')) {
+        drawer.classList.add('hidden');
+        overlay.classList.add('hidden');
+      }
+
+     
+      input.focus();
+
+     
+      setTimeout(() => {
+        if (msgs.length === 0) {
+          msgs.push({
+            role: 'assistant',
+            text: "Hello! I'm your AI Ecommerce assistant. I can help you find products, check prices, and provide recommendations. What are you looking for today?",
+            time: Date.now()
+          });
+          save();
+          render();
+        }
+      }, 300);
+    });
+  }
+ 
   
   loadChatHistory().then(() => {
     render(); 

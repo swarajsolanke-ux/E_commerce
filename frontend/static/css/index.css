@@ -50,6 +50,28 @@ body {
 }
 .left-drawer.hidden { transform: translateX(-100%); }
 
+
+.tool-btn chat-btn {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(8px);
+}
+
+.tool-btn chat-btn:hover {
+  background: rgba(255,255,255,0.16);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 .drawer-head { 
   padding: 24px; border-bottom: 1px solid var(--border); 
   background: var(--bg-gradient); color: white; 
