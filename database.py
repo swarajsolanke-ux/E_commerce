@@ -111,6 +111,7 @@ def get_user_by_email(email: str) -> Optional[Dict[str, Any]]:
     cursor.execute("SELECT * FROM users WHERE email = ?", (email,))
     row = cursor.fetchone()
     conn.close()
+    print(f"connection created:sucessfully")
     if row:
         return dict(row)
     return None
@@ -128,7 +129,7 @@ def get_user_by_id(user_id: int) -> Optional[Dict[str, Any]]:
         return dict(row)
     return None
 
-
+print(f"get_user_by_id sucessfully ran")
 def create_user(email: str, username: str, password: str) -> Optional[int]:
     """Create a new user and return user_id"""
     try:
@@ -161,7 +162,6 @@ def save_chat_history(user_id: int, query: str, response: str, products: Optiona
         conn.close()
     except Exception as e:
         print(f"Error saving chat history: {e}")
-
 
 def get_chat_history(user_id: int, limit: int = 50) -> List[Dict[str, Any]]:
     """Get chat history for a user"""

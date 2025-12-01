@@ -327,7 +327,8 @@
 
     msgs.push({ role: 'assistant', text: '...', time: Date.now() });
     save(); render();
-
+   
+    // frontend API code 
     try {
       const resp = await fetch(`${API_BASE}/query`, {
         method: 'POST',
@@ -341,10 +342,32 @@
         const err = await resp.json().catch(()=>null);
         throw new Error((err && err.detail) ? err.detail : `HTTP ${resp.status}`);
       }
-
+      
       const data = await resp.json();
+      if (data.list_format && Array.isArray(data.categories)) {
+      msgs.push({
+        role: "assistant",
+        isList: true,
+        title: data.response,     // “Here is the list…”
+        list: data.categories,    // actual items
+        time: Date.now()
+      });
+    }
+      // if (data.list_format && data.categories){
+      //   msgs.push({
+      //     role:'assistant',
+      //     isList:true,
+      //     title:data.response,
+      //     list:data.categories,
+      //     time:Date.now()
+      //   });
+      
+      else{
+           msgs.push({ role: 'assistant', text: data.response || 'Here are the results', time: Date.now() });
+        }
+    
 
-      msgs.push({ role: 'assistant', text: data.response || 'Here are the results', time: Date.now() });
+     
 
       // Show one main product with 3 recommendations
       if (data.main_product || (Array.isArray(data.products) && data.products.length > 0) || (data.products && typeof data.products === 'object')) {
@@ -363,6 +386,30 @@
       save(); render(); renderHist();
     }
   };
+
+  // rendering the list of item in UI
+  msgs.forEach(msg => {
+    if (msg.isList) {
+        html += `
+          <div class="assistant-msg">
+              <div class="msg-title">${msg.title}</div>
+              <ul class="msg-list">
+                ${msg.list.map(item => `<li>${item}</li>`).join("")}
+              </ul>
+          </div>
+        `;
+    } else {
+        html += `
+          <div class="${msg.role}-msg">
+              ${msg.text}
+          </div>
+        `;
+    }
+});
+
+
+
+
 
   const autoResize = () => {
     input.style.height = 'auto';

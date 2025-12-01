@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-
+from langchain_community.llms import Ollama
 
 from database import (
     init_user_db, hash_password, verify_password, get_user_by_email,
@@ -40,6 +40,8 @@ IMAGES_DIR = os.path.join(BASE_DIR, "data", "images")
 DB_PATH = os.path.join(BASE_DIR, "db", "products_DB.db")
 VECTOR_DIR = os.path.join(BASE_DIR, "vect", "vector_store")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
+#llm1=Ollama(model="gemma2:2b",base_url="http://localhost:11434", temperature=0.2)
+#print(f"llm1 model is loaded sucessfully:{llm1}")
 model_path = "gpt2"
 
 # Initialize user database
@@ -256,7 +258,7 @@ if LLM_AVAILABLE and vectorstore:
             model=model,
             tokenizer=tokenizer,
             max_new_tokens=512,
-            temperature=0.1,
+            temperature=0.2,
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id,
             truncation=True,
@@ -272,8 +274,9 @@ CONTEXT:
 {context}
 
 QUESTION: {question}
-
+you are an Ecommerce Expert at answering all questions based on the user query 
 Determine the query type and respond with the appropriate JSON schema:
+when user put the greetings buts that can be also handle.
 
 1. LIST ALL - User wants to see all products
 {{"type": "list_all", "response": "Found X products.", "products": [...]}}
@@ -317,7 +320,7 @@ ANSWER (JSON only):
 """,
             input_variables=["context", "question"]
         )
-
+        print(f"llm1 is gpt2 model is  sucessfully loaded :{llm}")
         qa_chain = RetrievalQA.from_chain_type(
             llm=llm,
             chain_type="stuff",
@@ -325,6 +328,7 @@ ANSWER (JSON only):
             chain_type_kwargs={"prompt": PROMPT},
             return_source_documents=False
         )
+        print(f"qa_chain reterival:{qa_chain}")
         print("LLM loaded and ready")
     except Exception as e:
         print("Failed to load LLM:", e)
@@ -337,6 +341,7 @@ def _all_docs_from_vectorstore() -> List[Any]:
     if not vectorstore:
         return []
     try:
+        print(list(getattr(vectorstore.docstore, "_dict", {}).values()))
         return list(getattr(vectorstore.docstore, "_dict", {}).values())
     except:
         return []
@@ -510,7 +515,7 @@ def extract_category(query: str) -> Optional[str]:
     
     return None
 
-def build_filtered_context(docs: List[Any], max_products: int =20) -> str:
+def build_filtered_context(docs: List[Any], max_products: int =10) -> str:
     """Build context string from documents"""
     lines = []
     for doc in docs[:max_products]:
@@ -581,6 +586,7 @@ def get_all_categories() -> List[str]:
                 val = str(meta.get(key, "")).strip()
                 if val and val.lower() not in ["nan", "none", ""]:
                     categories.add(val)
+                    print(categories)
         return sorted(list(categories))
     except Exception as e:
         print(f"Error fetching categories: {e}")
@@ -589,6 +595,7 @@ def get_all_categories() -> List[str]:
 def is_list_all_products_query(query: str) -> bool:
     """Check if query is asking for all products"""
     query_lower = query.lower().strip()
+    print(query_lower)
     patterns = [
         r"can\s+you\s+show\s+me\s+all\s+products?\s+availables?",
         r"can\s+you\s+show\s+all\s+available\s+products?",
@@ -658,12 +665,12 @@ def search_products(request: QueryRequest):
             
             # Save to chat history if user is logged in
             if user_id:
-                save_chat_history(user_id, query, response_text, None)
+                 save_chat_history(user_id, query, response_text, None)
             
             return JSONResponse(response_data)
 
         #handling the query by orderid       
-        order_id = extract_order_id(query)
+        order_id =  extract_order_id(query)
         query_lower = query.lower()
 
         if order_id or ("status" in query_lower and "order" in query_lower):
@@ -673,10 +680,10 @@ def search_products(request: QueryRequest):
                 product = info["product_name"]
                 date = info["orderdate"]
 
-                response_text = f"""Order : {order_id} status:{status}
-
-Product: {product}
-Order Date: {date}"""
+                response_text = f"""OrderID: {order_id} 
+                status: {status}
+                Product Name: {product}
+                Order Date: {date}"""
 
                 response_data = {
                     "response": response_text,
@@ -708,26 +715,27 @@ Order Date: {date}"""
                 response_data = {
                     "response": response_text,
                     "main_product": None,
-                    "recommendations": []
+                    #"recommendations": []
                 }
             else:
                 # Format as list
                 product_list = []
-                for doc in all_docs[:20]:  
+                for doc in all_docs[:10]:  
                     card = doc_to_card(doc)
-                    product_list.append(f"• {card['title']} - Rs {card['selling_price']} (Rating: {card['product_rating']})")
+                    product_list.append(f"• {card['title']})")
+                    print(product_list)
                 
-                response_text = f"Here are all available products:\n\n" + "\n".join(product_list)
+                response_text = f"Here are all available products:\n\n\n\n" + "\n".join(product_list)
                 # Return first product with recommendations
                 if all_docs:
-                    main_doc = all_docs[0]
+                    main_doc = all_docs[0:10]
                     main_product = doc_to_card(main_doc)
-                    main_meta = doc_to_metadata(main_doc)
-                    recommendations = get_recommendations(main_meta, k=3)
+                    main_meta =  doc_to_metadata(main_doc)
+                    recommendations =  get_recommendations(main_meta, k=3)
                     response_data = {
                         "response": response_text,
-                        "main_product": main_product,
-                        "recommendations": recommendations,
+                       # "main_product": main_product,
+                        #"recommendations": recommendations,
                         "list_format": True
                     }
                     print(f"response data:{response_data}")
@@ -746,24 +754,29 @@ Order Date: {date}"""
 
         # Check for specific queries: "show me all product categories"
         if is_list_categories_query(query) or detect_intent(query) == "list_categories":
-            categories = get_all_categories()
+            categories =  get_all_categories()
             print(f"categories available in the database:{categories}")
             if not categories:
                 response_text = "No product categories found in the database."
                 response_data = {
                     "response": response_text,
-                    "categories":[20],
+                    "categories":categories[:10],
+                    "list_format":True
                 }
             else:
                 
                 category_list = [f"• {cat}" for cat in categories]
-                response_text = "Here are all available product categories:\n\n" + "\n".join(category_list)
+                print("category_list",category_list)
+                response_text = "Here is the list of product categories:\n\n\n\n\n" + "\n\n".join(category_list[0:70])
+                
+                print("response_text:",response_text)
                 response_data = {
-                    "response": response_text,
-                    "categories": categories,
-                    "list_format": True
-                }
-            
+                            "response":response_text,
+                            "categories":categories,
+                            "list_format": True
+                        }
+              
+                
             # Save to chat history if user is logged in
             if user_id:
                 save_chat_history(user_id, query, response_text, None)
@@ -771,7 +784,7 @@ Order Date: {date}"""
             return JSONResponse(response_data)
 
         # Detect intent - check for price_range first (has priority for combined queries)
-        intent = detect_intent(query)
+        intent =  detect_intent(query)
         
         # Special handling: if query has both price constraint and product name, prioritize price_range
         query_lower = query.lower()
@@ -804,8 +817,8 @@ Order Date: {date}"""
 
         # Handle price_range with product name (e.g., "cricket bat under 400rs")
         if intent == "price_range":
-            min_price, max_price = extract_price_values(query)
-            product_name = extract_product_name_from_query(query)
+            min_price, max_price =  extract_price_values(query)
+            product_name =  extract_product_name_from_query(query)
             
           
             filtered_docs = []
@@ -819,7 +832,7 @@ Order Date: {date}"""
                 
                 # Then filter by price
                 for d in name_docs:
-                    price = parse_price(doc_to_metadata(d).get("selling_price"))
+                    price =  parse_price(doc_to_metadata(d).get("selling_price"))
                     price_ok = True
                     
                     if min_price is not None and max_price is not None:
@@ -857,9 +870,9 @@ Order Date: {date}"""
             # Get first product as main product
             main_doc = filtered_docs[0] if filtered_docs else None
             if main_doc:
-                main_product = doc_to_card(main_doc)
-                main_meta = doc_to_metadata(main_doc)
-                recommendations = get_recommendations(main_meta, k=3)
+                main_product =  doc_to_card(main_doc)
+                main_meta =  doc_to_metadata(main_doc)
+                recommendations =  get_recommendations(main_meta, k=3)
                 
                 if product_name:
                     response_text = f"Found '{main_product['title']}'."
@@ -899,11 +912,11 @@ Order Date: {date}"""
             else:
                 # Get first product as main product
                 main_doc = relevant_docs[0]
-                main_product = doc_to_card(main_doc)
-                main_meta = doc_to_metadata(main_doc)
+                main_product =  doc_to_card(main_doc)
+                main_meta =  doc_to_metadata(main_doc)
                 
                 # Get 3 recommendations
-                recommendations = get_recommendations(main_meta, k=3)
+                recommendations =  get_recommendations(main_meta, k=3)
                 print(f"recommendate products:{recommendations}")
                 
                 response_text = f"I found '{main_product['title']}'."
@@ -923,8 +936,8 @@ Order Date: {date}"""
         if intent == "list_all":
             # Format as list
             product_list = []
-            for doc in all_docs[:20]:  # Limit to 50 for display
-                card = doc_to_card(doc)
+            for doc in all_docs[:10]:  # Limit to 50 for display
+                card =  doc_to_card(doc)
                 product_list.append(f"• {card['title']} - Rs {card['selling_price']} (Rating: {card['product_rating']})")
             
             response_text = f"Here are all available products:\n\n" + "\n".join(product_list)
@@ -966,9 +979,9 @@ Order Date: {date}"""
             
             # Get first product as main product
             main_doc = relevant_docs[0]
-            main_product = doc_to_card(main_doc)
-            main_meta = doc_to_metadata(main_doc)
-            recommendations = get_recommendations(main_meta, k=3)
+            main_product =  doc_to_card(main_doc)
+            main_meta =  doc_to_metadata(main_doc)
+            recommendations =  get_recommendations(main_meta, k=3)
             
             response_text = f"Found products in this category. Here's one: '{main_product['title']}'"
             response_data = {
@@ -1002,9 +1015,9 @@ Order Date: {date}"""
             sorted_docs = sorted(valid_docs, key=lambda d: parse_price(doc_to_metadata(d).get("selling_price")))
             cheapest = sorted_docs[0]
             
-            main_product = doc_to_card(cheapest)
-            main_meta = doc_to_metadata(cheapest)
-            recommendations = get_recommendations(main_meta, k=3)
+            main_product =  doc_to_card(cheapest)
+            main_meta =  doc_to_metadata(cheapest)
+            recommendations =  get_recommendations(main_meta, k=3)
             
             response_text = f"The cheapest product is '{main_product['title']}' for Rs{main_product['selling_price']}."
             response_data = {
@@ -1026,8 +1039,8 @@ Order Date: {date}"""
             if not most_exp:
                 return JSONResponse({"response": "No products available.", "main_product": None, "recommendations": []})
             
-            main_product = doc_to_card(most_exp)
-            main_meta = doc_to_metadata(most_exp)
+            main_product =  doc_to_card(most_exp)
+            main_meta =  doc_to_metadata(most_exp)
             recommendations = get_recommendations(main_meta, k=3)
             
             response_text = f"The most expensive product is '{main_product['title']}' for Rs{main_product['selling_price']}."
@@ -1039,7 +1052,7 @@ Order Date: {date}"""
             
            
             if user_id:
-                save_chat_history(user_id, query, response_text, [main_product])
+                 save_chat_history(user_id, query, response_text, [main_product])
             
             return JSONResponse(response_data)
 
@@ -1050,8 +1063,8 @@ Order Date: {date}"""
             if not highest:
                 return JSONResponse({"response": "No products available.", "main_product": None, "recommendations": []})
             
-            main_product = doc_to_card(highest)
-            main_meta = doc_to_metadata(highest)
+            main_product =  doc_to_card(highest)
+            main_meta =  doc_to_metadata(highest)
             recommendations = get_recommendations(main_meta, k=3)
             
             response_text = f"The highest rated product is '{main_product['title']}' with {main_product['product_rating']} stars."
@@ -1091,9 +1104,9 @@ Order Date: {date}"""
                 main_doc = relevant_docs[0]
                 main_product = doc_to_card(main_doc)
                 print(f"main_product:{main_product}")
-                main_meta = doc_to_metadata(main_doc)
+                main_meta =  doc_to_metadata(main_doc)
                 print(f"main_meta:{main_meta}")
-                recommendations = get_recommendations(main_meta, k=3)
+                recommendations =  get_recommendations(main_meta, k=3)
                 
                 response_text = "Here are some products that might interest you:"
                 response_data = {
@@ -1113,7 +1126,7 @@ Order Date: {date}"""
             
             # Save to chat history if user is logged in
             if user_id:
-                save_chat_history(user_id, query, response_text, [response_data.get("main_product")] if response_data.get("main_product") else [])
+                 save_chat_history(user_id, query, response_text, [response_data.get("main_product")] if response_data.get("main_product") else [])
             
             return JSONResponse(response_data)
 
@@ -1133,7 +1146,7 @@ Order Date: {date}"""
                     "category_2": "",
                     "category_3": ""
                 }
-                recommendations = get_recommendations(main_meta, k=3)
+                recommendations =  get_recommendations(main_meta, k=3)
                 response_data = {
                     "response": response_text,
                     "main_product": prod,
@@ -1168,7 +1181,7 @@ Order Date: {date}"""
             
             # Save to chat history if user is logged in
             if user_id:
-                save_chat_history(user_id, query, response_text, None)
+                 save_chat_history(user_id, query, response_text, None)
             
             return JSONResponse(response_data)
         
@@ -1185,7 +1198,7 @@ Order Date: {date}"""
                     "category_2": "",
                     "category_3": ""
                 }
-                recommendations = get_recommendations(main_meta, k=3)
+                recommendations =  get_recommendations(main_meta, k=3)
                 response_data = {
                     "response": response_text,
                     "main_product": main_product,
@@ -1235,7 +1248,7 @@ Order Date: {date}"""
         user_id = request.user_id if hasattr(request, 'user_id') else None
         query = request.query.strip() if hasattr(request, 'query') else ""
         if user_id and query:
-            save_chat_history(user_id, query, response_text, [])
+             save_chat_history(user_id, query, response_text, [])
         
         return JSONResponse(response_data)
     except Exception as e:
@@ -1289,7 +1302,7 @@ def register(request: RegisterRequest):
             raise HTTPException(400, "Email, username, and password are required")
         
         
-        existing_user = get_user_by_email(request.email)
+        existing_user =  get_user_by_email(request.email)
         if existing_user:
             raise HTTPException(400, "User with this email already exists")
         
@@ -1320,7 +1333,7 @@ def login(request: LoginRequest):
             raise HTTPException(400, "Email and password are required")
         
         # Get user by email
-        user = get_user_by_email(request.email)
+        user =  get_user_by_email(request.email)
         if not user:
             raise HTTPException(401, "Invalid email or password")
         
@@ -1378,7 +1391,7 @@ def get_user_chat_history(user_id: int, limit: int = 50):
             "success": True,
             "user_id": user_id,
             "chat_history": history,
-            "count": len(history)
+            "count":len(history)
         })
     except HTTPException:
         raise
