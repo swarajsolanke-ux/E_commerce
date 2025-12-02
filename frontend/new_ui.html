@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AI-powered E-commerce Assistant - Find products, compare prices, and get personalized recommendations">
+  <title>E-Commerce AI Assistant</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <div id="app" class="app-container">
+    <!-- Overlay for drawer -->
+    <div id="overlay" class="overlay"></div>
+
+    <!-- Chat History Drawer -->
+    <aside id="chatDrawer" class="chat-drawer">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <i data-lucide="message-circle"></i>
+          <h3>Chat History</h3>
+        </div>
+        <button id="closeDrawer" class="icon-btn-light">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <p class="drawer-subtitle">Your recent conversations</p>
+      
+      <div id="historyList" class="history-list">
+        <!-- History items will be inserted here -->
+      </div>
+      
+      <div class="drawer-footer">
+        <button id="closeDrawerBtn" class="btn-secondary">Close</button>
+        <button id="clearHistoryBtn" class="btn-danger">
+          <i data-lucide="trash-2"></i>
+          Clear All
+        </button>
+      </div>
+    </aside>
+
+    <!-- Account Modal -->
+    <div id="accountModal" class="modal-overlay">
+      <div class="modal-content">
+        <div class="modal-header">
+          <div class="user-info">
+            <div class="avatar" id="userAvatar">U</div>
+            <div class="user-details">
+              <h3 id="userName">User</h3>
+              <p id="userEmail">user@example.com</p>
+            </div>
+          </div>
+          <button id="closeModal" class="icon-btn-light">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        
+        <div class="modal-menu">
+          <button class="menu-item" onclick="showToast('Notifications', 'Coming soon!')">
+            <div class="menu-icon"><i data-lucide="bell"></i></div>
+            <div class="menu-text">
+              <span class="menu-label">Notifications</span>
+              <span class="menu-subtitle">Manage your notifications</span>
+            </div>
+            <i data-lucide="chevron-right"></i>
+          </button>
+          
+          <button class="menu-item" onclick="showToast('Settings', 'Coming soon!')">
+            <div class="menu-icon"><i data-lucide="settings"></i></div>
+            <div class="menu-text">
+              <span class="menu-label">Settings</span>
+              <span class="menu-subtitle">Customize your experience</span>
+            </div>
+            <i data-lucide="chevron-right"></i>
+          </button>
+          
+          <button class="menu-item" onclick="showToast('Help', 'Contact support for assistance')">
+            <div class="menu-icon"><i data-lucide="help-circle"></i></div>
+            <div class="menu-text">
+              <span class="menu-label">Help & Support</span>
+              <span class="menu-subtitle">Get help and support</span>
+            </div>
+            <i data-lucide="chevron-right"></i>
+          </button>
+          
+          <div class="menu-divider"></div>
+          
+          <button class="menu-item menu-item-danger" onclick="handleLogout()">
+            <div class="menu-icon"><i data-lucide="log-out"></i></div>
+            <div class="menu-text">
+              <span class="menu-label">Logout</span>
+              <span class="menu-subtitle">Sign out of your account</span>
+            </div>
+            <i data-lucide="chevron-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <!-- Main Layout -->
+    <header class="header">
+      <div class="header-left">
+        <button id="menuBtn" class="icon-btn" title="Chat History">
+          <i data-lucide="menu"></i>
+        </button>
+        <div class="logo">
+          <div class="logo-icon">
+            <i data-lucide="shopping-bag"></i>
+          </div>
+          <div class="logo-text">
+            <h1>ShopAssist AI</h1>
+            <span class="status">
+              <span class="status-dot"></span>
+            </span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="header-right">
+        <button id="newChatBtn" class="btn-outline" title="New Chat">
+          <i data-lucide="plus"></i>
+          <span>New Chat</span>
+        </button>
+        <button id="themeBtn" class="icon-btn" title="Toggle Theme">
+          <i data-lucide="sun" id="themeIcon"></i>
+        </button>
+        <button id="accountBtn" class="account-btn">
+          <span id="accountInitial">U</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Chat Area -->
+    <main id="chatArea" class="chat-area">
+      <div id="messagesContainer" class="messages-container">
+        <!-- Empty state -->
+        <div id="emptyState" class="empty-state">
+          <div class="empty-icon">
+            <i data-lucide="sparkles"></i>
+          </div>
+          <h2>Welcome to E-Commerce Assistant </h2>
+          <p>Your intelligent E-Commerce companion. I can help you find products, compare prices, and get personalized recommendations.</p>
+          
+          <div class="feature-grid">
+            <div class="feature-card" onclick="sendSuggestion('Find me a laptop under ₹50000')">
+              <i data-lucide="search"></i>
+              <span>Search Products</span>
+            </div>
+            <div class="feature-card" onclick="sendSuggestion('Compare iPhone 15 vs Samsung S24')">
+              <i data-lucide="git-compare"></i>
+              <span>Compare Items</span>
+            </div>
+            <div class="feature-card" onclick="sendSuggestion('Best deals on headphones today')">
+              <i data-lucide="tag"></i>
+              <span>Find Deals</span>
+            </div>
+            <div class="feature-card" onclick="sendSuggestion('Recommend me a gift under ₹2000')">
+              <i data-lucide="gift"></i>
+              <span>Gift Ideas</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Messages will be inserted here -->
+      </div>
+    </main>
+
+    <!-- Message Composer -->
+    <footer class="composer">
+      <div class="composer-inner">
+        <div class="composer-controls-left">
+          <button id="attachBtn" class="icon-btn-bordered" title="Attach file">
+            <i data-lucide="paperclip"></i>
+          </button>
+          <input type="file" id="fileInput" accept="image/*,.pdf" hidden>
+        </div>
+        
+        <div class="input-wrapper">
+          <textarea 
+            id="messageInput" 
+            placeholder='Ask me anything: "Find me a laptop under ₹50000"...'
+            rows="1"
+          ></textarea>
+        </div>
+        
+        <div class="composer-controls-right">
+          <button id="webSearchBtn" class="btn-outline-sm" title="Search Web">
+            <i data-lucide="globe"></i>
+            <span>Web</span>
+          </button>
+          <button id="sendBtn" class="btn-primary" disabled>
+            <i data-lucide="send"></i>
+            <span>Send</span>
+          </button>
+        </div>
+      </div>
+      
+      <div id="attachmentIndicator" class="attachment-indicator" style="display: none;">
+        <span id="attachmentName"></span>
+        <button id="removeAttachment" class="remove-attachment">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+    </footer>
+  </div>
+
+  <script src="/static/scripts.js"></script>
+</body>
+</html>

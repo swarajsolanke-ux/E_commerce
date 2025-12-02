@@ -97,7 +97,7 @@ else:
     print("orders_from_db.csv not found!")
 # Greeting detection
 GREETING_WORDS: Set[str] = {
-    "hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening","hiiiii","helo","hii"
+    "how are you","hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening","hiiiii","helo","hii"
     "hiii", "helo", "morning", "afternoon", "evening", "sup", "yo", "howdy","hiiiiii","helllo","heyyyyy","HELLOOO"
 }
 
@@ -231,6 +231,13 @@ INTENT_PATTERNS = {
         r"\brecommend\s+top\s+",
         r"\bsuggest\s+something\s+best[- ]selling",
     ],
+    "greeting": [
+    r"^(hello|hi|hey|good\s+(morning|afternoon|evening)|hola|howdy)$",
+    r"\bhow\s+are\s+you\b",
+    r"\bwhat's\s+up\b",
+    r"\bgreetings\b",
+    r"^(yo|sup)$"
+]
 }
 
 # Compile all patterns
@@ -274,9 +281,8 @@ CONTEXT:
 {context}
 
 QUESTION: {question}
-you are an Ecommerce Expert at answering all questions based on the user query 
+you are an Ecommerce Expert at answering all questions based on user query 
 Determine the query type and respond with the appropriate JSON schema:
-when user put the greetings buts that can be also handle.
 
 1. LIST ALL - User wants to see all products
 {{"type": "list_all", "response": "Found X products.", "products": [...]}}
@@ -305,8 +311,12 @@ when user put the greetings buts that can be also handle.
 9. RECOMMEND - User wants recommendations
 {{"type": "recommend", "response": "I recommend...", "products": [...]}}
 
-10. NOT FOUND - No matching products
+10. Greeting - handled the greeting:
+{{"type": "greeting", "response": "Hello! As an E-commerce Expert, I can help you with product information, comparisons, or recommendations. How can I assist you with your shopping today?" }}
+
+11. NOT FOUND - No matching products
 {{"type": "not_found", "response": "Sorry, no matching products found."}}
+
 
 RULES:
 - Parse price from: ₹, Rs, rupees, numbers
@@ -408,7 +418,7 @@ def detect_intent(query: str) -> Optional[str]:
     print(f"detect the intent:{query_lower}")
     
     # Priority order: check specific intents first
-    priority_intents = ["order_status","cheapest", "most_expensive", "highest_rating", "list_categories", "list_all", "price_range", "category", "compare", "recommend", "product_by_name"]
+    priority_intents = ["order_status","cheapest", "most_expensive", "highest_rating", "list_categories", "list_all", "price_range", "category", "compare", "recommend", "product_by_name","greeting"]
     
     for intent in priority_intents:
         if intent in COMPILED_PATTERNS:
@@ -785,6 +795,7 @@ def search_products(request: QueryRequest):
 
         # Detect intent - check for price_range first (has priority for combined queries)
         intent =  detect_intent(query)
+        print(f"intent of query detected",intent)
         
         # Special handling: if query has both price constraint and product name, prioritize price_range
         query_lower = query.lower()
@@ -1184,7 +1195,15 @@ def search_products(request: QueryRequest):
                  save_chat_history(user_id, query, response_text, None)
             
             return JSONResponse(response_data)
-        
+        elif typ=="greeting":
+            response_text=payload.get("response","")
+            response_data={
+                "response":response_text
+            }
+
+            if user_id:
+                save_chat_history(user_id,query, response_text, None)
+            return JSONResponse(response_data)
         elif typ in ("list_all", "list_categories", "price_range", "recommend"):
             prods = payload.get("products", [])
             response_text = payload.get("response", "")
@@ -1265,13 +1284,13 @@ def root():
 @app.get("/ui", response_class=HTMLResponse)
 def ui():
     """UI endpoint - serves the chatbot page"""
-    path = os.path.join(FRONTEND_DIR, "main.html")
+    path = os.path.join(FRONTEND_DIR, "new_ui.html")
     return FileResponse(path) if os.path.exists(path) else HTMLResponse("UI not found", status_code=404)
 
 @app.get("/chatbot", response_class=HTMLResponse)
 def chatbot_page():
     """Chatbot page endpoint"""
-    path = os.path.join(FRONTEND_DIR, "main.html")
+    path = os.path.join(FRONTEND_DIR, "new_ui.html")
     return FileResponse(path) if os.path.exists(path) else HTMLResponse("Chatbot page not found", status_code=404)
 
 @app.get("/login", response_class=HTMLResponse)
