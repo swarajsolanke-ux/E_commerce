@@ -40,8 +40,7 @@ IMAGES_DIR = os.path.join(BASE_DIR, "data", "images")
 DB_PATH = os.path.join(BASE_DIR, "db", "products_DB.db")
 VECTOR_DIR = os.path.join(BASE_DIR, "vect", "vector_store")
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
-#llm1=Ollama(model="gemma2:2b",base_url="http://localhost:11434", temperature=0.2)
-#print(f"llm1 model is loaded sucessfully:{llm1}")
+
 model_path = "gpt2"
 
 # Initialize user database
@@ -90,16 +89,19 @@ if ORDERS_CSV_PATH.exists():
                     "orderdate": row['orderdate'].strip(),
                     "status": row['status'].strip()
                 }
-        print(f"✓ Loaded {len(order_data)} orders from CSV")
+        #print(f"✓ Loaded {len(order_data)} orders from CSV")
     except Exception as e:
         print(f"Failed to load orders CSV: {e}")
 else:
     print("orders_from_db.csv not found!")
+
+
 # Greeting detection
 GREETING_WORDS: Set[str] = {
-    "how are you","hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening","hiiiii","helo","hii"
-    "hiii", "helo", "morning", "afternoon", "evening", "sup", "yo", "howdy","hiiiiii","helllo","heyyyyy","HELLOOO"
+    "hello", "hi", "hey", "greetings", "good morning", "good afternoon", "good evening","hiiiii","helo","hii"
+    "hiii", "helo", "morning", "afternoon", "evening", "sup", "yo", "howdy", "hiiiiii","helllo","heyyyyy","HELLOOO"
 }
+
 
 # Query intent patterns - Enhanced to handle all query types
 INTENT_PATTERNS = {
@@ -231,14 +233,72 @@ INTENT_PATTERNS = {
         r"\brecommend\s+top\s+",
         r"\bsuggest\s+something\s+best[- ]selling",
     ],
-    "greeting": [
-    r"^(hello|hi|hey|good\s+(morning|afternoon|evening)|hola|howdy)$",
-    r"\bhow\s+are\s+you\b",
-    r"\bwhat's\s+up\b",
-    r"\bgreetings\b",
-    r"^(yo|sup)$"
-]
+#     "greeting": [
+#     r"^(hello|hi|hey|good\s+(morning|afternoon|evening)|hola|howdy)$",
+#     r"\bhow\s+are\s+you\b",
+#     r"\bwhat's\s+up\b",
+#     r"\bgreetings\b",
+#     r"^(yo|sup)$"
+# ]
 }
+
+#handling greeting pattern and personal pattern query seperately
+GREETING_PATTERNS = [
+    r"^(hello|hi|hey|hii+|helo+|good\s+(morning|afternoon|evening)|hola|howdy|yo|sup)[\s!?,.]*$",
+    r"^(hi+|hey+)\s+(there|everyone|all)[\s!?,.]*$",
+    r"^greetings?[\s!?,.]*$",
+]
+
+PERSONAL_QUESTION_PATTERNS = [
+    r"\bhow\s+are\s+you\b",
+    r"\bwhat'?s?\s+your\s+name\b",
+    r"\bwho\s+are\s+you\b",
+    r"\bwhat\s+is\s+my\s+name\b",
+    r"\bdo\s+you\s+know\s+me\b",
+    r"\bwhere\s+do\s+you\s+live\b",
+    r"\bhow\s+old\s+are\s+you\b",
+    r"\bwhat\s+do\s+you\s+do\b",
+    r"\btell\s+me\s+about\s+yourself\b",
+    r"\bwhat'?s?\s+the\s+weather\b",
+    r"\bwhat\s+time\s+is\s+it\b",
+    r"\bwhat'?s?\s+the\s+date\b",
+]
+
+#compiled the pattern personal and greetings
+# Compile personal question patterns
+COMPILED_PERSONAL_PATTERNS = [re.compile(p, re.IGNORECASE) for p in PERSONAL_QUESTION_PATTERNS]
+COMPILED_GREETING_PATTERNS = [re.compile(p, re.IGNORECASE) for p in GREETING_PATTERNS]
+
+
+def is_greeting(query: str) -> bool:
+    """Check if query is a greeting"""
+    query_clean = query.strip().lower()
+    
+    # Check if query is just greeting words (no other content)
+    words = query_clean.split()
+    if len(words) <= 3:  # Short queries only
+        # Check if any greeting word is present
+        if any(word in GREETING_WORDS for word in words):
+            return True
+    
+    # Check greeting patterns
+    for pattern in COMPILED_GREETING_PATTERNS:
+        if pattern.match(query_clean):
+            return True
+    
+    return False
+
+
+def is_personal_question(query: str) -> bool:
+    """Check if query is a personal question"""
+    query_lower = query.lower()
+    
+    for pattern in COMPILED_PERSONAL_PATTERNS:
+        if pattern.search(query_lower):
+            return True
+    
+    return False
+
 
 # Compile all patterns
 COMPILED_PATTERNS = {
@@ -274,6 +334,7 @@ if LLM_AVAILABLE and vectorstore:
         llm = HuggingFacePipeline(pipeline=pipe)
         print(f"llm is callling:{llm}")
 
+        
         PROMPT = PromptTemplate(
             template="""You are an e-commerce assistant. Answer ONLY in valid JSON format.
 
@@ -312,7 +373,7 @@ Determine the query type and respond with the appropriate JSON schema:
 {{"type": "recommend", "response": "I recommend...", "products": [...]}}
 
 10. Greeting - handled the greeting:
-{{"type": "greeting", "response": "Hello! As an E-commerce Expert, I can help you with product information, comparisons, or recommendations. How can I assist you with your shopping today?" }}
+ {{"type": "greeting", "response": "Hello! As an E-commerce Expert, I can help you with product information, comparisons, or recommendations. How can I assist you with your shopping today?" }}
 
 11. NOT FOUND - No matching products
 {{"type": "not_found", "response": "Sorry, no matching products found."}}
@@ -412,18 +473,20 @@ def doc_to_card(doc) -> dict:
     }
 
 
+print("intent detection function called")
 def detect_intent(query: str) -> Optional[str]:
     """Detect the primary intent of the query"""
     query_lower = query.lower()
     print(f"detect the intent:{query_lower}")
     
     # Priority order: check specific intents first
-    priority_intents = ["order_status","cheapest", "most_expensive", "highest_rating", "list_categories", "list_all", "price_range", "category", "compare", "recommend", "product_by_name","greeting"]
+    priority_intents = ["order_status","cheapest", "most_expensive", "highest_rating", "list_categories", "list_all", "price_range", "category", "compare", "recommend", "product_by_name"]
     
     for intent in priority_intents:
         if intent in COMPILED_PATTERNS:
             for pattern in COMPILED_PATTERNS[intent]:
                 if pattern.search(query_lower):
+                    print(f"intent of the query:{intent}")
                     return intent
     
     # Fallback: check all patterns
@@ -511,6 +574,7 @@ def extract_product_name_from_query(query: str) -> Optional[str]:
 def extract_category(query: str) -> Optional[str]:
     """Extract category from query"""
     query_lower = query.lower()
+    print(f"query lower:{query_lower}")
     
     categories = {
         'electronics': ['electronic', 'electronics', 'tech', 'gadget', 'device', 'laptop', 'phone', 'mobile'],
@@ -521,6 +585,7 @@ def extract_category(query: str) -> Optional[str]:
     
     for cat, keywords in categories.items():
         if any(kw in query_lower for kw in keywords):
+            print(cat, keywords)
             return cat
     
     return None
@@ -597,6 +662,7 @@ def get_all_categories() -> List[str]:
                 if val and val.lower() not in ["nan", "none", ""]:
                     categories.add(val)
                     print(categories)
+        print(f"categories availables:{categories}")
         return sorted(list(categories))
     except Exception as e:
         print(f"Error fetching categories: {e}")
@@ -665,20 +731,27 @@ def search_products(request: QueryRequest):
             raise HTTPException(400, "Empty query")
 
         user_id = request.user_id
-        response_text = ""
+        query_lower=query.lower()
         response_products = []
 
         # Handle greetings
-        if any(word in query.lower().split() for word in GREETING_WORDS):
-            response_text = "welcome to the E-commerce world! I'm your shopping assistant—let me know what product you're looking for, and I'll help you find it. How can I assist you today?"
+        if is_greeting(query):
+            response_text = "Welcome to the E-commerce world! I'm your shopping assistant—let me know what product you're looking for, and I'll help you find it. How can I assist you today?"
             response_data = {"response": response_text}
             
-            # Save to chat history if user is logged in
             if user_id:
-                 save_chat_history(user_id, query, response_text, None)
+                save_chat_history(user_id, query, response_text, None)
             
             return JSONResponse(response_data)
 
+        if is_personal_question(query):
+            response_text = "I'm an e-commerce assistant specialized in helping you find and learn about products. I can help you with product searches, comparisons, recommendations, and order tracking. What product would you like to know about?"
+            response_data = {"response": response_text}
+            
+            if user_id:
+                save_chat_history(user_id, query, response_text, None)
+            
+            return JSONResponse(response_data)
         #handling the query by orderid       
         order_id =  extract_order_id(query)
         query_lower = query.lower()
@@ -690,18 +763,18 @@ def search_products(request: QueryRequest):
                 product = info["product_name"]
                 date = info["orderdate"]
 
-                response_text = f"""OrderID: {order_id} 
-                status: {status}
-                Product Name: {product}
-                Order Date: {date}"""
-
+                # response_text = f"""OrderID: {order_id} 
+                # status: {status}
+                # Product Name: {product}
+                # Order Date: {date}. """
+                response_text=f"""Status: {status}\nProduct Name: {product} \nOrder Date : {date} """
                 response_data = {
                     "response": response_text,
                     "order_info": {
-                        "orderid": order_id,
-                        "product_name": product,
-                        "orderdate": date,
-                        "status": status
+                    #"orderid": order_id,
+                    "product_name": product,
+                    #"orderdate": date,
+                    "status": status
                     }
                 }
 
@@ -738,8 +811,10 @@ def search_products(request: QueryRequest):
                 response_text = f"Here are all available products:\n\n\n\n" + "\n".join(product_list)
                 # Return first product with recommendations
                 if all_docs:
-                    main_doc = all_docs[0:10]
+                    main_doc = all_docs[10:20]
+                    print(f"main_doc:{main_doc}")
                     main_product = doc_to_card(main_doc)
+                    print(f"main_product:{main_product}")
                     main_meta =  doc_to_metadata(main_doc)
                     recommendations =  get_recommendations(main_meta, k=3)
                     response_data = {
@@ -782,7 +857,7 @@ def search_products(request: QueryRequest):
                 print("response_text:",response_text)
                 response_data = {
                             "response":response_text,
-                            "categories":categories,
+                            "categories":categories[10],
                             "list_format": True
                         }
               
@@ -1098,7 +1173,8 @@ def search_products(request: QueryRequest):
         # Use semantic search to get relevant products
         relevant_docs = vectorstore.similarity_search(query, k=30)
         context = build_filtered_context(relevant_docs)
-        
+        print(f"relevant_docs:{relevant_docs}")
+        print(f"context :{context}")
         filled = PROMPT.format(context=context, question=query)
         print(f"filled prompt:{filled}")
         raw = llm.invoke(filled)
@@ -1135,6 +1211,7 @@ def search_products(request: QueryRequest):
                     "recommendations": []
                 }
             
+            print("json matched")
             # Save to chat history if user is logged in
             if user_id:
                  save_chat_history(user_id, query, response_text, [response_data.get("main_product")] if response_data.get("main_product") else [])
@@ -1195,18 +1272,20 @@ def search_products(request: QueryRequest):
                  save_chat_history(user_id, query, response_text, None)
             
             return JSONResponse(response_data)
-        elif typ=="greeting":
-            response_text=payload.get("response","")
-            response_data={
-                "response":response_text
-            }
+        # elif typ == "greeting":
+        #     response_text=payload.get("response","")
+        #     response_data={
+        #         "response":response_text,
+        #     "debug":{"type":"greeting","intent":intent}}
+        #     if user_id:
+        #         save_chat_history(user_id,query, response_text, None)
+        #     return JSONResponse(response_data)
 
-            if user_id:
-                save_chat_history(user_id,query, response_text, None)
-            return JSONResponse(response_data)
         elif typ in ("list_all", "list_categories", "price_range", "recommend"):
             prods = payload.get("products", [])
             response_text = payload.get("response", "")
+
+            print(f"prods avilables:{prods}")
             
             # For product-related queries, return first product with recommendations
             if prods and len(prods) > 0 and typ != "list_categories":
@@ -1429,3 +1508,4 @@ def health_check():
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)
 #192.168.5.255 192.168.5.146 
+#192.168.5.194

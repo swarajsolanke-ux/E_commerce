@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>E-commerce AI Assistant</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/index.css">
+  <script>
+    // Check if user is logged in, redirect to login if not
+    (function() {
+      const userId = localStorage.getItem('user_id');
+      if (!userId) {
+        window.location.href = '/login';
+      }
+    })();
+  </script>
+</head>
+<body>
+<div id="app" class="app">
+  <aside id="leftDrawer" class="left-drawer hidden">
+    <div class="drawer-head">
+      <h3>Chat History</h3>
+      <p>Your recent conversations</p>
+    </div>
+    <div id="historyList" class="history-list"></div>
+    <div class="drawer-foot">
+      <button id="closeDrawer" class="btn subtle" style="flex:1">Close</button>
+      <button id="clearHistory" class="btn subtle" style="flex:1">Clear All</button>
+    </div>
+  </aside>
+  <div id="overlay" class="overlay hidden"></div>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="top-left"><h1>E-commerce Assistant</h1></div>
+      <div class="top-right">
+        <button id="openDrawer" class="btn subtle"> History</button>
+        <div id="themeToggle" class="theme-toggle" data-tooltip="Toggle theme" style="margin-right: 10px;">Dark Mode</div>
+        <div id="accountMenu" class="account-menu">
+          <button id="accountBtn" class="account-btn" title="Account">
+            <span id="accountInitials"></span>
+            <div class="account-btn-glow"></div>
+          </button>
+        </div>
+        
+        <!-- Account Modal Popup -->
+        <div id="accountModal" class="account-modal hidden">
+          <div class="account-modal-content">
+            <div class="account-modal-header">
+              <div class="account-modal-avatar">
+                <span id="modalAccountInitials"></span>
+              </div>
+              <div class="account-modal-info">
+                <div class="account-modal-name" id="modalAccountName"></div>
+                <div class="account-modal-email" id="modalAccountEmail"></div>
+              </div>
+              <button id="closeAccountModal" class="account-modal-close">×</button>
+            </div>
+            
+            <div class="account-modal-body">
+              <button id="notificationsBtn" class="account-modal-item">
+                <div class="account-modal-icon">🔔</div>
+                <div class="account-modal-text">
+                  <div class="account-modal-title">Notifications</div>
+                  <div class="account-modal-subtitle">Manage your notifications</div>
+                </div>
+                <div class="account-modal-arrow">›</div>
+              </button>
+              
+              <button id="settingsBtn" class="account-modal-item">
+                <div class="account-modal-icon">⚙️</div>
+                <div class="account-modal-text">
+                  <div class="account-modal-title">Settings</div>
+                  <div class="account-modal-subtitle">Customize your experience</div>
+                </div>
+                <div class="account-modal-arrow">›</div>
+              </button>
+              
+              <button id="helpBtn" class="account-modal-item">
+                <div class="account-modal-icon">❓</div>
+                <div class="account-modal-text">
+                  <div class="account-modal-title">Help & Support</div>
+                  <div class="account-modal-subtitle">Get help and support</div>
+                </div>
+                <div class="account-modal-arrow">›</div>
+              </button>
+              
+              <div class="account-modal-divider"></div>
+              
+              <button id="accountLogoutBtn" class="account-modal-item account-modal-item-danger">
+                <div class="account-modal-icon">🚪</div>
+                <div class="account-modal-text">
+                  <div class="account-modal-title">Logout</div>
+                  <div class="account-modal-subtitle">Sign out of your account</div>
+                </div>
+                <div class="account-modal-arrow">›</div>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div id="accountModalOverlay" class="account-modal-overlay hidden"></div>
+      </div>
+    </header>
+
+    <section class="content">
+      <div id="stream" class="stream" aria-live="polite"></div>
+    </section>
+
+    <footer class="composer">
+      <div class="composer-inner">
+        <div class="left-controls">
+          <label for="attachInput" class="tool-btn" data-tooltip="Attach file">📎</label>
+          <input id="attachInput" type="file" style="display:none" accept="image/*,.pdf"/>
+        </div>
+        <div class="left-controls">
+          <button  id="newChatBtn" class="tool-btn chat-btn" data-tooltip="New chat">chat
+      </button>
+        </div>
+        <textarea id="composerInput" class="composer-text" placeholder='Ask me anything: "about the product"...' rows="1"></textarea>
+        <div class="composer-actions">
+          <button id="webSearchBtn" class="btn subtle" data-tooltip="Search web">🌐Web</button>
+          <button id="sendBtn" class="btn send">Send</button>
+        </div>
+      </div>
+      <div class="composer-meta"><span id="attachmentLabel" class="muted"></span></div>
+    </footer>
+  </main>
+</div>
+
+<script src="/static/js/index.js"></script>
+</body>
+</html>
