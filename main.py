@@ -74,7 +74,6 @@ except Exception as e:
 
 # Load orders data from CSV at startup
 ORDERS_CSV_PATH = Path(BASE_DIR) / "data/orders_from_db.csv"  
-print(f"ORDERS_CSV_PATH LODADED SUCESSFULLY:{ORDERS_CSV_PATH}")
 order_data: dict[str, dict] = {}
 
 if ORDERS_CSV_PATH.exists():
@@ -244,7 +243,7 @@ INTENT_PATTERNS = {
 
 #handling greeting pattern and personal pattern query seperately
 GREETING_PATTERNS = [
-    r"^(hello|hi|hey|hii+|helo+|good\s+(morning|afternoon|evening)|hola|howdy|yo|sup)[\s!?,.]*$",
+    r"^(hello|hi|hey|hii+|helo+|hlo|hel+|good\s+(morning|afternoon|evening)|hola|howdy|yo|sup)[\s!?,.]*$",
     r"^(hi+|hey+)\s+(there|everyone|all)[\s!?,.]*$",
     r"^greetings?[\s!?,.]*$",
 ]
@@ -1177,9 +1176,11 @@ def search_products(request: QueryRequest):
         print(f"context :{context}")
         filled = PROMPT.format(context=context, question=query)
         print(f"filled prompt:{filled}")
+
         raw = llm.invoke(filled)
         print(f"llm raw output:{raw}")
         llm_output = raw.strip()
+        print(f"llm_output:{llm_output}")
        
         
         print(f"LLM Output: {llm_output[:10]}")
