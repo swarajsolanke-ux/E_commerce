@@ -12,7 +12,13 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from langchain_community.llms import Ollama
+from pdf_ingest import auth_router
+main_router=APIRouter()
+import shutil
+from fastapi import UploadFile, File
 
+
+main_router.include_router(auth_router)
 from database import (
     init_user_db, hash_password, verify_password, get_user_by_email,
     create_user, save_chat_history, get_chat_history, user_exists,insert_orders_from_csv
@@ -324,7 +330,7 @@ if LLM_AVAILABLE and vectorstore:
             model=model,
             tokenizer=tokenizer,
             max_new_tokens=512,
-            temperature=0.2,
+            temperature=0.5,
             do_sample=False,
             pad_token_id=tokenizer.eos_token_id,
             truncation=True,
@@ -1354,6 +1360,20 @@ def search_products(request: QueryRequest):
         logging.error(traceback.format_exc())
         raise HTTPException(500, f"Error: {str(e)}")
 
+@app.post("/ingest-pdf")
+def ingest_pdf(file: UploadFile = File(...)):
+    temp_dir="/Users/swarajsolanke/Chatbot/E_commerce/data"
+    os.makedirs(temp_dir,exist_ok=True)
+    temp_file_path=os.path.join( temp_dir,file.filename)
+    with open(temp_file_path,"wb") as f:
+        shutil.copyfileobj(file.file,f)
+    try:
+        ingest_pdf_file(temp_file_path)
+        return JSONResponse({"success":True,"message":"PDF ingested successfully"})
+    except Exception as e:
+        logging.error(traceback.format_exc())
+        raise HTTPException(500,f"Error ingesting PDF:{str(e)}")
+    
 
 @app.get("/", response_class=HTMLResponse)
 def root():

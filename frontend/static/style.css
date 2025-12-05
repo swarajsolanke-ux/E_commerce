@@ -804,6 +804,11 @@ message-avatar-bot {
 }
 
 
+
+
+
+
+
 .product-rating {
   display: flex;
   align-items: center;
@@ -811,6 +816,8 @@ message-avatar-bot {
   font-size: 0.875rem;
   color: hsl(var(--muted-foreground));
 }
+
+
 
 .product-rating i {
   width: 1rem;
@@ -828,6 +835,8 @@ message-avatar-bot {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+
 
 /* Recommendations */
 .recommendations {
