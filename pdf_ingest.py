@@ -5,7 +5,7 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores.faiss import FAISS
 from langchain_core.documents import Document
 from langchain_ollama import OllamaEmbeddings  
-
+from dotenv import load_dotenv
 from langchain_ollama import ChatOllama
 from fastapi import APIRouter, UploadFile, File, HTTPException
 from fastapi.responses import JSONResponse
@@ -14,8 +14,12 @@ import traceback
 import shutil
 from langchain_core.runnables import RunnableSequence,RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
+
+load_dotenv()
+
 GEMINI_API_KEY = "AIzaSyA8hidHwXo8J4HYdmimQadrcub8SUk6hMI"
-api_key=GEMINI_API_KEY
+#api_key=GEMINI_API_KEY
 client = genai.Client()
 file_path = "/Users/swarajsolanke/Desktop/Updated/AI-Assignment.pdf"
 
@@ -81,7 +85,7 @@ vectordb = FAISS.load_local(
 )
 
 
-llm=Chatollama(
+llm=ChatOllama(
     model="gemma2:2b",
     temperature=0.7,
 )
@@ -138,5 +142,5 @@ def get_response(query:str)->str:
         return "Sorry,an error occurred while processing your request."
     
 
-if __name__ == "__main__":
-    vectordb = ingest_pdf_file(file_path)
+# if __name__ == "__main__":
+#     vectordb = ingest_pdf_file(file_path)

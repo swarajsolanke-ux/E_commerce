@@ -16,12 +16,12 @@
 
 # CSV_PATH = "/Users/swarajsolanke/Chatbot/E_commerce/data/dataset.csv"
 # DB_PATH = "/Users/swarajsolanke/Chatbot/E_commerce/db/products_DB.db"
-# VECTOR_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/vect/vector_store"
+# VECTOR_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/vect/vector_store/local"
 # IMG_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/data/images"
 # EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 # CHUNK_SIZE = 500
 # CHUNK_OVERLAP = 0
-# DOWNLOAD_IMAGES = True
+# DOWNLOAD_IMAGES = False
 # TIMEOUT = 10
 
 
@@ -194,6 +194,7 @@
 # if __name__ == "__main__":
 #     main()
 
+#8-12-25
 # E_commerce/ingest.py
 import os
 import re
@@ -211,7 +212,7 @@ import logging
 
 CSV_PATH = "/Users/swarajsolanke/Chatbot/E_commerce/data/dataset.csv"
 DB_PATH = "/Users/swarajsolanke/Chatbot/E_commerce/db/products_DB.db"
-VECTOR_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/vect/vector_store"
+VECTOR_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/vect/vector_store/local"
 IMG_DIR = "/Users/swarajsolanke/Chatbot/E_commerce/data/images" 
 order_path="/Users/swarajsolanke/Chatbot/E_commerce/data/orders_from_db.csv" 
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"
